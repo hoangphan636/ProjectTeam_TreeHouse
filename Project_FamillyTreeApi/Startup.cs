@@ -54,38 +54,12 @@ namespace Project_FamillyTreeApi
                 };
             });
             ///   services.AddSingleton<ILoginRepository, LoginRepository>();
-            services.AddScoped<DataAccess.Repository.LoginDAO>();
+            services.AddScoped<LoginDAO>();
             services.AddScoped<AccountRepository>();
-            var modelBuilder = new ODataConventionModelBuilder();
-
-            modelBuilder.EntitySet<Account>("Accounts");
-            modelBuilder.EntitySet<Activity>("Activities");
-            modelBuilder.EntitySet<Album>("Albums");
-            modelBuilder.EntitySet<Family>("Families");
-            modelBuilder.EntitySet<FamilyMember>("FamilyMembers");
-            modelBuilder.EntitySet<Relationship>("Relationships");
-            modelBuilder.EntitySet<Relative>("Relatives");
-            modelBuilder.EntitySet<StudyPromotion>("StudyPromotions");
-
-            var participatingProjects = modelBuilder.EntitySet<ParticipatingProject>("ParticipatingProjects");
-
-            participatingProjects.EntityType.HasKey(pp => new { pp.EmployeeID, pp.CompanyProjectID });
-
-            modelBuilder.EntityType<Employee>().HasMany(e => e.ParticipatingProjects);
-            modelBuilder.EntityType<CompanyProject>().HasMany(cp => cp.ParticipatingProjects);
+            services.AddTransient<ILoginRepository, LoginDAO>();
+            services.AddControllers();
 
 
-
-
-            //    services.AddSingleton<IJWTManagerRepository, JWTManagerRepository>();
-            services.AddControllers().AddOData(options =>
-            {
-                options.Select().Filter().OrderBy().Expand().Count().SetMaxTop(null).AddRouteComponents(
-                "odata",
-                    modelBuilder.GetEdmModel());
-
-
-            });
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "JWTRefreshTokens", Version = "v1" });
@@ -139,7 +113,8 @@ namespace Project_FamillyTreeApi
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Project_FamillyTreeApi v1"));
             }
-            app.UseODataBatching();
+            app.UseHttpsRedirection();
+           
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
