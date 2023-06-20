@@ -5,12 +5,14 @@ using DataAccess;
 using DataAccess.Repository;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.OData.Query;
 using System.Collections.Generic;
 
 namespace Project_FamillyTreeApi.Controllers
 {
-    [Authorize]
-    [Route("api/[controller]")]
+  
+    [Route("odata/CompanyProjects")]
+    [EnableQuery]
     [ApiController]
     public class LoginController : Controller
     {
@@ -23,12 +25,13 @@ namespace Project_FamillyTreeApi.Controllers
 
 
 
-       
+
 
         [AllowAnonymous]
         [HttpPost]
         [Route("authenticate")]
-        public IActionResult Authenticate(Users usersdata)
+
+        public IActionResult Authenticate(Login usersdata)
         {
             var token = _jWTManager.Authenticate(usersdata);
 

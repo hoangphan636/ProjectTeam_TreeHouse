@@ -6236,11 +6236,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\hoang\\source\\repos\\Project_team\\BusinessObject\\BusinessObject.csproj",
+      "projectUniqueName": "C:\\Users\\hoang\\Documents\\GitHub\\ProjectTeam_TreeHouse\\BusinessObject\\BusinessObject.csproj",
       "projectName": "BusinessObject",
-      "projectPath": "C:\\Users\\hoang\\source\\repos\\Project_team\\BusinessObject\\BusinessObject.csproj",
+      "projectPath": "C:\\Users\\hoang\\Documents\\GitHub\\ProjectTeam_TreeHouse\\BusinessObject\\BusinessObject.csproj",
       "packagesPath": "C:\\Users\\hoang\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\hoang\\source\\repos\\Project_team\\BusinessObject\\obj\\",
+      "outputPath": "C:\\Users\\hoang\\Documents\\GitHub\\ProjectTeam_TreeHouse\\BusinessObject\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\hoang\\AppData\\Roaming\\NuGet\\NuGet.Config",

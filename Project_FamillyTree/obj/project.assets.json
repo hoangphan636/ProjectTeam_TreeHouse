@@ -6205,11 +6205,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\hoang\\source\\repos\\Project_team\\Project_FamillyTree\\Project_FamillyTree.csproj",
+      "projectUniqueName": "C:\\Users\\hoang\\Documents\\GitHub\\ProjectTeam_TreeHouse\\Project_FamillyTree\\Project_FamillyTree.csproj",
       "projectName": "Project_FamillyTree",
-      "projectPath": "C:\\Users\\hoang\\source\\repos\\Project_team\\Project_FamillyTree\\Project_FamillyTree.csproj",
+      "projectPath": "C:\\Users\\hoang\\Documents\\GitHub\\ProjectTeam_TreeHouse\\Project_FamillyTree\\Project_FamillyTree.csproj",
       "packagesPath": "C:\\Users\\hoang\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\hoang\\source\\repos\\Project_team\\Project_FamillyTree\\obj\\",
+      "outputPath": "C:\\Users\\hoang\\Documents\\GitHub\\ProjectTeam_TreeHouse\\Project_FamillyTree\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\hoang\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -6227,8 +6227,8 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
-            "C:\\Users\\hoang\\source\\repos\\Project_team\\DataAccess\\DataAccess.csproj": {
-              "projectPath": "C:\\Users\\hoang\\source\\repos\\Project_team\\DataAccess\\DataAccess.csproj"
+            "C:\\Users\\hoang\\Documents\\GitHub\\ProjectTeam_TreeHouse\\DataAccess\\DataAccess.csproj": {
+              "projectPath": "C:\\Users\\hoang\\Documents\\GitHub\\ProjectTeam_TreeHouse\\DataAccess\\DataAccess.csproj"
             }
           }
         }

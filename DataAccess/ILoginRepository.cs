@@ -10,6 +10,6 @@ namespace DataAccess
 {
     public interface ILoginRepository
     {
-        Tokens Authenticate(Users users);
+        Tokens Authenticate(Login users);
     }
 }

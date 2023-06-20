@@ -12,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OData.Edm;
 using Microsoft.OData.ModelBuilder;
 using Microsoft.OpenApi.Models;
 using System;
@@ -53,11 +54,11 @@ namespace Project_FamillyTreeApi
                     IssuerSigningKey = new SymmetricSecurityKey(Key)
                 };
             });
-            ///   services.AddSingleton<ILoginRepository, LoginRepository>();
+         
             services.AddScoped<LoginDAO>();
             services.AddScoped<AccountRepository>();
             services.AddTransient<ILoginRepository, LoginDAO>();
-            services.AddControllers();
+        
 
 
             services.AddSwaggerGen(c =>
@@ -92,17 +93,40 @@ namespace Project_FamillyTreeApi
                     }
                 });
             });
+            var modelBuilder = new ODataConventionModelBuilder();
+
+            modelBuilder.EntitySet<Account>("Accounts");
+            modelBuilder.EntitySet<Activity>("Activities");
+            modelBuilder.EntitySet<Album>("Albums");
+            modelBuilder.EntitySet<Family>("Families");
+            modelBuilder.EntitySet<FamilyMember>("FamilyMembers");
+            modelBuilder.EntitySet<Relationship>("Relationships");
+            modelBuilder.EntitySet<Relative>("Relatives");
+            modelBuilder.EntitySet<StudyPromotion>("StudyPromotions");
+          
+
+            //var participatingProjects = modelBuilder.EntitySet<ParticipatingProject>("ParticipatingProjects");
+
+            //participatingProjects.EntityType.HasKey(pp => new { pp.EmployeeID, pp.CompanyProjectID });
+
+            //modelBuilder.EntityType<Employee>().HasMany(e => e.ParticipatingProjects);
+            //modelBuilder.EntityType<CompanyProject>().HasMany(cp => cp.ParticipatingProjects);
+
+            services.AddControllers().AddOData(options =>
+            {
+                options.Select().Filter().OrderBy().Expand().Count().SetMaxTop(null).AddRouteComponents(
+                    "odata",
+                    modelBuilder.GetEdmModel());
 
 
-
-
-
-
+            });
 
 
 
 
         }
+
+    
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -122,6 +146,7 @@ namespace Project_FamillyTreeApi
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+         
             });
         }
     }

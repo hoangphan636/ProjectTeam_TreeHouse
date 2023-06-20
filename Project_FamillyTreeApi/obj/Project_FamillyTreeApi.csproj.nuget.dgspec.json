@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\hoang\\source\\repos\\Project_team\\Project_FamillyTreeApi\\Project_FamillyTreeApi.csproj": {}
+    "C:\\Users\\hoang\\Documents\\GitHub\\ProjectTeam_TreeHouse\\Project_FamillyTreeApi\\Project_FamillyTreeApi.csproj": {}
   },
   "projects": {
-    "C:\\Users\\hoang\\source\\repos\\Project_team\\BusinessObject\\BusinessObject.csproj": {
+    "C:\\Users\\hoang\\Documents\\GitHub\\ProjectTeam_TreeHouse\\BusinessObject\\BusinessObject.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\hoang\\source\\repos\\Project_team\\BusinessObject\\BusinessObject.csproj",
+        "projectUniqueName": "C:\\Users\\hoang\\Documents\\GitHub\\ProjectTeam_TreeHouse\\BusinessObject\\BusinessObject.csproj",
         "projectName": "BusinessObject",
-        "projectPath": "C:\\Users\\hoang\\source\\repos\\Project_team\\BusinessObject\\BusinessObject.csproj",
+        "projectPath": "C:\\Users\\hoang\\Documents\\GitHub\\ProjectTeam_TreeHouse\\BusinessObject\\BusinessObject.csproj",
         "packagesPath": "C:\\Users\\hoang\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\hoang\\source\\repos\\Project_team\\BusinessObject\\obj\\",
+        "outputPath": "C:\\Users\\hoang\\Documents\\GitHub\\ProjectTeam_TreeHouse\\BusinessObject\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\hoang\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -79,14 +79,14 @@
         }
       }
     },
-    "C:\\Users\\hoang\\source\\repos\\Project_team\\DataAccess\\DataAccess.csproj": {
+    "C:\\Users\\hoang\\Documents\\GitHub\\ProjectTeam_TreeHouse\\DataAccess\\DataAccess.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\hoang\\source\\repos\\Project_team\\DataAccess\\DataAccess.csproj",
+        "projectUniqueName": "C:\\Users\\hoang\\Documents\\GitHub\\ProjectTeam_TreeHouse\\DataAccess\\DataAccess.csproj",
         "projectName": "DataAccess",
-        "projectPath": "C:\\Users\\hoang\\source\\repos\\Project_team\\DataAccess\\DataAccess.csproj",
+        "projectPath": "C:\\Users\\hoang\\Documents\\GitHub\\ProjectTeam_TreeHouse\\DataAccess\\DataAccess.csproj",
         "packagesPath": "C:\\Users\\hoang\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\hoang\\source\\repos\\Project_team\\DataAccess\\obj\\",
+        "outputPath": "C:\\Users\\hoang\\Documents\\GitHub\\ProjectTeam_TreeHouse\\DataAccess\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\hoang\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -103,8 +103,8 @@
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "C:\\Users\\hoang\\source\\repos\\Project_team\\BusinessObject\\BusinessObject.csproj": {
-                "projectPath": "C:\\Users\\hoang\\source\\repos\\Project_team\\BusinessObject\\BusinessObject.csproj"
+              "C:\\Users\\hoang\\Documents\\GitHub\\ProjectTeam_TreeHouse\\BusinessObject\\BusinessObject.csproj": {
+                "projectPath": "C:\\Users\\hoang\\Documents\\GitHub\\ProjectTeam_TreeHouse\\BusinessObject\\BusinessObject.csproj"
               }
             }
           }
@@ -138,14 +138,14 @@
         }
       }
     },
-    "C:\\Users\\hoang\\source\\repos\\Project_team\\Project_FamillyTreeApi\\Project_FamillyTreeApi.csproj": {
+    "C:\\Users\\hoang\\Documents\\GitHub\\ProjectTeam_TreeHouse\\Project_FamillyTreeApi\\Project_FamillyTreeApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\hoang\\source\\repos\\Project_team\\Project_FamillyTreeApi\\Project_FamillyTreeApi.csproj",
+        "projectUniqueName": "C:\\Users\\hoang\\Documents\\GitHub\\ProjectTeam_TreeHouse\\Project_FamillyTreeApi\\Project_FamillyTreeApi.csproj",
         "projectName": "Project_FamillyTreeApi",
-        "projectPath": "C:\\Users\\hoang\\source\\repos\\Project_team\\Project_FamillyTreeApi\\Project_FamillyTreeApi.csproj",
+        "projectPath": "C:\\Users\\hoang\\Documents\\GitHub\\ProjectTeam_TreeHouse\\Project_FamillyTreeApi\\Project_FamillyTreeApi.csproj",
         "packagesPath": "C:\\Users\\hoang\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\hoang\\source\\repos\\Project_team\\Project_FamillyTreeApi\\obj\\",
+        "outputPath": "C:\\Users\\hoang\\Documents\\GitHub\\ProjectTeam_TreeHouse\\Project_FamillyTreeApi\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\hoang\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -163,11 +163,11 @@
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "C:\\Users\\hoang\\source\\repos\\Project_team\\BusinessObject\\BusinessObject.csproj": {
-                "projectPath": "C:\\Users\\hoang\\source\\repos\\Project_team\\BusinessObject\\BusinessObject.csproj"
+              "C:\\Users\\hoang\\Documents\\GitHub\\ProjectTeam_TreeHouse\\BusinessObject\\BusinessObject.csproj": {
+                "projectPath": "C:\\Users\\hoang\\Documents\\GitHub\\ProjectTeam_TreeHouse\\BusinessObject\\BusinessObject.csproj"
               },
-              "C:\\Users\\hoang\\source\\repos\\Project_team\\DataAccess\\DataAccess.csproj": {
-                "projectPath": "C:\\Users\\hoang\\source\\repos\\Project_team\\DataAccess\\DataAccess.csproj"
+              "C:\\Users\\hoang\\Documents\\GitHub\\ProjectTeam_TreeHouse\\DataAccess\\DataAccess.csproj": {
+                "projectPath": "C:\\Users\\hoang\\Documents\\GitHub\\ProjectTeam_TreeHouse\\DataAccess\\DataAccess.csproj"
               }
             }
           }
