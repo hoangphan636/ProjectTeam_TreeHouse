@@ -6200,19 +6200,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\hoang\\.nuget\\packages\\": {}
+    "C:\\Users\\Lenovo\\.nuget\\packages\\": {},
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\hoang\\source\\repos\\Project_team\\Project_FamillyTree\\Project_FamillyTree.csproj",
+      "projectUniqueName": "D:\\FPT\\Sem8\\PRN231\\Project\\ProjectTeam_TreeHouse\\Project_FamillyTree\\Project_FamillyTree.csproj",
       "projectName": "Project_FamillyTree",
-      "projectPath": "C:\\Users\\hoang\\source\\repos\\Project_team\\Project_FamillyTree\\Project_FamillyTree.csproj",
-      "packagesPath": "C:\\Users\\hoang\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\hoang\\source\\repos\\Project_team\\Project_FamillyTree\\obj\\",
+      "projectPath": "D:\\FPT\\Sem8\\PRN231\\Project\\ProjectTeam_TreeHouse\\Project_FamillyTree\\Project_FamillyTree.csproj",
+      "packagesPath": "C:\\Users\\Lenovo\\.nuget\\packages\\",
+      "outputPath": "D:\\FPT\\Sem8\\PRN231\\Project\\ProjectTeam_TreeHouse\\Project_FamillyTree\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+      ],
       "configFilePaths": [
-        "C:\\Users\\hoang\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Lenovo\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -6220,15 +6224,14 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Program Files\\dotnet\\sdk\\7.0.304\\Sdks\\Microsoft.NET.Sdk.Web\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
-            "C:\\Users\\hoang\\source\\repos\\Project_team\\DataAccess\\DataAccess.csproj": {
-              "projectPath": "C:\\Users\\hoang\\source\\repos\\Project_team\\DataAccess\\DataAccess.csproj"
+            "D:\\FPT\\Sem8\\PRN231\\Project\\ProjectTeam_TreeHouse\\DataAccess\\DataAccess.csproj": {
+              "projectPath": "D:\\FPT\\Sem8\\PRN231\\Project\\ProjectTeam_TreeHouse\\DataAccess\\DataAccess.csproj"
             }
           }
         }
@@ -6261,7 +6264,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.304\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
       }
     }
   }

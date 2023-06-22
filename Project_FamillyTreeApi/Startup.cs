@@ -56,6 +56,8 @@ namespace Project_FamillyTreeApi
             ///   services.AddSingleton<ILoginRepository, LoginRepository>();
             services.AddScoped<DataAccess.Repository.LoginDAO>();
             services.AddScoped<AccountRepository>();
+            services.AddScoped<ActivitiesRepository>();
+            services.AddScoped<FamilyRepository>();
             var modelBuilder = new ODataConventionModelBuilder();
 
             modelBuilder.EntitySet<Account>("Accounts");
@@ -67,13 +69,13 @@ namespace Project_FamillyTreeApi
             modelBuilder.EntitySet<Relative>("Relatives");
             modelBuilder.EntitySet<StudyPromotion>("StudyPromotions");
 
-            var participatingProjects = modelBuilder.EntitySet<ParticipatingProject>("ParticipatingProjects");
+            /*var participatingProjects = modelBuilder.EntitySet<ParticipatingProject>("ParticipatingProjects");
 
             participatingProjects.EntityType.HasKey(pp => new { pp.EmployeeID, pp.CompanyProjectID });
 
             modelBuilder.EntityType<Employee>().HasMany(e => e.ParticipatingProjects);
             modelBuilder.EntityType<CompanyProject>().HasMany(cp => cp.ParticipatingProjects);
-
+*/
 
 
 

@@ -1,20 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\hoang\\source\\repos\\Project_team\\BusinessObject\\BusinessObject.csproj": {}
+    "D:\\FPT\\Sem8\\PRN231\\Project\\ProjectTeam_TreeHouse\\BusinessObject\\BusinessObject.csproj": {}
   },
   "projects": {
-    "C:\\Users\\hoang\\source\\repos\\Project_team\\BusinessObject\\BusinessObject.csproj": {
+    "D:\\FPT\\Sem8\\PRN231\\Project\\ProjectTeam_TreeHouse\\BusinessObject\\BusinessObject.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\hoang\\source\\repos\\Project_team\\BusinessObject\\BusinessObject.csproj",
+        "projectUniqueName": "D:\\FPT\\Sem8\\PRN231\\Project\\ProjectTeam_TreeHouse\\BusinessObject\\BusinessObject.csproj",
         "projectName": "BusinessObject",
-        "projectPath": "C:\\Users\\hoang\\source\\repos\\Project_team\\BusinessObject\\BusinessObject.csproj",
-        "packagesPath": "C:\\Users\\hoang\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\hoang\\source\\repos\\Project_team\\BusinessObject\\obj\\",
+        "projectPath": "D:\\FPT\\Sem8\\PRN231\\Project\\ProjectTeam_TreeHouse\\BusinessObject\\BusinessObject.csproj",
+        "packagesPath": "C:\\Users\\Lenovo\\.nuget\\packages\\",
+        "outputPath": "D:\\FPT\\Sem8\\PRN231\\Project\\ProjectTeam_TreeHouse\\BusinessObject\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "C:\\Users\\hoang\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Lenovo\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -75,7 +78,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.304\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
         }
       }
     }
