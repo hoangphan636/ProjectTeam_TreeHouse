@@ -14,6 +14,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OData.ModelBuilder;
 using Microsoft.OpenApi.Models;
+using Project_FamillyTreeApi.Mappers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -53,9 +54,19 @@ namespace Project_FamillyTreeApi
                     IssuerSigningKey = new SymmetricSecurityKey(Key)
                 };
             });
+
+            services.AddDbContext<PRN231FamilyTreeContext>();
+            services.AddAutoMapper(typeof(MapperProfile));
             ///   services.AddSingleton<ILoginRepository, LoginRepository>();
             services.AddScoped<DataAccess.Repository.LoginDAO>();
+
             services.AddScoped<AccountRepository>();
+            services.AddScoped<AlbumRepository>();
+            services.AddScoped<StudyPromotionRepository>();
+            services.AddScoped<RelationshipRepository>();
+            services.AddScoped<RelativeRepository>();
+
+
             var modelBuilder = new ODataConventionModelBuilder();
 
             modelBuilder.EntitySet<Account>("Accounts");
@@ -66,15 +77,6 @@ namespace Project_FamillyTreeApi
             modelBuilder.EntitySet<Relationship>("Relationships");
             modelBuilder.EntitySet<Relative>("Relatives");
             modelBuilder.EntitySet<StudyPromotion>("StudyPromotions");
-
-            var participatingProjects = modelBuilder.EntitySet<ParticipatingProject>("ParticipatingProjects");
-
-            participatingProjects.EntityType.HasKey(pp => new { pp.EmployeeID, pp.CompanyProjectID });
-
-            modelBuilder.EntityType<Employee>().HasMany(e => e.ParticipatingProjects);
-            modelBuilder.EntityType<CompanyProject>().HasMany(cp => cp.ParticipatingProjects);
-
-
 
 
             //    services.AddSingleton<IJWTManagerRepository, JWTManagerRepository>();
