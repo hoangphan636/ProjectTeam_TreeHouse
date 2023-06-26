@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\hoang\\Documents\\GitHub\\ProjectTeam_TreeHouse\\DataAccess\\DataAccess.csproj": {}
+    "C:\\Users\\NhatTan\\Desktop\\FreeHouse\\ProjectTeam_TreeHouse\\DataAccess\\DataAccess.csproj": {}
   },
   "projects": {
-    "C:\\Users\\hoang\\Documents\\GitHub\\ProjectTeam_TreeHouse\\BusinessObject\\BusinessObject.csproj": {
+    "C:\\Users\\NhatTan\\Desktop\\FreeHouse\\ProjectTeam_TreeHouse\\BusinessObject\\BusinessObject.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\hoang\\Documents\\GitHub\\ProjectTeam_TreeHouse\\BusinessObject\\BusinessObject.csproj",
+        "projectUniqueName": "C:\\Users\\NhatTan\\Desktop\\FreeHouse\\ProjectTeam_TreeHouse\\BusinessObject\\BusinessObject.csproj",
         "projectName": "BusinessObject",
-        "projectPath": "C:\\Users\\hoang\\Documents\\GitHub\\ProjectTeam_TreeHouse\\BusinessObject\\BusinessObject.csproj",
-        "packagesPath": "C:\\Users\\hoang\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\hoang\\Documents\\GitHub\\ProjectTeam_TreeHouse\\BusinessObject\\obj\\",
+        "projectPath": "C:\\Users\\NhatTan\\Desktop\\FreeHouse\\ProjectTeam_TreeHouse\\BusinessObject\\BusinessObject.csproj",
+        "packagesPath": "C:\\Users\\NhatTan\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\NhatTan\\Desktop\\FreeHouse\\ProjectTeam_TreeHouse\\BusinessObject\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\hoang\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\NhatTan\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -22,6 +26,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -75,21 +80,25 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.304\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\hoang\\Documents\\GitHub\\ProjectTeam_TreeHouse\\DataAccess\\DataAccess.csproj": {
+    "C:\\Users\\NhatTan\\Desktop\\FreeHouse\\ProjectTeam_TreeHouse\\DataAccess\\DataAccess.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\hoang\\Documents\\GitHub\\ProjectTeam_TreeHouse\\DataAccess\\DataAccess.csproj",
+        "projectUniqueName": "C:\\Users\\NhatTan\\Desktop\\FreeHouse\\ProjectTeam_TreeHouse\\DataAccess\\DataAccess.csproj",
         "projectName": "DataAccess",
-        "projectPath": "C:\\Users\\hoang\\Documents\\GitHub\\ProjectTeam_TreeHouse\\DataAccess\\DataAccess.csproj",
-        "packagesPath": "C:\\Users\\hoang\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\hoang\\Documents\\GitHub\\ProjectTeam_TreeHouse\\DataAccess\\obj\\",
+        "projectPath": "C:\\Users\\NhatTan\\Desktop\\FreeHouse\\ProjectTeam_TreeHouse\\DataAccess\\DataAccess.csproj",
+        "packagesPath": "C:\\Users\\NhatTan\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\NhatTan\\Desktop\\FreeHouse\\ProjectTeam_TreeHouse\\DataAccess\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\hoang\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\NhatTan\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -97,14 +106,15 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "C:\\Users\\hoang\\Documents\\GitHub\\ProjectTeam_TreeHouse\\BusinessObject\\BusinessObject.csproj": {
-                "projectPath": "C:\\Users\\hoang\\Documents\\GitHub\\ProjectTeam_TreeHouse\\BusinessObject\\BusinessObject.csproj"
+              "C:\\Users\\NhatTan\\Desktop\\FreeHouse\\ProjectTeam_TreeHouse\\BusinessObject\\BusinessObject.csproj": {
+                "projectPath": "C:\\Users\\NhatTan\\Desktop\\FreeHouse\\ProjectTeam_TreeHouse\\BusinessObject\\BusinessObject.csproj"
               }
             }
           }
@@ -118,6 +128,12 @@
       "frameworks": {
         "net5.0": {
           "targetAlias": "net5.0",
+          "dependencies": {
+            "Microsoft.AspNetCore.Mvc.Core": {
+              "target": "Package",
+              "version": "[2.2.5, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -134,7 +150,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.304\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
         }
       }
     }

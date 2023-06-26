@@ -15,6 +15,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OData.Edm;
 using Microsoft.OData.ModelBuilder;
 using Microsoft.OpenApi.Models;
+using Project_FamillyTreeApi.Mappers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -54,13 +55,18 @@ namespace Project_FamillyTreeApi
                     IssuerSigningKey = new SymmetricSecurityKey(Key)
                 };
             });
+            
+            services.AddDbContext<PRN231FamilyTreeContext>();
+            services.AddAutoMapper(typeof(MapperProfile));
          
             services.AddScoped<LoginDAO>();
-            services.AddScoped<AccountRepository>();
             services.AddTransient<ILoginRepository, LoginDAO>();
-        
-
-
+            
+            services.AddScoped<AccountRepository>();
+            services.AddScoped<AlbumRepository>();
+            services.AddScoped<StudyPromotionRepository>();
+            services.AddScoped<RelationshipRepository>();
+            services.AddScoped<RelativeRepository>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "JWTRefreshTokens", Version = "v1" });
