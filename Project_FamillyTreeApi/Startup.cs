@@ -67,6 +67,9 @@ namespace Project_FamillyTreeApi
             services.AddScoped<StudyPromotionRepository>();
             services.AddScoped<RelationshipRepository>();
             services.AddScoped<RelativeRepository>();
+            services.AddScoped<ActivitiesRepository>();
+            services.AddScoped<FamilyRepository>();
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "JWTRefreshTokens", Version = "v1" });
