@@ -11,6 +11,7 @@ namespace Project_FamillyTreeApi.Mappers
             CreateMap<StudyPromotion, StudyPromotionAPI>().ReverseMap();
             CreateMap<Relationship, RelationshipAPI>().ReverseMap();
             CreateMap<Relative, RelativeAPI>().ReverseMap();
+            CreateMap<FamilyMember, FamilyMemberAPI>().ReverseMap();
         }
     }
 }

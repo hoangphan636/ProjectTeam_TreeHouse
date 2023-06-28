@@ -69,6 +69,7 @@ namespace Project_FamillyTreeApi
             services.AddScoped<RelativeRepository>();
             services.AddScoped<ActivitiesRepository>();
             services.AddScoped<FamilyRepository>();
+            services.AddScoped<FamilyMemberRepository>();
 
             services.AddSwaggerGen(c =>
             {
