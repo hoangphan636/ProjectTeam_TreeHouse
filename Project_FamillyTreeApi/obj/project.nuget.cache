@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "6r/receXG8a22FS1Z32CHeYQmOq4zQzDm+VPF1f31ztUaClI5LiDW08ipxqy6d+a7smqPRIQ8R7qc1/YEpSTow==",
+  "dgSpecHash": "2v0DxORV7YcksjxTOS9ZO1cwdQkGr+baHmoyjZWNnK+xnmbbSlKt0VviRs/T8ZmZE9I5eVIV5pirYRCCpj0qhA==",
   "success": true,
-  "projectFilePath": "D:\\FPT\\Sem8\\PRN231\\ProjectTeam_TreeHouse\\Project_FamillyTreeApi\\Project_FamillyTreeApi.csproj",
+  "projectFilePath": "D:\\FPT\\Sem8\\PRN231\\Project\\ProjectTeam_TreeHouse\\Project_FamillyTreeApi\\Project_FamillyTreeApi.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Lenovo\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\Lenovo\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",

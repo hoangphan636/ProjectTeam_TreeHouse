@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\FPT\\Sem8\\PRN231\\ProjectTeam_TreeHouse\\BusinessObject\\BusinessObject.csproj": {}
+    "D:\\FPT\\Sem8\\PRN231\\Project\\ProjectTeam_TreeHouse\\BusinessObject\\BusinessObject.csproj": {}
   },
   "projects": {
-    "D:\\FPT\\Sem8\\PRN231\\ProjectTeam_TreeHouse\\BusinessObject\\BusinessObject.csproj": {
+    "D:\\FPT\\Sem8\\PRN231\\Project\\ProjectTeam_TreeHouse\\BusinessObject\\BusinessObject.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\FPT\\Sem8\\PRN231\\ProjectTeam_TreeHouse\\BusinessObject\\BusinessObject.csproj",
+        "projectUniqueName": "D:\\FPT\\Sem8\\PRN231\\Project\\ProjectTeam_TreeHouse\\BusinessObject\\BusinessObject.csproj",
         "projectName": "BusinessObject",
-        "projectPath": "D:\\FPT\\Sem8\\PRN231\\ProjectTeam_TreeHouse\\BusinessObject\\BusinessObject.csproj",
+        "projectPath": "D:\\FPT\\Sem8\\PRN231\\Project\\ProjectTeam_TreeHouse\\BusinessObject\\BusinessObject.csproj",
         "packagesPath": "C:\\Users\\Lenovo\\.nuget\\packages\\",
-        "outputPath": "D:\\FPT\\Sem8\\PRN231\\ProjectTeam_TreeHouse\\BusinessObject\\obj\\",
+        "outputPath": "D:\\FPT\\Sem8\\PRN231\\Project\\ProjectTeam_TreeHouse\\BusinessObject\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

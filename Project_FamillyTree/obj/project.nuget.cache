@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "DS605MVsodQGWtIdk70I0nU2riVCcxE7bNOw3QhSX/II0BvSO8GUpmru+TmMgFLzOhOv6P5sA/fU4VeFxkwScw==",
+  "dgSpecHash": "DTiVh8MdSTGFGUa3RM9XNCnCTl6FADat2G2iqLEayr6F6Q1MkXd6xif+Z+LPlP38D3ma2QZ7ypL5DQai+HiDAQ==",
   "success": true,
-  "projectFilePath": "D:\\FPT\\Sem8\\PRN231\\ProjectTeam_TreeHouse\\Project_FamillyTree\\Project_FamillyTree.csproj",
+  "projectFilePath": "D:\\FPT\\Sem8\\PRN231\\Project\\ProjectTeam_TreeHouse\\Project_FamillyTree\\Project_FamillyTree.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.aspnetcore.authentication.abstractions\\2.2.0\\microsoft.aspnetcore.authentication.abstractions.2.2.0.nupkg.sha512",
     "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.aspnetcore.authentication.core\\2.2.0\\microsoft.aspnetcore.authentication.core.2.2.0.nupkg.sha512",

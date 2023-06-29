@@ -7598,11 +7598,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\FPT\\Sem8\\PRN231\\ProjectTeam_TreeHouse\\Project_FamillyTreeApi\\Project_FamillyTreeApi.csproj",
+      "projectUniqueName": "D:\\FPT\\Sem8\\PRN231\\Project\\ProjectTeam_TreeHouse\\Project_FamillyTreeApi\\Project_FamillyTreeApi.csproj",
       "projectName": "Project_FamillyTreeApi",
-      "projectPath": "D:\\FPT\\Sem8\\PRN231\\ProjectTeam_TreeHouse\\Project_FamillyTreeApi\\Project_FamillyTreeApi.csproj",
+      "projectPath": "D:\\FPT\\Sem8\\PRN231\\Project\\ProjectTeam_TreeHouse\\Project_FamillyTreeApi\\Project_FamillyTreeApi.csproj",
       "packagesPath": "C:\\Users\\Lenovo\\.nuget\\packages\\",
-      "outputPath": "D:\\FPT\\Sem8\\PRN231\\ProjectTeam_TreeHouse\\Project_FamillyTreeApi\\obj\\",
+      "outputPath": "D:\\FPT\\Sem8\\PRN231\\Project\\ProjectTeam_TreeHouse\\Project_FamillyTreeApi\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -7622,11 +7622,11 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
-            "D:\\FPT\\Sem8\\PRN231\\ProjectTeam_TreeHouse\\BusinessObject\\BusinessObject.csproj": {
-              "projectPath": "D:\\FPT\\Sem8\\PRN231\\ProjectTeam_TreeHouse\\BusinessObject\\BusinessObject.csproj"
+            "D:\\FPT\\Sem8\\PRN231\\Project\\ProjectTeam_TreeHouse\\BusinessObject\\BusinessObject.csproj": {
+              "projectPath": "D:\\FPT\\Sem8\\PRN231\\Project\\ProjectTeam_TreeHouse\\BusinessObject\\BusinessObject.csproj"
             },
-            "D:\\FPT\\Sem8\\PRN231\\ProjectTeam_TreeHouse\\DataAccess\\DataAccess.csproj": {
-              "projectPath": "D:\\FPT\\Sem8\\PRN231\\ProjectTeam_TreeHouse\\DataAccess\\DataAccess.csproj"
+            "D:\\FPT\\Sem8\\PRN231\\Project\\ProjectTeam_TreeHouse\\DataAccess\\DataAccess.csproj": {
+              "projectPath": "D:\\FPT\\Sem8\\PRN231\\Project\\ProjectTeam_TreeHouse\\DataAccess\\DataAccess.csproj"
             }
           }
         }

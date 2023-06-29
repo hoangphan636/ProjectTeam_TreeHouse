@@ -7056,11 +7056,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\FPT\\Sem8\\PRN231\\ProjectTeam_TreeHouse\\DataAccess\\DataAccess.csproj",
+      "projectUniqueName": "D:\\FPT\\Sem8\\PRN231\\Project\\ProjectTeam_TreeHouse\\DataAccess\\DataAccess.csproj",
       "projectName": "DataAccess",
-      "projectPath": "D:\\FPT\\Sem8\\PRN231\\ProjectTeam_TreeHouse\\DataAccess\\DataAccess.csproj",
+      "projectPath": "D:\\FPT\\Sem8\\PRN231\\Project\\ProjectTeam_TreeHouse\\DataAccess\\DataAccess.csproj",
       "packagesPath": "C:\\Users\\Lenovo\\.nuget\\packages\\",
-      "outputPath": "D:\\FPT\\Sem8\\PRN231\\ProjectTeam_TreeHouse\\DataAccess\\obj\\",
+      "outputPath": "D:\\FPT\\Sem8\\PRN231\\Project\\ProjectTeam_TreeHouse\\DataAccess\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -7080,8 +7080,8 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
-            "D:\\FPT\\Sem8\\PRN231\\ProjectTeam_TreeHouse\\BusinessObject\\BusinessObject.csproj": {
-              "projectPath": "D:\\FPT\\Sem8\\PRN231\\ProjectTeam_TreeHouse\\BusinessObject\\BusinessObject.csproj"
+            "D:\\FPT\\Sem8\\PRN231\\Project\\ProjectTeam_TreeHouse\\BusinessObject\\BusinessObject.csproj": {
+              "projectPath": "D:\\FPT\\Sem8\\PRN231\\Project\\ProjectTeam_TreeHouse\\BusinessObject\\BusinessObject.csproj"
             }
           }
         }
