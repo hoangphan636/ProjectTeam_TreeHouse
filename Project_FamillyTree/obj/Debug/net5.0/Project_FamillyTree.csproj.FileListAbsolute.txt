@@ -222,6 +222,7 @@ D:\FPT\Sem8\PRN231\ProjectTeam_TreeHouse\Project_FamillyTree\obj\Debug\net5.0\Ra
 D:\FPT\Sem8\PRN231\ProjectTeam_TreeHouse\Project_FamillyTree\obj\Debug\net5.0\Razor\Views\Shared\Error.cshtml.g.cs
 D:\FPT\Sem8\PRN231\ProjectTeam_TreeHouse\Project_FamillyTree\obj\Debug\net5.0\Razor\Views\Shared\_Layout.cshtml.g.cs
 D:\FPT\Sem8\PRN231\ProjectTeam_TreeHouse\Project_FamillyTree\obj\Debug\net5.0\Razor\Views\Shared\_ValidationScriptsPartial.cshtml.g.cs
+D:\FPT\Sem8\PRN231\ProjectTeam_TreeHouse\Project_FamillyTree\obj\Debug\net5.0\Razor\Views\Tree\Index.cshtml.g.cs
 D:\FPT\Sem8\PRN231\ProjectTeam_TreeHouse\Project_FamillyTree\obj\Debug\net5.0\Razor\Views\_ViewImports.cshtml.g.cs
 D:\FPT\Sem8\PRN231\ProjectTeam_TreeHouse\Project_FamillyTree\obj\Debug\net5.0\Razor\Views\_ViewStart.cshtml.g.cs
 D:\FPT\Sem8\PRN231\ProjectTeam_TreeHouse\Project_FamillyTree\obj\Debug\net5.0\Project_FamillyTree.RazorTargetAssemblyInfo.cache

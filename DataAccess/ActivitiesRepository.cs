@@ -16,6 +16,6 @@ namespace DataAccess
         public void Add(Activity activity) => ActivityDAO.Add(activity);
         public void Update(Activity activity) => ActivityDAO.Update(activity);
         public void Delete(Activity activity) => ActivityDAO.Delete(activity);
-
+        public List<Activity> GetActivitiesByFamilyId(int familyId) => ActivityDAO.GetActivitiesByFamilyId(familyId);
     }
 }

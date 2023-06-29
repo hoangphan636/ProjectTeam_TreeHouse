@@ -15,6 +15,7 @@ namespace DataAccess
         void Add(Activity activity);
         void Update(Activity activity);
         void Delete(Activity activity);
+        List<Activity> GetActivitiesByFamilyId(int familyId);
 
     }
 }

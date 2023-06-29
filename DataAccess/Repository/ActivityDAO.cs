@@ -1,4 +1,5 @@
 ﻿using BusinessObject.DataAccess;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -103,5 +104,15 @@ namespace DataAccess.Repository
             }
 
         }
+
+        public static List<Activity> GetActivitiesByFamilyId(int familyId)
+        {
+            using var dbContext = new PRN231FamilyTreeContext();
+
+            return dbContext.Activities
+                .Where(a => a.FamilyId == familyId)
+                .ToList();
+        }
+
     }
 }

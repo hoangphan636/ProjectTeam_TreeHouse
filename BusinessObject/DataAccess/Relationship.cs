@@ -7,10 +7,10 @@ namespace BusinessObject.DataAccess
 {
     public partial class Relationship
     {
-        //public Relationship()
-        //{
-        //    Relatives = new HashSet<Relative>();
-        //}
+        public Relationship()
+        {
+            Relatives = new HashSet<Relative>();
+        }
 
         public int Id { get; set; }
         public string RelationType { get; set; }

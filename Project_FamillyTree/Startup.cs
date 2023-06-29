@@ -53,7 +53,7 @@ namespace Project_FamillyTree
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Login}/{action=Index}/{id?}");
+                    pattern: "{controller=Tree}/{action=Index}/{id?}");
             });
         }
     }
