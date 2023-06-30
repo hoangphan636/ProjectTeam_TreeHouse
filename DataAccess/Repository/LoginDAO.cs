@@ -28,11 +28,11 @@ namespace DataAccess.Repository
      
 
 
-            public Tokens Authenticate(Users users)
+            public Tokens Authenticate(Login users)
             {
             var context = new PRN231FamilyTreeContext();
             var role = "";
-                var user = context.Accounts.FirstOrDefault(x => x.Email == users.Name && x.Password == users.Password);
+                var user = context.Accounts.FirstOrDefault(x => x.Email == users.Email && x.Password == users.Password);
                 if (user == null)
                 {
                     return null;
@@ -50,7 +50,7 @@ namespace DataAccess.Repository
                 {
                     Subject = new ClaimsIdentity(new Claim[]
                     {
-                new Claim(ClaimTypes.Email, users.Name),
+                new Claim(ClaimTypes.Email, users.Email),
                  new Claim(ClaimTypes.Role, role) 
                     }),
                     Expires = DateTime.UtcNow.AddMinutes(10),

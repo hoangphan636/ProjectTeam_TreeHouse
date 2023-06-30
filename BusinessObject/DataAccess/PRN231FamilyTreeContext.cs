@@ -13,11 +13,6 @@ namespace BusinessObject.DataAccess
         public PRN231FamilyTreeContext()
         {
         }
-
-        public PRN231FamilyTreeContext(DbContextOptions<PRN231FamilyTreeContext> options)
-            : base(options)
-        {
-        }
         private string GetConnectionString()
         {
             IConfiguration config = new ConfigurationBuilder()
@@ -28,19 +23,12 @@ namespace BusinessObject.DataAccess
 
             return strConn;
         }
-        public Account getDefaultAccounts()
+
+        public PRN231FamilyTreeContext(DbContextOptions<PRN231FamilyTreeContext> options)
+            : base(options)
         {
-            var admin = new Account();
-            IConfiguration config = new ConfigurationBuilder()
-                        .SetBasePath(Directory.GetCurrentDirectory())
-                        .AddJsonFile("appsettings.json", true, true)
-                        .Build();
-            admin.Email = config["Credentials:Email"];
-            admin.Password = config["Credentials:Password"];
-
-            return admin;
-
         }
+
         public virtual DbSet<Account> Accounts { get; set; }
         public virtual DbSet<Activity> Activities { get; set; }
         public virtual DbSet<Album> Albums { get; set; }
@@ -82,7 +70,7 @@ namespace BusinessObject.DataAccess
                 entity.HasOne(d => d.Member)
                     .WithMany(p => p.Accounts)
                     .HasForeignKey(d => d.MemberId)
-                    .HasConstraintName("FK__Accounts__Member__2F10007B");
+                    .HasConstraintName("FK__Accounts__Member__300424B4");
             });
 
             modelBuilder.Entity<Activity>(entity =>
@@ -104,7 +92,7 @@ namespace BusinessObject.DataAccess
                 entity.HasOne(d => d.Family)
                     .WithMany(p => p.Activities)
                     .HasForeignKey(d => d.FamilyId)
-                    .HasConstraintName("FK__Activitie__Famil__31EC6D26");
+                    .HasConstraintName("FK__Activitie__Famil__32E0915F");
             });
 
             modelBuilder.Entity<Album>(entity =>
@@ -124,7 +112,7 @@ namespace BusinessObject.DataAccess
                 entity.HasOne(d => d.Family)
                     .WithMany(p => p.Albums)
                     .HasForeignKey(d => d.FamilyId)
-                    .HasConstraintName("FK__Albums__FamilyID__37A5467C");
+                    .HasConstraintName("FK__Albums__FamilyID__38996AB5");
             });
 
             modelBuilder.Entity<Family>(entity =>
@@ -179,11 +167,18 @@ namespace BusinessObject.DataAccess
             {
                 entity.Property(e => e.Id).HasColumnName("ID");
 
+                entity.Property(e => e.FamilyId).HasColumnName("FamilyID");
+
                 entity.Property(e => e.MemberId).HasColumnName("MemberID");
 
                 entity.Property(e => e.MemberRelativeId).HasColumnName("MemberRelativeID");
 
                 entity.Property(e => e.RelationId).HasColumnName("RelationID");
+
+                entity.HasOne(d => d.Family)
+                    .WithMany(p => p.Relatives)
+                    .HasForeignKey(d => d.FamilyId)
+                    .HasConstraintName("FK__Relatives__Famil__2D27B809");
 
                 entity.HasOne(d => d.Member)
                     .WithMany(p => p.Relatives)
@@ -215,7 +210,7 @@ namespace BusinessObject.DataAccess
                 entity.HasOne(d => d.Family)
                     .WithMany(p => p.StudyPromotions)
                     .HasForeignKey(d => d.FamilyId)
-                    .HasConstraintName("FK__StudyProm__Famil__34C8D9D1");
+                    .HasConstraintName("FK__StudyProm__Famil__35BCFE0A");
             });
 
             OnModelCreatingPartial(modelBuilder);

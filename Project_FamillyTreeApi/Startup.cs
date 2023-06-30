@@ -12,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OData.Edm;
 using Microsoft.OData.ModelBuilder;
 using Microsoft.OpenApi.Models;
 using Project_FamillyTreeApi.Mappers;
@@ -54,40 +55,22 @@ namespace Project_FamillyTreeApi
                     IssuerSigningKey = new SymmetricSecurityKey(Key)
                 };
             });
-
+           
             services.AddDbContext<PRN231FamilyTreeContext>();
             services.AddAutoMapper(typeof(MapperProfile));
-            ///   services.AddSingleton<ILoginRepository, LoginRepository>();
-            services.AddScoped<DataAccess.Repository.LoginDAO>();
+         
+            services.AddScoped<LoginDAO>();
+            services.AddTransient<ILoginRepository, LoginDAO>();
 
             services.AddScoped<AccountRepository>();
             services.AddScoped<AlbumRepository>();
             services.AddScoped<StudyPromotionRepository>();
             services.AddScoped<RelationshipRepository>();
             services.AddScoped<RelativeRepository>();
+            services.AddScoped<ActivitiesRepository>();
+            services.AddScoped<FamilyRepository>();
+            services.AddScoped<FamilyMemberRepository>();
 
-
-            var modelBuilder = new ODataConventionModelBuilder();
-
-            modelBuilder.EntitySet<Account>("Accounts");
-            modelBuilder.EntitySet<Activity>("Activities");
-            modelBuilder.EntitySet<Album>("Albums");
-            modelBuilder.EntitySet<Family>("Families");
-            modelBuilder.EntitySet<FamilyMember>("FamilyMembers");
-            modelBuilder.EntitySet<Relationship>("Relationships");
-            modelBuilder.EntitySet<Relative>("Relatives");
-            modelBuilder.EntitySet<StudyPromotion>("StudyPromotions");
-
-
-            //    services.AddSingleton<IJWTManagerRepository, JWTManagerRepository>();
-            services.AddControllers().AddOData(options =>
-            {
-                options.Select().Filter().OrderBy().Expand().Count().SetMaxTop(null).AddRouteComponents(
-                "odata",
-                    modelBuilder.GetEdmModel());
-
-
-            });
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "JWTRefreshTokens", Version = "v1" });
@@ -120,17 +103,11 @@ namespace Project_FamillyTreeApi
                     }
                 });
             });
-
-
-
-
-
-
-
-
-
-
+            
+           
         }
+
+    
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -141,7 +118,8 @@ namespace Project_FamillyTreeApi
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Project_FamillyTreeApi v1"));
             }
-            app.UseODataBatching();
+            app.UseHttpsRedirection();
+           
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
@@ -149,6 +127,7 @@ namespace Project_FamillyTreeApi
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+         
             });
         }
     }

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text.Json.Serialization;
 
 #nullable disable
 
@@ -14,7 +13,7 @@ namespace BusinessObject.DataAccess
         public string Password { get; set; }
         public int Role { get; set; }
         public int? MemberId { get; set; }
-        [JsonIgnore]
+
         public virtual FamilyMember Member { get; set; }
     }
 }

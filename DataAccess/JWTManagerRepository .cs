@@ -17,7 +17,6 @@ namespace DataAccess
         Dictionary<string, string> UsersRecords = new Dictionary<string, string>
     {
         { "user1","password1"},
-       
     };
 
         private readonly IConfiguration iconfiguration;
