@@ -103,8 +103,8 @@ namespace Project_FamillyTreeApi
                     }
                 });
             });
-            
-           
+
+            services.AddControllers();
         }
 
     

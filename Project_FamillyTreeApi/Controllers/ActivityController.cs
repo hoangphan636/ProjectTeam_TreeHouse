@@ -4,7 +4,18 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.IO;
+using System.Linq;
+using System.Net;
+using System.Net.Mail;
+using System.Text;
 using System.Threading.Tasks;
+using System.Web;
+using Twilio;
+using Twilio.Rest.Api.V2010.Account;
+using Twilio.TwiML.Messaging;
+using Twilio.Types;
 
 namespace Project_FamillyTreeApi.Controllers
 {
@@ -47,6 +58,49 @@ namespace Project_FamillyTreeApi.Controllers
             _jWTManager.Add(activity);
             return Ok();
         }
+
+        [HttpPost("SendSMS")]
+        public IActionResult SendSMS(List<string> phoneNo, string content)
+        {
+            var accountSid = "AC4def4fce1704e2d8c2439f574a819b0e";
+            var authToken = "6e40501c1d86dc3e121a8ffb5eea5e92";
+            TwilioClient.Init(accountSid, authToken);
+
+            foreach (var num in phoneNo)
+            {
+                var messageOptions = new CreateMessageOptions(
+                    new PhoneNumber(num));
+                messageOptions.From = new PhoneNumber("+14176412659");
+                messageOptions.Body = content;
+                MessageResource.Create(messageOptions);
+            }
+            return Ok("Send SMS success");
+        }
+
+        [HttpPost("SendMail")]
+        public IActionResult SendMail(List<string> toMails, string content)
+        {
+            MailMessage message = new MailMessage();
+            string from = "rongbay.dt@gmail.com";
+            string pass = "sjdoqwhhfhrlliyq";
+
+            foreach(var toMail in toMails)
+            {
+                message.To.Add(toMail);
+            }
+            message.From = new MailAddress(from);
+            message.Body = content;
+            SmtpClient smtp = new SmtpClient("smtp.gmail.com")
+            {
+                Port = 587,
+                EnableSsl = true,
+                Credentials = new NetworkCredential(from, pass)
+            };
+            smtp.Send(message);
+
+            return Ok("Send mail success");
+        }
+
 
         [HttpPut]
         public IActionResult UpdateActivity([FromBody] Activity activity)

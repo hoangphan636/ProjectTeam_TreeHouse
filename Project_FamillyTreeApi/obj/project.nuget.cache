@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "unIbudzoe5T2yIrTAAdDGufo1wwZTVkCJRVrbMeitSFqlhNsJMSkSrRRPdpzl5rP8gNMPE3VD3/FPPJ0ALTlGA==",
+  "dgSpecHash": "oAdlToBqG9VligKLTs8G1JgqPqb6jux+QBUAjVcG5zFQ4HoG76P7Zsbv9gYBvMUzQz8D5OZ/xCO14N/ZkIjKfw==",
   "success": true,
   "projectFilePath": "C:\\Users\\NhatTan\\Desktop\\FreeHouse\\ProjectTeam_TreeHouse\\Project_FamillyTreeApi\\Project_FamillyTreeApi.csproj",
   "expectedPackageFiles": [
@@ -69,7 +69,7 @@
     "C:\\Users\\NhatTan\\.nuget\\packages\\microsoft.spatial\\7.9.0\\microsoft.spatial.7.9.0.nupkg.sha512",
     "C:\\Users\\NhatTan\\.nuget\\packages\\microsoft.win32.registry\\4.7.0\\microsoft.win32.registry.4.7.0.nupkg.sha512",
     "C:\\Users\\NhatTan\\.nuget\\packages\\microsoft.win32.systemevents\\4.7.0\\microsoft.win32.systemevents.4.7.0.nupkg.sha512",
-    "C:\\Users\\NhatTan\\.nuget\\packages\\newtonsoft.json\\9.0.1\\newtonsoft.json.9.0.1.nupkg.sha512",
+    "C:\\Users\\NhatTan\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512",
     "C:\\Users\\NhatTan\\.nuget\\packages\\runtime.native.system\\4.3.0\\runtime.native.system.4.3.0.nupkg.sha512",
     "C:\\Users\\NhatTan\\.nuget\\packages\\swashbuckle.aspnetcore\\5.6.3\\swashbuckle.aspnetcore.5.6.3.nupkg.sha512",
     "C:\\Users\\NhatTan\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\5.6.3\\swashbuckle.aspnetcore.swagger.5.6.3.nupkg.sha512",
@@ -144,7 +144,8 @@
     "C:\\Users\\NhatTan\\.nuget\\packages\\system.xml.readerwriter\\4.3.0\\system.xml.readerwriter.4.3.0.nupkg.sha512",
     "C:\\Users\\NhatTan\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512",
     "C:\\Users\\NhatTan\\.nuget\\packages\\system.xml.xmldocument\\4.3.0\\system.xml.xmldocument.4.3.0.nupkg.sha512",
-    "C:\\Users\\NhatTan\\.nuget\\packages\\system.xml.xmlserializer\\4.3.0\\system.xml.xmlserializer.4.3.0.nupkg.sha512"
+    "C:\\Users\\NhatTan\\.nuget\\packages\\system.xml.xmlserializer\\4.3.0\\system.xml.xmlserializer.4.3.0.nupkg.sha512",
+    "C:\\Users\\NhatTan\\.nuget\\packages\\twilio\\6.9.0\\twilio.6.9.0.nupkg.sha512"
   ],
   "logs": []
 }
