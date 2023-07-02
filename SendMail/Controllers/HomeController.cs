@@ -13,15 +13,15 @@ namespace SendMail.Controllers
         public IActionResult SendMail(string body)
         {
             var email = new MimeMessage();
-            email.From.Add(MailboxAddress.Parse("kacie8@ethereal.emai"));
-            email.To.Add(MailboxAddress.Parse("kacie8@ethereal.emai"));
+            email.From.Add(MailboxAddress.Parse("minhduy1511@gmail.com"));
+            email.To.Add(MailboxAddress.Parse("minhduy15112023@gmail.com"));
 
             email.Subject = "Send email Minh Duy";
             email.Body = new TextPart(MimeKit.Text.TextFormat.Html) { Text = body };
 
             using var smtp = new SmtpClient();
-            smtp.Connect("smtp.ethereal.email", 587, MailKit.Security.SecureSocketOptions.StartTls);
-            smtp.Authenticate("kacie8@ethereal.email", "M5RZSXYG4NfGkcgnm3");
+            smtp.Connect("smtp.gmail.com", 587, MailKit.Security.SecureSocketOptions.StartTls);
+            smtp.Authenticate("minhduy1511@gmail.com", "dxhuwemtdtkobzoj");
             smtp.Send(email);
             smtp.Disconnect(true);
 
