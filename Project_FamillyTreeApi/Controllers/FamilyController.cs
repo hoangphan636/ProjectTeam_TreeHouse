@@ -2,6 +2,7 @@
 using DataAccess;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -186,6 +187,21 @@ namespace Project_FamillyTreeApi.Controllers
             }
             _jWTManager.Delete(family);
             return Ok();
+        }
+
+        [HttpGet("{familyId}/members")]
+        public IActionResult GetAllFamilyMemberByFamily(int familyId)
+        {
+            try
+            {
+                var familyMembers = _jWTManager.GetAllFamilyMemberByFamily(familyId);
+                return Ok(familyMembers);
+            }
+            catch (Exception ex)
+            {
+                // Handle exception and return appropriate response
+                return StatusCode(500, $"An error occurred: {ex.Message}");
+            }
         }
     }
 }

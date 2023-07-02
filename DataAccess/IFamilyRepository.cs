@@ -15,6 +15,7 @@ namespace DataAccess
         void Add(Family family);
         void Update(Family family);
         void Delete(Family family);
+        IEnumerable<FamilyMember> GetAllFamilyMemberByFamily(int familyId);
 
     }
 }

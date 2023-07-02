@@ -3,13 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33801.468
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "DataAccess\DataAccess.csproj", "{88670BB1-2F6C-42A2-A013-9B43A32A8963}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccess", "DataAccess\DataAccess.csproj", "{88670BB1-2F6C-42A2-A013-9B43A32A8963}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessObject", "BusinessObject\BusinessObject.csproj", "{770AC426-8F9A-42AC-8C69-69E1F5693144}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BusinessObject", "BusinessObject\BusinessObject.csproj", "{770AC426-8F9A-42AC-8C69-69E1F5693144}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Project_FamillyTreeApi", "Project_FamillyTreeApi\Project_FamillyTreeApi.csproj", "{FEC1943D-AEDE-4030-AE29-4401C4201E17}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Project_FamillyTreeApi", "Project_FamillyTreeApi\Project_FamillyTreeApi.csproj", "{FEC1943D-AEDE-4030-AE29-4401C4201E17}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Project_FamillyTree", "Project_FamillyTree\Project_FamillyTree.csproj", "{0F4EB02D-ED22-46F9-B4D9-6F5045E1ADA1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Project_FamillyTree", "Project_FamillyTree\Project_FamillyTree.csproj", "{0F4EB02D-ED22-46F9-B4D9-6F5045E1ADA1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestSendMailAPI", "TestSendMailAPI\TestSendMailAPI.csproj", "{7D7F90B9-CD2E-49BC-A254-93106D498187}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SendMail", "SendMail\SendMail.csproj", "{0A95A187-8D31-4DBE-8D16-62B1C62BC339}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +37,14 @@ Global
 		{0F4EB02D-ED22-46F9-B4D9-6F5045E1ADA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0F4EB02D-ED22-46F9-B4D9-6F5045E1ADA1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0F4EB02D-ED22-46F9-B4D9-6F5045E1ADA1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D7F90B9-CD2E-49BC-A254-93106D498187}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D7F90B9-CD2E-49BC-A254-93106D498187}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D7F90B9-CD2E-49BC-A254-93106D498187}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D7F90B9-CD2E-49BC-A254-93106D498187}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0A95A187-8D31-4DBE-8D16-62B1C62BC339}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A95A187-8D31-4DBE-8D16-62B1C62BC339}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A95A187-8D31-4DBE-8D16-62B1C62BC339}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A95A187-8D31-4DBE-8D16-62B1C62BC339}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

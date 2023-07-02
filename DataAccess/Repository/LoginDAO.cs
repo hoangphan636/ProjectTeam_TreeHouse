@@ -13,8 +13,8 @@ using System.Data;
 
 namespace DataAccess.Repository
 {
-   
-        public class LoginDAO : ILoginRepository
+
+    public class LoginDAO : ILoginRepository
         {
            
             private readonly IConfiguration _iconfiguration;

@@ -1,4 +1,5 @@
 ﻿using BusinessObject.DataAccess;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -102,6 +103,16 @@ namespace DataAccess.Repository
                 throw new Exception(ex.Message);
             }
 
+        }
+        public static List<FamilyMember> GetAllFamilyMemberByFamily(int familyId)
+        {
+            using var _context = new PRN231FamilyTreeContext();
+
+            var familyMembers = _context.FamilyMembers
+                .Where(fm => fm.FamilyId == familyId)
+                .ToList();
+
+            return familyMembers;
         }
     }
 }

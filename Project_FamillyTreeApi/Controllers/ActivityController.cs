@@ -4,7 +4,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 using System.Collections.Generic;
+using System.Net.Mail;
+using System.Net;
 using System.Threading.Tasks;
+using System;
+using System.Linq;
 
 namespace Project_FamillyTreeApi.Controllers
 {
@@ -66,6 +70,76 @@ namespace Project_FamillyTreeApi.Controllers
             _jWTManager.Delete(activity);
             return Ok();
         }
+
+        [HttpGet("activities-by-family/{familyId}")]
+        public List<Activity> GetActivitiesByFamilyId(int familyId)
+        {
+            return _jWTManager.GetActivitiesByFamilyId(familyId);
+        }
+
+        [HttpPost("send-email")]
+        public IActionResult SendActivitiesEmail(int familyId)
+        {
+            var family = _familyRepository.GetAllFamilyMemberByFamily(familyId);
+            if (family == null)
+            {
+                return NotFound();
+            }
+
+            var activities = _jWTManager.GetActivitiesByFamilyId(familyId);
+            if (activities == null || activities.Count == 0)
+            {
+                return BadRequest("No activities found for the family.");
+            }
+            //var listMember = family.FamilyMembers.ToList();
+            foreach (var member in family.ToList())
+            {
+                var emailContent = GenerateEmailContent(member.FullName, activities);
+
+                try
+                {
+                    // Tạo đối tượng MailMessage
+                    var message = new MailMessage();
+                    message.From = new MailAddress("fidel.bayer@ethereal.email");
+                    message.To.Add(member.Email);
+                    message.Subject = "Activities Update";
+                    message.Body = emailContent;
+                    message.IsBodyHtml = false;
+
+                    // Tạo đối tượng SmtpClient và cấu hình thông tin SMTP
+                    var smtpClient = new SmtpClient("smtp.ethereal.email", 587);
+                    smtpClient.Credentials = new NetworkCredential("fidel.bayer@ethereal.email", "26Rf6kdWEzBJYadcat");
+                    smtpClient.EnableSsl = true;
+
+                    // Gửi email
+                    smtpClient.Send(message);
+                }
+                catch (Exception ex)
+                {
+                    // Xử lý lỗi nếu gửi email không thành công
+                    return StatusCode(500, $"Failed to send email to {member.Email}. Error: {ex.Message}");
+                }
+            }
+
+            return Ok();
+        }
+
+        private string GenerateEmailContent(string memberName, List<Activity> activities)
+        {
+            // Tạo nội dung email từ danh sách activities và thông tin thành viên gia đình
+            var emailContent = $"Dear {memberName},\n\n";
+            emailContent += "Here are the latest activities for your family:\n\n";
+            foreach (var activity in activities)
+            {
+                emailContent += $"- {activity.ActivityName}: {activity.Description}\n";
+                emailContent += $"   Start Date: {activity.StartDate}\n";
+                emailContent += $"   End Date: {activity.EndDate}\n\n";
+            }
+            emailContent += "Best regards,\nYour Family";
+
+            return emailContent;
+        }
+
         /*[HttpPost("send-email")]
         public async Task<IActionResult> SendActivitiesEmail(int familyId)
         {
@@ -114,7 +188,7 @@ namespace Project_FamillyTreeApi.Controllers
 
             return emailContent;
         }*/
-        
+
 
     }
 }

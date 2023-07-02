@@ -1,7 +1,5 @@
 ﻿using BusinessObject;
-using BusinessObject;
 using BusinessObject.DataAccess;
-using DataAccess;
 using DataAccess.Repository;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -10,7 +8,7 @@ using System.Collections.Generic;
 
 namespace Project_FamillyTreeApi.Controllers
 {
-  
+
     [Route("odata/CompanyProjects")]
     [EnableQuery]
     [ApiController]
