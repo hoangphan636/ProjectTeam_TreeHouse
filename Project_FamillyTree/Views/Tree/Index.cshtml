@@ -1,36 +1,36 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Http
+@model List<FamilyMemberNode>
+
+<!DOCTYPE html>
 <html>
 
 <head>
     <link rel="stylesheet" type="text/css" href="styles.css">
     <script src="script.js"></script>
     <link rel="stylesheet" type="text/css" href="/index.css">
+
     <style>
-        .sidebar-content {
+        .sibling-container {
             display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+            flex-wrap: wrap;
         }
 
-        .tree {
-            width: fit-content;
-            margin-top: 200px;
+        .sibling-list {
+            flex: 1 1 auto;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            text-align: center;
         }
 
-        <style >
-        .sidebar-content {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .tree {
-            width: fit-content;
-            margin-top: 200px;
-        }
+            .sibling-list li {
+                display: inline-block;
+                margin-right: 10px;
+            }
     </style>
+
+
+
 
 
 </head>
@@ -72,12 +72,17 @@
         <div class="sidebar-content">
             <div id="personal" class="section active">
                 <h2>Personal</h2>
-                <input type="text" class="large-input" placeholder="Given names" id="givenNamesInput">
-                <input type="text" class="large-input" placeholder="Surname now">
-                <input type="text" class="large-input" placeholder="Surname at birth">
-                <input type="text" class="large-input" placeholder="Gender">
-                <input type="text" class="large-input" placeholder="Birth date">
+                <input type="hidden" id="personIdInput" value="">
+                <input type="text" class="large-input" placeholder="ID" id="idInput">
+                <input type="text" class="large-input" placeholder="Full Name" id="fullNameNameInput">
+                <input type="text" class="large-input" placeholder="Gender" id="genderInput">
+                <input type="text" class="large-input" placeholder="Day of birth" id="dateOfBirthInput">
+                <input type="text" class="large-input" placeholder="Phone" id="phoneInput">
+                <input type="text" class="large-input" placeholder="Email" id="emailInput">
+                <input type="text" class="large-input" placeholder="Address" id="addressInput">
+                <input type="text" class="large-input" placeholder="Family" id="familyInput">
             </div>
+
 
             <div id="contact" class="section active">
                 <h2>Contact</h2>
@@ -163,106 +168,142 @@
             popup.style.opacity = 0;
         });
     </script>
+
     <script>
-        // Hàm hiển thị mối quan hệ trong cây gia đình
-        // Hàm hiển thị mối quan hệ trong cây gia đình
-        // Hàm hiển thị mối quan hệ trong cây gia đình
+        var existingMembers = [];
+
         function displayFamilyTree(data, parentElement) {
+            var siblingContainer = document.createElement("div");
+            siblingContainer.classList.add("sibling-container");
             var siblingList = document.createElement("ul");
+            siblingList.classList.add("sibling-list");
 
             for (var i = 0; i < data.length; i++) {
                 var person = data[i];
-                var personNode = document.createElement("li");
-                var personLink = document.createElement("a");
-                personLink.textContent = person.fullName;
-                personLink.href = "#";
-                personNode.appendChild(personLink);
+                var personId = person.id;
 
-                if (person.relatives && person.relatives.length > 0) {
-                    var relativeList = document.createElement("ul");
-                    personNode.appendChild(relativeList);
-                    displayFamilyTree(person.relatives, relativeList);
-                }
+                var existingMember = existingMembers.find(function(member) {
+                    return member.id === personId;
+                });
 
-                if (person.relationType === "Sibling") {
-                    siblingList.appendChild(personNode);
+                if (existingMember) {
+                    var personNode = existingMember.node;
+                    var personLink = personNode.querySelector("a");
+                    personLink.textContent = person.fullName;
                 } else {
-                    parentElement.appendChild(personNode);
+                    var personNode = document.createElement("li");
+                    var personLink = document.createElement("a");
+                    personLink.textContent = person.fullName;
+                    personLink.href = "javascript:void(0);";
+                    personLink.setAttribute("data-id", personId);
+                    personLink.addEventListener("click", function() {
+                        var id = this.getAttribute("data-id");
+                        document.getElementById("personIdInput").value = id; // Gán giá trị id vào personIdInput
+                        fetch("http://localhost:45571/api/FamilyMember/GetGetFamilyMemberById/" + id)
+                            .then((response) => response.json())
+                            .then((data) => {
+                                var givenNamesInput = document.getElementById("givenNamesInput");
+
+                                idInput.value = data.id;
+                                fullNameNameInput.value = data.fullName;
+                                var genderInput = document.getElementById("genderInput");
+                                if (data.gender === 1) {
+                                    genderInput.value = "Man";
+                                } else if (data.gender === 0) {
+                                    genderInput.value = "Woman";
+                                } else {
+                                    genderInput.value = "";
+                                }
+                                dateOfBirthInput.value = data.dob;
+                                phoneInput.value = data.phone;
+                                emailInput.value = data.email;
+                                addressInput.value = data.address;
+                                familyInput.value = data.familyId;
+                            })
+                            .catch((error) => {
+                                console.error("Lỗi khi lấy dữ liệu từ API:", error);
+                            });
+                    });
+
+                    personNode.appendChild(personLink);
+
+                    existingMembers.push({ id: personId, node: personNode });
+
+                    if (person.relatives && person.relatives.length > 0) {
+                        var relativeList = document.createElement("ul");
+                        personNode.appendChild(relativeList);
+                        displayFamilyTree(person.relatives, relativeList);
+                    }
+
+                    if (person.relationType === "Sibling") {
+                        siblingList.appendChild(personNode);
+                    } else {
+                        parentElement.appendChild(personNode);
+                    }
                 }
             }
 
-            if (siblingList.childNodes.length > 1) {
-                var siblingNode = document.createElement("li");
-                siblingNode.classList.add("sibling");
-                siblingNode.appendChild(siblingList);
-                parentElement.appendChild(siblingNode);
-            } else if (siblingList.childNodes.length === 1) {
-                parentElement.appendChild(siblingList.childNodes[0]);
+            if (siblingList.childNodes.length > 0) {
+                siblingContainer.appendChild(siblingList);
+                parentElement.appendChild(siblingContainer);
             }
         }
 
+        function updateFamilyMember(id, updatedData) {
+            console.log("a", updatedData)
+            fetch("http://localhost:45571/api/FamilyMember/UpdateFamilyMember/" + id, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(updatedData),
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    console.log("Thành viên được cập nhật thành công:", data);
+                })
+                .catch((error) => {
+                    console.error("Lỗi khi cập nhật thông tin thành viên:", error);
+                });
+        }
 
-
-        // Lấy dữ liệu từ API (mô phỏng dữ liệu trả về)
-        var apiData = [
-            {
-                "id": 1,
-                "fullName": "John Smith",
-                "gender": 1,
-                "dob": "1990-05-15T00:00:00",
-                "phone": "1234567890",
-                "email": "johnsmith@example.com",
-                "address": "123 Main St, New York",
-                "relationType": null,
-                "relatives": [],
-                "children": null
-            },
-            {
-                "id": 4,
-                "fullName": "Sarah Smith",
-                "gender": 0,
-                "dob": "1992-03-28T00:00:00",
-                "phone": "7894561230",
-                "email": "sarahsmith@example.com",
-                "address": "456 Pine St, New York",
-                "relationType": null,
-                "relatives": [
-                    {
-                        "id": 1,
-                        "fullName": "John Smith",
-                        "gender": 1,
-                        "dob": "1990-05-15T00:00:00",
-                        "phone": "1234567890",
-                        "email": "johnsmith@example.com",
-                        "address": "123 Main St, New York",
-                        "relationType": "Sibling",
-                        "relatives": [],
-                        "children": null
-                    }
-                ],
-                "children": null
-            }
-        ];
-
-        // Hiển thị cây gia đình
-        var familyTreeElement = document.getElementById("familyTree");
-        displayFamilyTree(apiData, familyTreeElement);
-    </script>
-    <script>
-
-        // Bên dưới hàm saveData() đã được cập nhật
         function saveData() {
-            var selectedNode = document.querySelector(".selected");
-            if (selectedNode) {
-                var givenNamesInput = document.getElementById("givenNamesInput");
-                var givenNamesValue = givenNamesInput.value;
-                selectedNode.textContent = givenNamesValue;
-
-
-            }
+            var idInput = document.getElementById("personIdInput");
+            var id = idInput.value;
+            var updatedData = {
+                id: id,
+                fullName: fullNameNameInput.value,
+                gender: genderInput.value === "Man" ? 1 : genderInput.value === "Woman" ? 0 : null,
+                dob: dateOfBirthInput.value,
+                phone: phoneInput.value,
+                email: emailInput.value,
+                address: addressInput.value,
+                familyId: familyInput.value
+            };
+            updateFamilyMember(id, updatedData);
         }
 
+        @{
+            var id = Context.Session.GetString("MemberFamilyId");
+        }
+        var id = '@id'; 
 
+        fetch("http://localhost:45571/api/Family/" + id + "/tree1")
+            .then((response) => response.json())
+            .then((data) => {
+                var familyTreeElement = document.getElementById("familyTree");
+                displayFamilyTree(data, familyTreeElement);
+            })
+            .catch((error) => {
+                console.error("Lỗi khi lấy dữ liệu từ API:", error);
+            });
+
+
+    </script>
+
+
+
+    <script>
         function showSection(sectionId) {
             var sections = document.getElementsByClassName("section");
             for (var i = 0; i < sections.length; i++) {
@@ -273,121 +314,119 @@
             section.classList.add("active");
         }
 
-        //function addParent() {
-        //    var selectedNode = document.querySelector(".selected");
-        //    if (selectedNode) {
-        //        var newNode1 = document.createElement("li");
-        //        newNode1.innerHTML = '<a href="#">Morther</a>';
+        function addParent() {
+            var selectedNode = document.querySelector(".selected");
+            if (selectedNode) {
+                var newNode1 = document.createElement("li");
+                newNode1.innerHTML = '<a href="#">Morther</a>';
 
-        //        var newNode2 = document.createElement("li");
-        //        newNode2.innerHTML = '<a href="#">Farther</a>';
+                var newNode2 = document.createElement("li");
+                newNode2.innerHTML = '<a href="#">Farther</a>';
 
-        //        var parentList = document.createElement("ul");
-        //        parentList.style.display = "block";
-        //        parentList.appendChild(newNode1);
-        //        parentList.appendChild(newNode2);
+                var parentList = document.createElement("ul");
+                parentList.style.display = "block";
+                parentList.appendChild(newNode1);
+                parentList.appendChild(newNode2);
 
-        //        var parentNode = document.createElement("li");
-        //        parentNode.style.display = "inline";
-        //        parentNode.appendChild(parentList);
+                var parentNode = document.createElement("li");
+                parentNode.style.display = "inline";
+                parentNode.appendChild(parentList);
 
-        //        var grandparentNode = selectedNode.parentNode.parentNode;
-        //        var grandparentList = grandparentNode.querySelector("ul");
-        //        if (!grandparentList) {
-        //            grandparentList = document.createElement("ul");
-        //            grandparentNode.appendChild(grandparentList);
-        //        }
+                var grandparentNode = selectedNode.parentNode.parentNode;
+                var grandparentList = grandparentNode.querySelector("ul");
+                if (!grandparentList) {
+                    grandparentList = document.createElement("ul");
+                    grandparentNode.appendChild(grandparentList);
+                }
 
-        //        var siblingNodes = Array.from(grandparentList.children);
-        //        var selectedNodeIndex = siblingNodes.indexOf(selectedNode);
+                var siblingNodes = Array.from(grandparentList.children);
+                var selectedNodeIndex = siblingNodes.indexOf(selectedNode);
 
-        //        siblingNodes.splice(selectedNodeIndex, 0, parentNode);
+                siblingNodes.splice(selectedNodeIndex, 0, parentNode);
 
-        //        grandparentList.innerHTML = '';
-        //        siblingNodes.forEach(function (node) {
-        //            grandparentList.appendChild(node);
-        //        });
+                grandparentList.innerHTML = '';
+                siblingNodes.forEach(function(node) {
+                    grandparentList.appendChild(node);
+                });
 
-        //        siblingNodes = Array.from(grandparentList.children);
+                siblingNodes = Array.from(grandparentList.children);
 
-        //        selectedNode.classList.remove("selected");
-        //        newNode1.firstChild.classList.add("selected");
-        //        newNode2.firstChild.classList.add("selected");
-        //    }
-        //}
+                selectedNode.classList.remove("selected");
+                newNode1.firstChild.classList.add("selected");
+                newNode2.firstChild.classList.add("selected");
+            }
+        }
 
-        //function addRelative(type) {
-        //    var selectedNode = document.querySelector(".selected");
-        //    if (selectedNode) {
-        //        var newNode = document.createElement("li");
-        //        newNode.innerHTML = '<a href="#">' + type.charAt(0).toUpperCase() + type.slice(1) + "</a>";
+        function addRelative(type) {
+            var selectedNode = document.querySelector(".selected");
+            if (selectedNode) {
+                var newNode = document.createElement("li");
+                newNode.innerHTML = '<a href="#">' + type.charAt(0).toUpperCase() + type.slice(1) + "</a>";
 
-        //        var addRelativeButtons = newNode.querySelectorAll(".sidebar-footer button");
-        //        for (var i = 0; i < addRelativeButtons.length; i++) {
-        //            addRelativeButtons[i].addEventListener("click", function () {
-        //                addRelative(this.dataset.type);
-        //            });
-        //        }
+                var addRelativeButtons = newNode.querySelectorAll(".sidebar-footer button");
+                for (var i = 0; i < addRelativeButtons.length; i++) {
+                    addRelativeButtons[i].addEventListener("click", function() {
+                        addRelative(this.dataset.type);
+                    });
+                }
 
-        //        newNode.addEventListener("click", function (event) {
-        //            event.stopPropagation();
-        //            var currentSelected = document.querySelector(".selected");
-        //            if (currentSelected) {
-        //                currentSelected.classList.remove("selected");
-        //            }
-        //            this.classList.add("selected");
-        //        });
+                newNode.addEventListener("click", function(event) {
+                    event.stopPropagation();
+                    var currentSelected = document.querySelector(".selected");
+                    if (currentSelected) {
+                        currentSelected.classList.remove("selected");
+                    }
+                    this.classList.add("selected");
+                });
 
-        //        selectedNode.classList.remove("selected");
+                selectedNode.classList.remove("selected");
 
-        //        if (type === "child") {
-        //            var childList = selectedNode.querySelector("ul");
-        //            if (!childList) {
-        //                childList = document.createElement("ul");
-        //                selectedNode.appendChild(childList);
-        //            }
-        //            childList.appendChild(newNode);
-        //            var givenNamesInput = document.getElementById("givenNamesInput");
-        //            givenNamesInput.addEventListener("input", function () {
-        //                newNode.firstChild.textContent = this.value;
-        //            });
-        //        } else {
-        //            var siblingNode = document.createElement("li");
-        //            siblingNode.appendChild(newNode);
+                if (type === "child") {
+                    var childList = selectedNode.querySelector("ul");
+                    if (!childList) {
+                        childList = document.createElement("ul");
+                        selectedNode.appendChild(childList);
+                    }
+                    childList.appendChild(newNode);
+                    var givenNamesInput = document.getElementById("givenNamesInput");
+                    givenNamesInput.addEventListener("input", function() {
+                        newNode.firstChild.textContent = this.value;
+                    });
+                } else {
+                    var siblingNode = document.createElement("li");
+                    siblingNode.appendChild(newNode);
 
-        //            var parentSiblingList = selectedNode.parentNode.parentNode.querySelector("ul");
-        //            if (!parentSiblingList) {
-        //                parentSiblingList = document.createElement("ul");
-        //                selectedNode.parentNode.parentNode.appendChild(parentSiblingList);
-        //            }
+                    var parentSiblingList = selectedNode.parentNode.parentNode.querySelector("ul");
+                    if (!parentSiblingList) {
+                        parentSiblingList = document.createElement("ul");
+                        selectedNode.parentNode.parentNode.appendChild(parentSiblingList);
+                    }
 
-        //            var siblingNodes = Array.from(parentSiblingList.children);
-        //            var selectedNodeIndex = siblingNodes.indexOf(selectedNode);
+                    var siblingNodes = Array.from(parentSiblingList.children);
+                    var selectedNodeIndex = siblingNodes.indexOf(selectedNode);
 
-        //            siblingNodes.splice(selectedNodeIndex + 1, 0, siblingNode);
+                    siblingNodes.splice(selectedNodeIndex + 1, 0, siblingNode);
 
-        //            parentSiblingList.innerHTML = "";
-        //            siblingNodes.forEach(function (node) {
-        //                parentSiblingList.appendChild(node);
-        //            });
+                    parentSiblingList.innerHTML = "";
+                    siblingNodes.forEach(function(node) {
+                        parentSiblingList.appendChild(node);
+                    });
 
-        //            siblingNodes = Array.from(parentSiblingList.children);
-        //        }
-        //    }
-        //}
+                    siblingNodes = Array.from(parentSiblingList.children);
+                }
+            }
+        }
 
-
-
-        //var treeNodes = document.querySelectorAll(".tree li a");
-        //for (var i = 0; i < treeNodes.length; i++) {
-        //    treeNodes[i].addEventListener("click", function () {
-        //        var currentSelected = document.querySelector(".selected");
-        //        if (currentSelected) {
-        //            currentSelected.classList.remove("selected");
-        //        }
-        //        this.parentNode.classList.add("selected");
-        //    });
-        //}
+        var treeNodes = document.querySelectorAll(".tree li a");
+        for (var i = 0; i < treeNodes.length; i++) {
+            treeNodes[i].addEventListener("click", function() {
+                var currentSelected = document.querySelector(".selected");
+                if (currentSelected) {
+                    currentSelected.classList.remove("selected");
+                }
+                this.parentNode.classList.add("selected");
+            });
+        }
 
         window.addEventListener("DOMContentLoaded", function() {
             showSection("personal");

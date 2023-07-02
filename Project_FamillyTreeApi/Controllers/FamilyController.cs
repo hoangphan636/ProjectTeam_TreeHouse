@@ -1,4 +1,5 @@
 ﻿using BusinessObject.DataAccess;
+using BusinessObject.DTO;
 using DataAccess;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -33,6 +34,42 @@ namespace Project_FamillyTreeApi.Controllers
         }
 
 
+
+        [HttpGet("{memberID}/tree1")]
+        public IActionResult GetFamilyTree1(int memberID)
+        {
+            var memberFamily = _dbContext.FamilyMembers.FirstOrDefault(c => c.Id == memberID);
+
+            if (memberFamily == null)
+            {
+                return NotFound();
+            }
+
+            var family = _dbContext.Families
+                .Include(f => f.FamilyMembers)
+                    .ThenInclude(m => m.Relatives)
+                        .ThenInclude(r => r.Relation)
+                .FirstOrDefault(f => f.Id == memberFamily.FamilyId);
+
+            if (family == null)
+            {
+                return NotFound();
+            }
+
+            var familyTree = new List<FamilyMemberNode>();
+
+            foreach (var member in family.FamilyMembers)
+            {
+                var memberNode = BuildFamilyTree(family.FamilyMembers.ToList(), member.Id);
+
+                if (memberNode != null)
+                {
+                    familyTree.Add(memberNode);
+                }
+            }
+
+            return Ok(familyTree);
+        }
         [HttpGet("{familyId}/tree")]
         public IActionResult GetFamilyTree(int familyId)
         {
@@ -61,60 +98,104 @@ namespace Project_FamillyTreeApi.Controllers
             return Ok(familyTree);
         }
 
-        //[HttpPost("tree")]
-        //public IActionResult CreateFamilyTree([FromBody] FamilyTreeRequest request)
-        //{
-        //    var family = _dbContext.Families.FirstOrDefault(f => f.ID == request.FamilyId);
+        [HttpPost("addNode")]
+        public IActionResult AddFamilyNode([FromBody] FamilyMemberNode newNode)
+        {
+            if (newNode == null)
+            {
+                return BadRequest("Invalid request");
+            }
 
-        //    if (family == null)
-        //    {
-        //        return NotFound();
-        //    }
+            using (var dbContext = new PRN231FamilyTreeContext())
+            {
+                var existingMember = dbContext.FamilyMembers.FirstOrDefault(m => m.FullName == newNode.FullName && m.FamilyId == newNode.FamilyId);
 
-        //    var familyTree = BuildFamilyTree(request.Members, request.Relatives);
+                if (existingMember != null)
+                {
+                    // Node đã tồn tại, thêm mối quan hệ cho node đó
+                    foreach (var relativeNode in newNode.Relatives)
+                    {
+                        var relation = dbContext.Relationships.FirstOrDefault(r => r.RelationType == relativeNode.RelationType);
 
-        //    // Lưu cây gia đình vào cơ sở dữ liệu
-        //    SaveFamilyTreeToDatabase(familyTree, family.ID);
+                        var relativeMember = new FamilyMember
+                        {
+                            FullName = relativeNode.FullName,
+                            Gender = relativeNode.Gender,
+                            Dob = relativeNode.DOB,
+                            Phone = relativeNode.Phone,
+                            Email = relativeNode.Email,
+                            Address = relativeNode.Address,
+                            FamilyId = newNode.FamilyId
+                        };
 
-        //    return Ok();
-        //}
+                        dbContext.FamilyMembers.Add(relativeMember);
+                        dbContext.SaveChanges();
 
-        //private void SaveFamilyTreeToDatabase(FamilyMemberNode memberNode, int familyId)
-        //{
-        //    var member = new FamilyMember
-        //    {
-        //        FullName = memberNode.FullName,
-        //        Gender = memberNode.Gender,
-        //        Dob = memberNode.DOB,
-        //        Phone = memberNode.Phone,
-        //        Email = memberNode.Email,
-        //        Address = memberNode.Address,
-        //        FamilyId = familyId
-        //    };
+                        var relative = new Relative
+                        {
+                            MemberId = existingMember.Id,
+                            MemberRelativeId = relativeMember.Id,
+                            RelationId = relation.Id,
+                            FamilyId = newNode.FamilyId
+                        };
 
-        //    _dbContext.FamilyMembers.Add(member);
-        //    _dbContext.SaveChanges();
+                        dbContext.Relatives.Add(relative);
+                    }
+                }
+                else
+                {
+                    // Node không tồn tại, tạo mới node và thêm mối quan hệ cho node đó
+                    var familyMember = new FamilyMember
+                    {
+                        FullName = newNode.FullName,
+                        Gender = newNode.Gender,
+                        Dob = newNode.DOB,
+                        Phone = newNode.Phone,
+                        Email = newNode.Email,
+                        Address = newNode.Address,
+                        FamilyId = newNode.FamilyId
+                    };
 
-        //    foreach (var relativeNode in memberNode.Relatives)
-        //    {
-        //        var relation = _dbContext.Relationships.FirstOrDefault(r => r.RelationType == relativeNode.RelationType);
+                    dbContext.FamilyMembers.Add(familyMember);
+                    dbContext.SaveChanges();
 
-        //        var relativeMember = _dbContext.FamilyMembers.FirstOrDefault(m => m.ID == relativeNode.ID);
+                    foreach (var relativeNode in newNode.Relatives)
+                    {
+                        var relation = dbContext.Relationships.FirstOrDefault(r => r.RelationType == relativeNode.RelationType);
 
-        //        var relative = new Relative
-        //        {
-        //            Id = member.Id,
-        //            RelationId = relation.Id,
-        //            MemberRelativeId = relativeMember.ID,
-        //            Family = familyId
-        //        };
+                        var relativeMember = new FamilyMember
+                        {
+                            FullName = relativeNode.FullName,
+                            Gender = relativeNode.Gender,
+                            Dob = relativeNode.DOB,
+                            Phone = relativeNode.Phone,
+                            Email = relativeNode.Email,
+                            Address = relativeNode.Address,
+                            FamilyId = newNode.FamilyId
+                        };
 
-        //        _dbContext.Relatives.Add(relative);
-        //    }
+                        dbContext.FamilyMembers.Add(relativeMember);
+                        dbContext.SaveChanges();
 
-        //    _dbContext.SaveChanges();
-        //}
+                        var relative = new Relative
+                        {
+                            MemberId = familyMember.Id,
+                            MemberRelativeId = relativeMember.Id,
+                            RelationId = relation.Id,
+                            FamilyId = familyMember.FamilyId
+                        };
 
+                        dbContext.Relatives.Add(relative);
+                    }
+                }
+
+                dbContext.SaveChanges();
+
+                var familyTree = BuildFamilyTree(dbContext.FamilyMembers.ToList(), newNode.FamilyId);
+
+                return Ok(familyTree);
+            }
+        }
 
         private FamilyMemberNode BuildFamilyTree(List<FamilyMember> members, int memberId)
         {
@@ -133,7 +214,8 @@ namespace Project_FamillyTreeApi.Controllers
                 Phone = rootMember.Phone,
                 Email = rootMember.Email,
                 Address = rootMember.Address,
-                Relatives = new List<FamilyMemberNode>()
+                Relatives = new List<FamilyMemberNode>(),
+                FamilyId = rootMember.FamilyId,
             };
 
             var relatives = rootMember.Relatives.Where(r => r.MemberRelativeId != memberId).ToList();

@@ -27,7 +27,15 @@ namespace Project_FamillyTree
         public void ConfigureServices(IServiceCollection services)
         {
 
-
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(builder =>
+                {
+                    builder.AllowAnyOrigin()
+                           .AllowAnyMethod()
+                           .AllowAnyHeader();
+                });
+            });
             services.AddSession();
             services.AddControllersWithViews();
         }
@@ -53,7 +61,7 @@ namespace Project_FamillyTree
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Tree}/{action=Index}/{id?}");
+                    pattern: "{controller=Login}/{action=Index}/{id?}");
             });
         }
     }
