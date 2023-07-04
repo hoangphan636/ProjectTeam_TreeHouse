@@ -1,3 +1,4 @@
+using BusinessObject.DataAccess;
 using DataAccess;
 
 using Microsoft.AspNetCore.Builder;
@@ -26,7 +27,7 @@ namespace Project_FamillyTree
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            services.AddScoped<PRN231FamilyTreeContext>();
 
             services.AddSession();
             services.AddControllersWithViews();
@@ -44,7 +45,7 @@ namespace Project_FamillyTree
                 app.UseExceptionHandler("/Home/Error");
             }
             app.UseStaticFiles();
-         
+
             app.UseRouting();
             app.UseSession();
             app.UseAuthorization();
@@ -53,7 +54,7 @@ namespace Project_FamillyTree
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Tree}/{action=Index}/{id?}");
+                    pattern: "{controller=Activities}/{action=Index}/{id?}");
             });
         }
     }

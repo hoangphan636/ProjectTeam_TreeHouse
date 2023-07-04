@@ -113,6 +113,26 @@ namespace DataAccess.Repository
                 .Where(a => a.FamilyId == familyId)
                 .ToList();
         }
+        public static List<Activity> GetActivitiesByMemberId(int memberId)
+        {
+            using var dbContext = new PRN231FamilyTreeContext();
+
+            // Tìm familyId dựa trên memberId
+            var familyId = dbContext.FamilyMembers
+                .Where(fm => fm.Id == memberId)
+                .Select(fm => fm.FamilyId)
+                .FirstOrDefault();
+
+            if (familyId == null)
+            {
+                throw new Exception("Invalid memberId");
+            }
+
+            // Lấy danh sách activities của family đó
+            return dbContext.Activities
+                .Where(a => a.FamilyId == familyId)
+                .ToList();
+        }
 
 
     }

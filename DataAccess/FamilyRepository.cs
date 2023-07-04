@@ -17,5 +17,7 @@ namespace DataAccess
         public void Update(Family family) => FamilyDAO.Update(family);
         public void Delete(Family family) => FamilyDAO.Delete(family);
         public IEnumerable<FamilyMember> GetAllFamilyMemberByFamily(int familyId) => FamilyDAO.GetAllFamilyMemberByFamily(familyId);
+        public List<FamilyMember> GetAllFamilyMemberByMemberId(int memberId) => FamilyDAO.GetAllFamilyMemberByMemberId(memberId);
+
     }
 }

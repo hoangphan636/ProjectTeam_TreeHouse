@@ -114,5 +114,23 @@ namespace DataAccess.Repository
 
             return familyMembers;
         }
+        public static List<FamilyMember> GetAllFamilyMemberByMemberId(int memberId)
+        {
+            using var context = new PRN231FamilyTreeContext();
+
+            var member = context.FamilyMembers.FirstOrDefault(fm => fm.Id == memberId);
+            if (member == null)
+            {
+                // Nếu không tìm thấy thành viên gia đình với memberId tương ứng, trả về danh sách rỗng
+                return new List<FamilyMember>();
+            }
+
+            var familyMembers = context.FamilyMembers
+                .Where(fm => fm.FamilyId == member.FamilyId)
+                .ToList();
+
+            return familyMembers;
+        }
+
     }
 }

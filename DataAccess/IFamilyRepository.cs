@@ -16,6 +16,7 @@ namespace DataAccess
         void Update(Family family);
         void Delete(Family family);
         IEnumerable<FamilyMember> GetAllFamilyMemberByFamily(int familyId);
+        List<FamilyMember> GetAllFamilyMemberByMemberId(int memberId);
 
     }
 }
