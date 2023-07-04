@@ -1,0 +1,15 @@
+D:\FPT\Sem8\PRN231\Project\ProjectTeam_TreeHouse\DataAccess\bin\Debug\net6.0\DataAccess.deps.json
+D:\FPT\Sem8\PRN231\Project\ProjectTeam_TreeHouse\DataAccess\bin\Debug\net6.0\DataAccess.dll
+D:\FPT\Sem8\PRN231\Project\ProjectTeam_TreeHouse\DataAccess\bin\Debug\net6.0\DataAccess.pdb
+D:\FPT\Sem8\PRN231\Project\ProjectTeam_TreeHouse\DataAccess\bin\Debug\net6.0\BusinessObject.dll
+D:\FPT\Sem8\PRN231\Project\ProjectTeam_TreeHouse\DataAccess\bin\Debug\net6.0\BusinessObject.pdb
+D:\FPT\Sem8\PRN231\Project\ProjectTeam_TreeHouse\DataAccess\obj\Debug\net6.0\DataAccess.csproj.AssemblyReference.cache
+D:\FPT\Sem8\PRN231\Project\ProjectTeam_TreeHouse\DataAccess\obj\Debug\net6.0\DataAccess.GeneratedMSBuildEditorConfig.editorconfig
+D:\FPT\Sem8\PRN231\Project\ProjectTeam_TreeHouse\DataAccess\obj\Debug\net6.0\DataAccess.AssemblyInfoInputs.cache
+D:\FPT\Sem8\PRN231\Project\ProjectTeam_TreeHouse\DataAccess\obj\Debug\net6.0\DataAccess.AssemblyInfo.cs
+D:\FPT\Sem8\PRN231\Project\ProjectTeam_TreeHouse\DataAccess\obj\Debug\net6.0\DataAccess.csproj.CoreCompileInputs.cache
+D:\FPT\Sem8\PRN231\Project\ProjectTeam_TreeHouse\DataAccess\obj\Debug\net6.0\DataAccess.csproj.CopyComplete
+D:\FPT\Sem8\PRN231\Project\ProjectTeam_TreeHouse\DataAccess\obj\Debug\net6.0\DataAccess.dll
+D:\FPT\Sem8\PRN231\Project\ProjectTeam_TreeHouse\DataAccess\obj\Debug\net6.0\refint\DataAccess.dll
+D:\FPT\Sem8\PRN231\Project\ProjectTeam_TreeHouse\DataAccess\obj\Debug\net6.0\DataAccess.pdb
+D:\FPT\Sem8\PRN231\Project\ProjectTeam_TreeHouse\DataAccess\obj\Debug\net6.0\ref\DataAccess.dll

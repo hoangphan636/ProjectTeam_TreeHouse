@@ -54,7 +54,7 @@ namespace Project_FamillyTree
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Activities}/{action=Index}/{id?}");
+                    pattern: "{controller=Tree}/{action=Index}/{id?}");
             });
         }
     }

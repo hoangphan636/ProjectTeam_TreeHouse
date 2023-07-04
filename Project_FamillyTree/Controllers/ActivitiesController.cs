@@ -18,7 +18,8 @@ namespace Project_FamillyTree.Controllers
     {
 
         private HttpClient client;
-        public string ActivitiesApiUrl;
+        private string ActivitiesApiUrl;
+        private string FamilyApiApiUrl;
 
         public ActivitiesController()
         {
@@ -27,6 +28,7 @@ namespace Project_FamillyTree.Controllers
             var contentType = new MediaTypeWithQualityHeaderValue("application/json");
             client.DefaultRequestHeaders.Accept.Add(contentType);
             ActivitiesApiUrl = "http://localhost:45571/api/Activity";
+            FamilyApiApiUrl = "http://localhost:45571/api/Family";
         }
 
         // GET: Activities
@@ -39,8 +41,22 @@ namespace Project_FamillyTree.Controllers
                 PropertyNameCaseInsensitive = true,
             };
             List<Activity> listActivity = System.Text.Json.JsonSerializer.Deserialize<List<Activity>>(strData, options);
+
+            // Lấy thông tin Family cho mỗi Activity
+            foreach (var activity in listActivity)
+            {
+                var familyResponse = await client.GetAsync($"{FamilyApiApiUrl}/{activity.FamilyId}");
+                if (familyResponse.IsSuccessStatusCode)
+                {
+                    var familyJsonString = await familyResponse.Content.ReadAsStringAsync();
+                    var family = JsonConvert.DeserializeObject<Family>(familyJsonString);
+                    activity.Family = family;
+                }
+            }
+
             return View(listActivity);
         }
+
 
         public async Task<IActionResult> Details(int? id)
         {
@@ -60,14 +76,33 @@ namespace Project_FamillyTree.Controllers
                     return NotFound();
                 }
 
+                // Lấy thông tin Family cho activity
+                var familyResponse = await client.GetAsync($"{FamilyApiApiUrl}/{activity.FamilyId}");
+                if (familyResponse.IsSuccessStatusCode)
+                {
+                    var familyJsonString = await familyResponse.Content.ReadAsStringAsync();
+                    var family = JsonConvert.DeserializeObject<Family>(familyJsonString);
+                    activity.Family = family;
+                }
+
                 return View(activity);
             }
 
             return NotFound();
         }
 
-        public IActionResult Create()
+
+        public async Task<IActionResult> Create()
         {
+            // Lấy danh sách Family để hiển thị trong dropdown list
+            var familyListResponse = await client.GetAsync($"{FamilyApiApiUrl}");
+            if (familyListResponse.IsSuccessStatusCode)
+            {
+                var familyListJsonString = await familyListResponse.Content.ReadAsStringAsync();
+                var familyList = JsonConvert.DeserializeObject<List<Family>>(familyListJsonString);
+                ViewBag.FamilyList = new SelectList(familyList, "Id", "FamilyName");
+            }
+
             return View();
         }
 
@@ -87,8 +122,18 @@ namespace Project_FamillyTree.Controllers
                 }
             }
 
+            // Nếu có lỗi, cần lấy danh sách Family để hiển thị lại trong dropdown list
+            var familyListResponse = await client.GetAsync($"{FamilyApiApiUrl}");
+            if (familyListResponse.IsSuccessStatusCode)
+            {
+                var familyListJsonString = await familyListResponse.Content.ReadAsStringAsync();
+                var familyList = JsonConvert.DeserializeObject<List<Family>>(familyListJsonString);
+                ViewBag.FamilyList = new SelectList(familyList, "Id", "FamilyName");
+            }
+
             return View(activity);
         }
+
 
         public async Task<IActionResult> Edit(int? id)
         {
@@ -97,15 +142,24 @@ namespace Project_FamillyTree.Controllers
                 return NotFound();
             }
 
-            var response = await client.GetAsync($"{ActivitiesApiUrl}/{id}");
-            if (response.IsSuccessStatusCode)
+            var activityResponse = await client.GetAsync($"{ActivitiesApiUrl}/{id}");
+            if (activityResponse.IsSuccessStatusCode)
             {
-                var jsonString = await response.Content.ReadAsStringAsync();
-                var activity = JsonConvert.DeserializeObject<Activity>(jsonString);
+                var activityJsonString = await activityResponse.Content.ReadAsStringAsync();
+                var activity = JsonConvert.DeserializeObject<Activity>(activityJsonString);
 
                 if (activity == null)
                 {
                     return NotFound();
+                }
+
+                // Lấy danh sách Family để hiển thị trong dropdown list
+                var familyListResponse = await client.GetAsync($"{FamilyApiApiUrl}");
+                if (familyListResponse.IsSuccessStatusCode)
+                {
+                    var familyListJsonString = await familyListResponse.Content.ReadAsStringAsync();
+                    var familyList = JsonConvert.DeserializeObject<List<Family>>(familyListJsonString);
+                    ViewBag.FamilyList = new SelectList(familyList, "Id", "FamilyName");
                 }
 
                 return View(activity);
@@ -135,8 +189,18 @@ namespace Project_FamillyTree.Controllers
                 }
             }
 
+            // Nếu có lỗi, cần lấy danh sách Family để hiển thị lại trong dropdown list
+            var familyListResponse = await client.GetAsync($"{FamilyApiApiUrl}");
+            if (familyListResponse.IsSuccessStatusCode)
+            {
+                var familyListJsonString = await familyListResponse.Content.ReadAsStringAsync();
+                var familyList = JsonConvert.DeserializeObject<List<Family>>(familyListJsonString);
+                ViewBag.FamilyList = new SelectList(familyList, "Id", "FamilyName");
+            }
+
             return View(activity);
         }
+
 
         public async Task<IActionResult> Delete(int? id)
         {
@@ -155,7 +219,13 @@ namespace Project_FamillyTree.Controllers
                 {
                     return NotFound();
                 }
-
+                var familyResponse = await client.GetAsync($"{FamilyApiApiUrl}/{activity.FamilyId}");
+                if (familyResponse.IsSuccessStatusCode)
+                {
+                    var familyJsonString = await familyResponse.Content.ReadAsStringAsync();
+                    var family = JsonConvert.DeserializeObject<Family>(familyJsonString);
+                    activity.Family = family;
+                }
                 return View(activity);
             }
 
