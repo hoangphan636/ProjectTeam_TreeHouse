@@ -2,6 +2,8 @@
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Diagnostics.Metrics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -36,11 +38,6 @@ namespace DataAccess
             _context.Entry(_object).State = EntityState.Modified;
             return 1;
         }
-        public int Delete(FamilyMember _object)
-        {
-            _context.FamilyMembers.Remove(_object);
-            return 1;
-        }
 
         public bool Exists(int id)
         {
@@ -54,6 +51,13 @@ namespace DataAccess
             return numOfChanges;
         }
 
-        
+        public int Delete(FamilyMember _object)
+        {
+            var relatives = _context.Relatives.Where(r => r.MemberId == _object.Id);
+            _context.Relatives.RemoveRange(relatives);
+            _context.FamilyMembers.Remove(_object);
+
+            return SaveChanges();
+        }
     }
 }
