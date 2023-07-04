@@ -154,3 +154,7 @@ C:\Users\NhatTan\Desktop\FreeHouse\ProjectTeam_TreeHouse\Project_FamillyTreeApi\
 C:\Users\NhatTan\Desktop\FreeHouse\ProjectTeam_TreeHouse\Project_FamillyTreeApi\obj\Debug\net5.0\Project_FamillyTreeApi.genruntimeconfig.cache
 C:\Users\NhatTan\Desktop\FreeHouse\ProjectTeam_TreeHouse\Project_FamillyTreeApi\obj\Debug\net5.0\ref\Project_FamillyTreeApi.dll
 C:\Users\NhatTan\Desktop\FreeHouse\ProjectTeam_TreeHouse\Project_FamillyTreeApi\bin\Debug\net5.0\Twilio.dll
+C:\Users\NhatTan\Desktop\FreeHouse\ProjectTeam_TreeHouse\Project_FamillyTreeApi\bin\Debug\net5.0\Azure.Communication.Sms.dll
+C:\Users\NhatTan\Desktop\FreeHouse\ProjectTeam_TreeHouse\Project_FamillyTreeApi\bin\Debug\net5.0\Azure.Core.dll
+C:\Users\NhatTan\Desktop\FreeHouse\ProjectTeam_TreeHouse\Project_FamillyTreeApi\bin\Debug\net5.0\Microsoft.Bcl.AsyncInterfaces.dll
+C:\Users\NhatTan\Desktop\FreeHouse\ProjectTeam_TreeHouse\Project_FamillyTreeApi\bin\Debug\net5.0\System.Memory.Data.dll

@@ -1,8 +1,9 @@
-﻿using BusinessObject.DataAccess;
+﻿using Azure.Communication.Sms;
+using BusinessObject.DataAccess;
 using DataAccess;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-
+using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.IO;
@@ -59,22 +60,39 @@ namespace Project_FamillyTreeApi.Controllers
             return Ok();
         }
 
+        //[HttpPost("SendSMS")]
+        //public IActionResult SendSMS(List<string> phoneNo, string content)
+        //{
+        //    var accountSid = "AC4def4fce1704e2d8c2439f574a819b0e";
+        //    var authToken = "6e40501c1d86dc3e121a8ffb5eea5e92";
+        //    TwilioClient.Init(accountSid, authToken);
+
+        //    foreach (var num in phoneNo)
+        //    {
+        //        var messageOptions = new CreateMessageOptions(
+        //            new PhoneNumber(num));
+        //        messageOptions.From = new PhoneNumber("+14176412659");
+        //        messageOptions.Body = content;
+        //        MessageResource.Create(messageOptions);
+        //    }
+        //    return Ok("Send SMS success");
+        //}
+
         [HttpPost("SendSMS")]
         public IActionResult SendSMS(List<string> phoneNo, string content)
         {
-            var accountSid = "AC4def4fce1704e2d8c2439f574a819b0e";
-            var authToken = "6e40501c1d86dc3e121a8ffb5eea5e92";
-            TwilioClient.Init(accountSid, authToken);
+            // This code retrieves your connection string
+            // from an environment variable.
+            string connectionString = "endpoint=https://sendsms622.communication.azure.com/;accesskey=6++YFgPqDE/S1G1wGpYyU/AtJjb58y/ZDYVtahYI3c5VGpQTGWAMHrcgpe2c2kRnc/3jogntecXOUPLEgzjWvg==";
+            SmsClient smsClient = new SmsClient(connectionString);
 
-            foreach (var num in phoneNo)
-            {
-                var messageOptions = new CreateMessageOptions(
-                    new PhoneNumber(num));
-                messageOptions.From = new PhoneNumber("+14176412659");
-                messageOptions.Body = content;
-                MessageResource.Create(messageOptions);
-            }
-            return Ok("Send SMS success");
+            SmsSendResult sendResult = smsClient.Send(
+                from: "+84877660374",
+                to: "+84822616468",
+                message: "Hello World via SMS"
+            );
+
+            return Ok($"Sms id: {sendResult.MessageId}");
         }
 
         [HttpPost("SendMail")]

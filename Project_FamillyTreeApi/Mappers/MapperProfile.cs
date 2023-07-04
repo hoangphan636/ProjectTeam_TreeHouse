@@ -12,6 +12,7 @@ namespace Project_FamillyTreeApi.Mappers
             CreateMap<Relationship, RelationshipAPI>().ReverseMap();
             CreateMap<Relative, RelativeAPI>().ReverseMap();
             CreateMap<FamilyMember, FamilyMemberAPI>().ReverseMap();
+            CreateMap<Account, AccountAPI>().ReverseMap();
         }
     }
 }
