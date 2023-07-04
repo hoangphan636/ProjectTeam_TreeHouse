@@ -26,5 +26,6 @@ namespace BusinessObject.DataAccess
         public virtual ICollection<FamilyMember> FamilyMembers { get; set; }
         public virtual ICollection<Relative> Relatives { get; set; }
         public virtual ICollection<StudyPromotion> StudyPromotions { get; set; }
+
     }
 }

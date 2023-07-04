@@ -1,5 +1,6 @@
 ﻿using BusinessObject.DataAccess;
 using DataAccess.Repository;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,5 +18,6 @@ namespace DataAccess
         public void Update(Activity activity) => ActivityDAO.Update(activity);
         public void Delete(Activity activity) => ActivityDAO.Delete(activity);
         public List<Activity> GetActivitiesByFamilyId(int familyId) => ActivityDAO.GetActivitiesByFamilyId(familyId);
+        public List<Activity> GetActivitiesByMemberId(int memberId) => ActivityDAO.GetActivitiesByMemberId(memberId);
     }
 }

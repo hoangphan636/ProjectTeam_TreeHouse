@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 
-namespace Project_FamillyTree.Controllers
+namespace Project_FamillyTreeApi.Controllers
 {
     [Authorize]
     [Route("api/[controller]")]
@@ -16,7 +16,7 @@ namespace Project_FamillyTree.Controllers
 
         public UsersController(IJWTManagerRepository jWTManager)
         {
-            this._jWTManager = jWTManager;
+            _jWTManager = jWTManager;
         }
 
         [HttpGet]
