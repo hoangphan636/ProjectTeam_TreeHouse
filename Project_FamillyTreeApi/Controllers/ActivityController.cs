@@ -4,7 +4,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 using System.Collections.Generic;
+using System.Net.Mail;
+using System.Net;
 using System.Threading.Tasks;
+using System;
+using System.Linq;
 
 namespace Project_FamillyTreeApi.Controllers
 {
@@ -66,42 +70,126 @@ namespace Project_FamillyTreeApi.Controllers
             _jWTManager.Delete(activity);
             return Ok();
         }
-        /*[HttpPost("send-email")]
-        public async Task<IActionResult> SendActivitiesEmail(int familyId)
+
+        [HttpGet("activities-by-family/{familyId}")]
+        public List<Activity> GetActivitiesByFamilyId(int familyId)
         {
-            var family = _familyRepository.GetFamily(familyId);
+            return _jWTManager.GetActivitiesByFamilyId(familyId);
+        }
+
+        [HttpGet("activities-by-member/{memberId}")]
+        public IActionResult GetActivitiesByMemberId(int memberId)
+        {
+            var activities = _jWTManager.GetActivitiesByMemberId(memberId);
+            return Ok(activities);
+        }
+
+        [HttpGet("api/family-members-by-member/{memberId}")]
+        public IActionResult GetAllFamilyMemberByMemberId(int memberId)
+        {
+            var familyMembers = _familyRepository.GetAllFamilyMemberByMemberId(memberId);
+            return Ok(familyMembers);
+        }
+
+
+        [HttpPost("send-email/{memberId}")]
+        public IActionResult SendActivitiesEmailByMemberId(int memberId)
+        {
+            var members = _familyRepository.GetAllFamilyMemberByMemberId(memberId).ToList();
+            if (members == null)
+            {
+                return NotFound();
+            }
+
+            var activities = _jWTManager.GetActivitiesByMemberId(memberId);
+            if (activities == null || activities.Count == 0)
+            {
+                return BadRequest("No activities found for the member.");
+            }
+
+            foreach (var member in members.ToList())
+            {
+                var emailContent = GenerateEmailContent(member.FullName, activities);
+
+                try
+                {
+                    // Tạo đối tượng MailMessage
+                    var message = new MailMessage();
+                    message.From = new MailAddress("minhduy1511@gmail.com");
+                    message.To.Add(member.Email);
+                    message.Subject = "Activities Update";
+                    message.Body = emailContent;
+                    message.IsBodyHtml = false;
+
+                    // Tạo đối tượng SmtpClient và cấu hình thông tin SMTP
+                    var smtpClient = new SmtpClient("smtp.gmail.com", 587);
+                    smtpClient.Credentials = new NetworkCredential("minhduy1511@gmail.com", "dxhuwemtdtkobzoj");
+                    smtpClient.EnableSsl = true;
+
+                    // Gửi email
+                    smtpClient.Send(message);
+                }
+                catch (Exception ex)
+                {
+                    // Xử lý lỗi nếu gửi email không thành công
+                    return StatusCode(500, $"Failed to send email to {member.Email}. Error: {ex.Message}");
+                }
+            }
+
+            return Ok();
+        }
+
+
+        [HttpPost("send-email")]
+        public IActionResult SendActivitiesEmailByFamilyId(int familyId)
+        {
+            var family = _familyRepository.GetAllFamilyMemberByFamily(familyId);
             if (family == null)
             {
                 return NotFound();
             }
 
             var activities = _jWTManager.GetActivitiesByFamilyId(familyId);
-            if (activities.Count == 0)
+            if (activities == null || activities.Count == 0)
             {
                 return BadRequest("No activities found for the family.");
             }
-
-            foreach (var member in family.FamilyMembers)
+            //var listMember = family.FamilyMembers.ToList();
+            foreach (var member in family.ToList())
             {
                 var emailContent = GenerateEmailContent(member.FullName, activities);
 
-                var message = new SendGridMessage();
-                message.AddTo(member.Email);
-                message.SetFrom("your-email@example.com");
-                message.SetSubject("Activities Update");
-                message.AddContent(MimeType.Text, emailContent);
+                try
+                {
+                    // Tạo đối tượng MailMessage
+                    var message = new MailMessage();
+                    message.From = new MailAddress("minhduy1511@gmail.com");
+                    message.To.Add(member.Email);
+                    message.Subject = "Activities Update";
+                    message.Body = emailContent;
+                    message.IsBodyHtml = false;
 
-                // Gửi email bằng SendGrid
-                await sendGridClient.SendEmailAsync(message);
+                    // Tạo đối tượng SmtpClient và cấu hình thông tin SMTP
+                    var smtpClient = new SmtpClient("smtp.gmail.com", 587);
+                    smtpClient.Credentials = new NetworkCredential("minhduy1511@gmail.com", "dxhuwemtdtkobzoj");
+                    smtpClient.EnableSsl = true;
+
+                    // Gửi email
+                    smtpClient.Send(message);
+                }
+                catch (Exception ex)
+                {
+                    // Xử lý lỗi nếu gửi email không thành công
+                    return StatusCode(500, $"Failed to send email to {member.Email}. Error: {ex.Message}");
+                }
             }
 
             return Ok();
         }
 
-        private string GenerateEmailContent(string memberName, List<Activity> activities)
+        private static string GenerateEmailContent(string memberName, List<Activity> activities)
         {
             // Tạo nội dung email từ danh sách activities và thông tin thành viên gia đình
-            // Đây chỉ là một ví dụ đơn giản, bạn có thể tùy chỉnh nội dung email theo yêu cầu của bạn
             var emailContent = $"Dear {memberName},\n\n";
             emailContent += "Here are the latest activities for your family:\n\n";
             foreach (var activity in activities)
@@ -113,8 +201,10 @@ namespace Project_FamillyTreeApi.Controllers
             emailContent += "Best regards,\nYour Family";
 
             return emailContent;
-        }*/
-        
+        }
+
+
+
 
     }
 }

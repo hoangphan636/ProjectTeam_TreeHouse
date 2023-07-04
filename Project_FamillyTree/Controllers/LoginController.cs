@@ -21,8 +21,6 @@ namespace Project_FamillyTree.Controllers
 
         public LoginController()
         {
-
-
             client = new HttpClient();
             var contentType = new MediaTypeWithQualityHeaderValue("application/json");
             client.DefaultRequestHeaders.Accept.Add(contentType);

@@ -15,6 +15,26 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = C:\Users\Admin\Documents\HOC\ki 8\PRN231\Project\GroupProject\ProjectTeam_TreeHouse\Project_FamillyTree
 build_property._RazorSourceGeneratorDebug = 
 
+[C:/Users/Admin/Documents/HOC/ki 8/PRN231/Project/GroupProject/ProjectTeam_TreeHouse/Project_FamillyTree/Views/Activities/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWN0aXZpdGllc1xDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Documents/HOC/ki 8/PRN231/Project/GroupProject/ProjectTeam_TreeHouse/Project_FamillyTree/Views/Activities/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWN0aXZpdGllc1xEZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Documents/HOC/ki 8/PRN231/Project/GroupProject/ProjectTeam_TreeHouse/Project_FamillyTree/Views/Activities/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWN0aXZpdGllc1xEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Documents/HOC/ki 8/PRN231/Project/GroupProject/ProjectTeam_TreeHouse/Project_FamillyTree/Views/Activities/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWN0aXZpdGllc1xFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Documents/HOC/ki 8/PRN231/Project/GroupProject/ProjectTeam_TreeHouse/Project_FamillyTree/Views/Activities/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWN0aXZpdGllc1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Admin/Documents/HOC/ki 8/PRN231/Project/GroupProject/ProjectTeam_TreeHouse/Project_FamillyTree/Views/Login/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9naW5cSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 

@@ -10,28 +10,25 @@
     <link rel="stylesheet" type="text/css" href="/index.css">
 
     <style>
+        /* CSS to display sibling relationships horizontally */
         .sibling-container {
             display: flex;
             flex-wrap: wrap;
+            justify-content: space-around;
         }
 
         .sibling-list {
-            flex: 1 1 auto;
-            margin: 0;
-            padding: 0;
             list-style: none;
-            text-align: center;
+            padding: 0;
+            margin: 0;
         }
 
             .sibling-list li {
                 display: inline-block;
-                margin-right: 10px;
+                margin: 5px;
             }
+
     </style>
-
-
-
-
 
 </head>
 
@@ -40,7 +37,7 @@
         <div class="header-content">
             <h1 class="header-title">Family Tree</h1>
             <div class="header-buttons">
-                <a href="#" class="header-button" style="margin-left: 680px;">Activities</a>
+                <a href="/Activities" class="header-button" style="margin-left: 680px;">Activities</a>
             </div>
         </div>
         <button class="header-button">Login</button>
@@ -58,8 +55,6 @@
         </div>
         <button id="closePopup" class="popup-close">Close</button>
     </div>
-
-
     <div class="sidebar">
         <div class="sidebar-header">
             <h2>Me</h2>
@@ -110,9 +105,9 @@
             <div class="sidebar-footer">
                 <p>Click to add your relatives:</p>
                 <button onclick="addParent()">Add Parent</button>
-                <button onclick="addRelative('partner')">Add Partner</button>
-                <button onclick="addRelative('sibling')">Add Brother/Sister</button>
-                <button onclick="addRelative('child')">Add Child</button>
+                <button onclick="addSpouseNode()">Add Spouse</button>
+                <button onclick="addSiblingNode()">Add Brother/Sister</button>
+                <button onclick="addChildNode()">Add Child</button>
                 <button onclick="saveData()">Save</button>
             </div>
         </div>
@@ -131,18 +126,13 @@
 
 
     <script>
-        // Lấy các phần tử cần thiết
         var activityButton = document.querySelector(".header-button");
         var popup = document.getElementById("activityPopup");
         var closePopupButton = document.getElementById("closePopup");
 
-        // Xử lý sự kiện khi nhấp vào nút "Activities"
         activityButton.addEventListener("click", function() {
-            // Hiển thị popup
             popup.style.visibility = "visible";
             popup.style.opacity = 1;
-
-            // Lấy thông tin hoạt động và cập nhật vào popup
             var activityTitle = document.getElementById("activityTitle");
             var activityDescription = document.getElementById("activityDescription");
             var activityStartDate = document.getElementById("activityStartDate");
@@ -151,7 +141,6 @@
             var activityEmail = document.getElementById("activityEmail");
             var activityCreatedBy = document.getElementById("activityCreatedBy");
 
-            // Gán thông tin cho các phần tử trong popup
             activityTitle.textContent = "Activity Title";
             activityDescription.textContent = "Activity Description";
             activityStartDate.textContent = "Start Date";
@@ -161,16 +150,14 @@
             activityCreatedBy.textContent = "Created By";
         });
 
-        // Xử lý sự kiện khi nhấp vào nút đóng popup
         closePopupButton.addEventListener("click", function() {
-            // Ẩn popup
             popup.style.visibility = "hidden";
             popup.style.opacity = 0;
         });
     </script>
-
     <script>
         var existingMembers = [];
+        var selectedNode = null; // Variable to store the selected node
 
         function displayFamilyTree(data, parentElement) {
             var siblingContainer = document.createElement("div");
@@ -198,7 +185,7 @@
                     personLink.setAttribute("data-id", personId);
                     personLink.addEventListener("click", function() {
                         var id = this.getAttribute("data-id");
-                        document.getElementById("personIdInput").value = id; // Gán giá trị id vào personIdInput
+                        document.getElementById("personIdInput").value = id;
                         fetch("http://localhost:45571/api/FamilyMember/GetGetFamilyMemberById/" + id)
                             .then((response) => response.json())
                             .then((data) => {
@@ -206,23 +193,46 @@
 
                                 idInput.value = data.id;
                                 fullNameNameInput.value = data.fullName;
-                                var genderInput = document.getElementById("genderInput");
-                                if (data.gender === 1) {
-                                    genderInput.value = "Man";
-                                } else if (data.gender === 0) {
-                                    genderInput.value = "Woman";
-                                } else {
-                                    genderInput.value = "";
-                                }
+                               //
+                                //if (data.gender === 1) {
+                                //    genderInput.value = "Man";
+                                //} else if (data.gender === 0) {
+                                //    genderInput.value = "Woman";
+                                //} else {
+                                //    genderInput.value = "";
+                                //}
+                                genderInput.value = data.gender;
                                 dateOfBirthInput.value = data.dob;
                                 phoneInput.value = data.phone;
                                 emailInput.value = data.email;
                                 addressInput.value = data.address;
                                 familyInput.value = data.familyId;
+
+                                var parentData = {
+                                    id:data.id,
+                                    fullName: data.fullName,
+                                    gender: data.gender,
+                                    dob: data.dob,
+                                    phone: data.phone,
+                                    email: data.email,
+                                    address: data.address,
+                                    relationType:null,
+                                    familyId: data.familyId
+                                };
+
+
+                                selectedParentData = parentData;
                             })
                             .catch((error) => {
                                 console.error("Lỗi khi lấy dữ liệu từ API:", error);
                             });
+
+                        var selectedPersonNode = this.parentNode;
+                        if (selectedNode) {
+                            selectedNode.classList.remove("selected");
+                        }
+                        selectedPersonNode.classList.add("selected");
+                        selectedNode = selectedPersonNode;
                     });
 
                     personNode.appendChild(personLink);
@@ -235,10 +245,10 @@
                         displayFamilyTree(person.relatives, relativeList);
                     }
 
+                    parentElement.appendChild(personNode);
+
                     if (person.relationType === "Sibling") {
                         siblingList.appendChild(personNode);
-                    } else {
-                        parentElement.appendChild(personNode);
                     }
                 }
             }
@@ -267,26 +277,193 @@
                 });
         }
 
+        //ham add child
+        function addChildNode() {
+            if (!selectedParentData) {
+                alert("Vui lòng chọn một node cha.");
+                return;
+            }
+
+            var parentData = selectedParentData;
+
+            var childNode = document.createElement("li");
+            var childLink = document.createElement("a");
+            childLink.textContent = "Con";
+            childLink.href = "javascript:void(0);";
+            childLink.addEventListener("click", function() {
+                updateContactInfo(childNode);
+            });
+
+            childNode.appendChild(childLink);
+
+            var childList = document.createElement("ul");
+            childNode.appendChild(childList);
+
+            var parentNode = selectedNode;
+            var parentChildList = parentNode.querySelector("ul");
+            if (!parentChildList) {
+                parentChildList = document.createElement("ul");
+                parentNode.appendChild(parentChildList);
+            }
+
+            parentChildList.appendChild(childNode);
+
+            // Lưu thông tin của node cha vào dataset của node con
+            childNode.dataset.fullName = parentData.fullName;
+            childNode.dataset.gender = parentData.gender;
+            childNode.dataset.dateOfBirth = parentData.dob;
+            childNode.dataset.phone = parentData.phone;
+            childNode.dataset.email = parentData.email;
+            childNode.dataset.address = parentData.address;
+            childNode.dataset.family = parentData.familyId;
+
+            // Xóa thông tin của node con (nếu có)
+
+            // Hiển thị thông tin của node cha và node con
+            console.log("Thông tin node cha:", parentData);
+
+            console.log("Thông tin node con:", {
+                fullName: childNode.dataset.fullName,
+                gender: childNode.dataset.gender,
+                dob: childNode.dataset.dateOfBirth,
+                phone: childNode.dataset.phone,
+                email: childNode.dataset.email,
+                address: childNode.dataset.address,
+                familyId: childNode.dataset.family
+            });
+        }
+
+        function updateContactInfo(node) {
+            var contactInputs = document.querySelectorAll("#personal input");
+            contactInputs.forEach(function(input) {
+                input.value = "";
+            });
+        }
+
+
+        function showSection(sectionId) {
+            var sections = document.getElementsByClassName("section");
+            for (var i = 0; i < sections.length; i++) {
+                sections[i].classList.remove("active");
+            }
+            var section = document.getElementById(sectionId);
+            if (section) {
+                section.classList.add("active");
+            }
+        }
+
+        //ham add sibling
+        function addSiblingNode() {
+            if (!selectedNode) {
+                alert("Vui lòng chọn một node.");
+                return;
+            }
+
+            var selectedNodeParent = selectedNode.parentNode;
+            var siblingNode = document.createElement("li");
+            var siblingLink = document.createElement("a");
+            siblingLink.textContent = "Sibling";
+            siblingLink.href = "javascript:void(0);";
+            siblingLink.addEventListener("click", function() {
+                selectedNode = siblingNode;
+            });
+
+            siblingNode.appendChild(siblingLink);
+
+            if (selectedNodeParent) {
+                selectedNode.insertAdjacentElement("afterend", siblingNode);
+            }
+
+            selectedNodeParent.appendChild(siblingNode);
+
+            selectedNode = siblingNode;
+        }
+
+
+        //function saveData() {
+        //    var idInput = document.getElementById("personIdInput");
+        //    var id = idInput.value;
+        //    var updatedData = {
+        //        id: id,
+        //        fullName: fullNameNameInput.value,
+        //        gender: genderInput.value === "Man" ? 1 : genderInput.value === "Woman" ? 0 : null,
+        //        dob: dateOfBirthInput.value,
+        //        phone: phoneInput.value,
+        //        email: emailInput.value,
+        //        address: addressInput.value,
+        //        familyId: familyInput.value
+        //    };
+        //    updateFamilyMember(id, updatedData);
+        //}
         function saveData() {
-            var idInput = document.getElementById("personIdInput");
-            var id = idInput.value;
-            var updatedData = {
-                id: id,
-                fullName: fullNameNameInput.value,
-                gender: genderInput.value === "Man" ? 1 : genderInput.value === "Woman" ? 0 : null,
-                dob: dateOfBirthInput.value,
-                phone: phoneInput.value,
-                email: emailInput.value,
-                address: addressInput.value,
-                familyId: familyInput.value
+            if (!selectedNode) {
+                alert("Vui lòng chọn một node.");
+                return;
+            }
+
+            var parentData = selectedParentData;
+            var parentNode = selectedNode;
+            var parentChildList = parentNode.querySelector("ul");
+            if (!parentChildList) {
+                parentChildList = document.createElement("ul");
+                parentNode.appendChild(parentChildList);
+            }
+
+            var childNode = document.createElement("li");
+            parentChildList.appendChild(childNode);
+
+            // Gán thông tin của node cha cho childNode
+            childNode.dataset.id = parentData.id;
+            childNode.dataset.fullName = parentData.fullName;
+            childNode.dataset.gender = parentData.gender;
+            childNode.dataset.dateOfBirth = parentData.dob;
+            childNode.dataset.phone = parentData.phone;
+            childNode.dataset.email = parentData.email;
+            childNode.dataset.address = parentData.address;
+            childNode.dataset.relationType = null;
+            childNode.dataset.family = parentData.familyId;
+
+            var childData = {
+                id: 0,
+                fullName: document.getElementById("fullNameNameInput").value,
+                gender: document.getElementById("genderInput").value,
+                dob: document.getElementById("dateOfBirthInput").value,
+                phone: document.getElementById("phoneInput").value,
+                email: document.getElementById("emailInput").value,
+                address: document.getElementById("addressInput").value,
+                familyId: document.getElementById("familyInput").value,
+                relationType: "Child"
             };
-            updateFamilyMember(id, updatedData);
+            console.log("parentData",parentData)
+            parentData.relatives = [childData];
+
+            // Gửi dữ liệu lên server
+            fetch("http://localhost:45571/api/Family/addNode", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(parentData)
+            })
+                .then(function(response) {
+                    if (response.ok) {
+                        return response.json();
+                    } else {
+                        throw new Error("Lỗi khi lưu mối quan hệ");
+                    }
+                })
+                .then(function(data) {
+                    console.log(data);
+                })
+                .catch(function(error) {
+                    console.error(error);
+                });
         }
 
         @{
             var id = Context.Session.GetString("MemberFamilyId");
         }
-        var id = '@id'; 
+                                                                                                                                                                                                                                                                                                                                                                                                                                                    var id = '@id';
 
         fetch("http://localhost:45571/api/Family/" + id + "/tree1")
             .then((response) => response.json())
@@ -297,10 +474,7 @@
             .catch((error) => {
                 console.error("Lỗi khi lấy dữ liệu từ API:", error);
             });
-
-
     </script>
-
 
 
     <script>
@@ -313,110 +487,6 @@
             var section = document.getElementById(sectionId);
             section.classList.add("active");
         }
-
-        function addParent() {
-            var selectedNode = document.querySelector(".selected");
-            if (selectedNode) {
-                var newNode1 = document.createElement("li");
-                newNode1.innerHTML = '<a href="#">Morther</a>';
-
-                var newNode2 = document.createElement("li");
-                newNode2.innerHTML = '<a href="#">Farther</a>';
-
-                var parentList = document.createElement("ul");
-                parentList.style.display = "block";
-                parentList.appendChild(newNode1);
-                parentList.appendChild(newNode2);
-
-                var parentNode = document.createElement("li");
-                parentNode.style.display = "inline";
-                parentNode.appendChild(parentList);
-
-                var grandparentNode = selectedNode.parentNode.parentNode;
-                var grandparentList = grandparentNode.querySelector("ul");
-                if (!grandparentList) {
-                    grandparentList = document.createElement("ul");
-                    grandparentNode.appendChild(grandparentList);
-                }
-
-                var siblingNodes = Array.from(grandparentList.children);
-                var selectedNodeIndex = siblingNodes.indexOf(selectedNode);
-
-                siblingNodes.splice(selectedNodeIndex, 0, parentNode);
-
-                grandparentList.innerHTML = '';
-                siblingNodes.forEach(function(node) {
-                    grandparentList.appendChild(node);
-                });
-
-                siblingNodes = Array.from(grandparentList.children);
-
-                selectedNode.classList.remove("selected");
-                newNode1.firstChild.classList.add("selected");
-                newNode2.firstChild.classList.add("selected");
-            }
-        }
-
-        function addRelative(type) {
-            var selectedNode = document.querySelector(".selected");
-            if (selectedNode) {
-                var newNode = document.createElement("li");
-                newNode.innerHTML = '<a href="#">' + type.charAt(0).toUpperCase() + type.slice(1) + "</a>";
-
-                var addRelativeButtons = newNode.querySelectorAll(".sidebar-footer button");
-                for (var i = 0; i < addRelativeButtons.length; i++) {
-                    addRelativeButtons[i].addEventListener("click", function() {
-                        addRelative(this.dataset.type);
-                    });
-                }
-
-                newNode.addEventListener("click", function(event) {
-                    event.stopPropagation();
-                    var currentSelected = document.querySelector(".selected");
-                    if (currentSelected) {
-                        currentSelected.classList.remove("selected");
-                    }
-                    this.classList.add("selected");
-                });
-
-                selectedNode.classList.remove("selected");
-
-                if (type === "child") {
-                    var childList = selectedNode.querySelector("ul");
-                    if (!childList) {
-                        childList = document.createElement("ul");
-                        selectedNode.appendChild(childList);
-                    }
-                    childList.appendChild(newNode);
-                    var givenNamesInput = document.getElementById("givenNamesInput");
-                    givenNamesInput.addEventListener("input", function() {
-                        newNode.firstChild.textContent = this.value;
-                    });
-                } else {
-                    var siblingNode = document.createElement("li");
-                    siblingNode.appendChild(newNode);
-
-                    var parentSiblingList = selectedNode.parentNode.parentNode.querySelector("ul");
-                    if (!parentSiblingList) {
-                        parentSiblingList = document.createElement("ul");
-                        selectedNode.parentNode.parentNode.appendChild(parentSiblingList);
-                    }
-
-                    var siblingNodes = Array.from(parentSiblingList.children);
-                    var selectedNodeIndex = siblingNodes.indexOf(selectedNode);
-
-                    siblingNodes.splice(selectedNodeIndex + 1, 0, siblingNode);
-
-                    parentSiblingList.innerHTML = "";
-                    siblingNodes.forEach(function(node) {
-                        parentSiblingList.appendChild(node);
-                    });
-
-                    siblingNodes = Array.from(parentSiblingList.children);
-                }
-            }
-        }
-
         var treeNodes = document.querySelectorAll(".tree li a");
         for (var i = 0; i < treeNodes.length; i++) {
             treeNodes[i].addEventListener("click", function() {
