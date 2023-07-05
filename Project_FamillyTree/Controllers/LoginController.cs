@@ -20,8 +20,6 @@ namespace Project_FamillyTree.Controllers
 
         public LoginController()
         {
-
-
             client = new HttpClient();
             var contentType = new MediaTypeWithQualityHeaderValue("application/json");
             client.DefaultRequestHeaders.Accept.Add(contentType);
@@ -62,19 +60,19 @@ namespace Project_FamillyTree.Controllers
 
             var emailClaim = jwtToken.Claims.First(c => c.Type == "email").Value;
             var role = jwtToken.Claims.First(c => c.Type == "role").Value;
-
+            var memberFamilyId = jwtToken.Claims.First(c => c.Type == "MemberFamilyId").Value;
 
             if (emailClaim == null && role == null)
             {
-                // Thực hiện xử lý khi tìm thấy claim email
                 return NotFound();
             }
             HttpContext.Session.SetString("emailClaim", emailClaim);
             HttpContext.Session.SetString("role", role);
+            HttpContext.Session.SetString("MemberFamilyId", memberFamilyId);
 
 
 
-            return RedirectToAction("Index", "FlowerBouquet");
+            return RedirectToAction("Index","Tree");
         }
 
 

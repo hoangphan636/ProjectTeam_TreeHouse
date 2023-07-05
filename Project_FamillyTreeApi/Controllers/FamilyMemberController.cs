@@ -117,5 +117,6 @@ namespace Project_FamillyTreeApi.Controllers
 
             return Ok("Delete success!");
         }
+
     }
 }

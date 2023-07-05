@@ -36,6 +36,15 @@ namespace Project_FamillyTreeApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowSpecificOrigin", builder =>
+                {
+                    builder.WithOrigins("http://localhost:36131")
+                           .AllowAnyMethod()
+                           .AllowAnyHeader();
+                });
+            });
             services.AddAuthentication(x =>
             {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -119,7 +128,8 @@ namespace Project_FamillyTreeApi
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Project_FamillyTreeApi v1"));
             }
             app.UseHttpsRedirection();
-           
+            app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();

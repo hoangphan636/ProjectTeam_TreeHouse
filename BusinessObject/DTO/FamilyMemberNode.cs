@@ -12,4 +12,5 @@ public class FamilyMemberNode
     public string Address { get; set; }
     public string RelationType { get; set; }
     public List<FamilyMemberNode> Relatives { get; set; }
+    public int FamilyId { get; set; }
 }

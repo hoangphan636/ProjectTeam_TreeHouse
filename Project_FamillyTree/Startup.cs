@@ -29,6 +29,15 @@ namespace Project_FamillyTree
         {
             services.AddScoped<PRN231FamilyTreeContext>();
 
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(builder =>
+                {
+                    builder.AllowAnyOrigin()
+                           .AllowAnyMethod()
+                           .AllowAnyHeader();
+                });
+            });
             services.AddSession();
             services.AddControllersWithViews();
         }
@@ -54,7 +63,7 @@ namespace Project_FamillyTree
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Tree}/{action=Index}/{id?}");
+                    pattern: "{controller=Login}/{action=Index}/{id?}");
             });
         }
     }

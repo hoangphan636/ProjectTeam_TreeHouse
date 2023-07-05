@@ -159,10 +159,11 @@ namespace Project_FamillyTreeApi.Controllers
             var familyMembers = _familyRepository.GetAllFamilyMemberByMemberId(memberId);
             return Ok(familyMembers);
         }
+
         [HttpPost("send-email/{memberId}")]
         public IActionResult SendActivitiesEmailByMemberId(int memberId)
         {
-            var members = _familyRepository.GetAllFamilyMemberByMemberId(memberId).ToList() ;
+            var members = _familyRepository.GetAllFamilyMemberByMemberId(memberId).ToList();
             if (members == null)
             {
                 return NotFound();
@@ -269,9 +270,6 @@ namespace Project_FamillyTreeApi.Controllers
 
             return emailContent;
         }
-
-        
-
 
     }
 }

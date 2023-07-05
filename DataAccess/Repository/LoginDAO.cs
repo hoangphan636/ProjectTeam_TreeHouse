@@ -15,51 +15,54 @@ namespace DataAccess.Repository
 {
 
     public class LoginDAO : ILoginRepository
+    {
+
+        private readonly IConfiguration _iconfiguration;
+
+        public LoginDAO(IConfiguration iconfiguration)
         {
-           
-            private readonly IConfiguration _iconfiguration;
 
-            public LoginDAO( IConfiguration iconfiguration)
-            {
-              
-                _iconfiguration = iconfiguration;
-            }
-
-     
+            _iconfiguration = iconfiguration;
+        }
 
 
-            public Tokens Authenticate(Login users)
-            {
+
+
+        public Tokens Authenticate(Login users)
+        {
             var context = new PRN231FamilyTreeContext();
             var role = "";
-                var user = context.Accounts.FirstOrDefault(x => x.Email == users.Email && x.Password == users.Password);
-                if (user == null)
-                {
-                    return null;
-                }
-                if(user.Role == 1)
+            var user = context.Accounts.FirstOrDefault(x => x.Email == users.Email && x.Password == users.Password);
+            if (user == null)
+            {
+                return null;
+            }
+            if (user.Role == 1)
             {
                 role = "Admin";
-            }else if (user.Role == 2) {
+            }
+            else if (user.Role == 2)
+            {
                 role = "Customer";
             }
-                // Generate JSON Web Token
-                var tokenHandler = new JwtSecurityTokenHandler();
-                var tokenKey = Encoding.UTF8.GetBytes(_iconfiguration["JWT:Key"]);
-                var tokenDescriptor = new SecurityTokenDescriptor
+            // Generate JSON Web Token
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var tokenKey = Encoding.UTF8.GetBytes(_iconfiguration["JWT:Key"]);
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(new Claim[]
                 {
-                    Subject = new ClaimsIdentity(new Claim[]
-                    {
-                new Claim(ClaimTypes.Email, users.Email),
-                 new Claim(ClaimTypes.Role, role) 
-                    }),
-                    Expires = DateTime.UtcNow.AddMinutes(10),
-                    SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(tokenKey), SecurityAlgorithms.HmacSha256Signature)
-                };
-                var token = tokenHandler.CreateToken(tokenDescriptor);
-                return new Tokens { Token = tokenHandler.WriteToken(token) };
-            }
-        
+                    new Claim(ClaimTypes.Email, users.Email),
+                    new Claim(ClaimTypes.Role, role),
+                    new Claim("MemberFamilyId", user.Id.ToString()),
+                }),
+                Expires = DateTime.UtcNow.AddMinutes(10),
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(tokenKey), SecurityAlgorithms.HmacSha256Signature)
+            };
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+            return new Tokens { Token = tokenHandler.WriteToken(token) };
+        }
+
 
     }
 }

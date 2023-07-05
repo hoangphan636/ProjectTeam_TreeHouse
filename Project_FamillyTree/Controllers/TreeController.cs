@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace Project_FamillyTree.Controllers
@@ -24,8 +25,12 @@ namespace Project_FamillyTree.Controllers
             var response = await client.GetAsync("http://localhost:45571/api/Family/1/tree");
             if (response.IsSuccessStatusCode)
             {
-                var jsonString = await response.Content.ReadAsStringAsync();
-                var familyTree = JsonConvert.DeserializeObject<List<FamilyMemberNode>>(jsonString);
+                string strData = await response.Content.ReadAsStringAsync();
+                var options = new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true,
+                };
+                var familyTree = System.Text.Json.JsonSerializer.Deserialize<List<FamilyMemberNode>>(strData,options);
 
                 return View(familyTree);
             }
