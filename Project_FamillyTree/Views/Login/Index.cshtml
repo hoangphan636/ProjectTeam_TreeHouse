@@ -1,102 +1,88 @@
-﻿@model DataAccess.Login
-@using Microsoft.AspNetCore.Http
+﻿
 @{
-    ViewData["Title"] = "Index";
-   
+    ViewData["Title"] = "Login";
 }
-@*@{
-    // Lấy giá trị Session
-    string customerName = Context.Session.GetString("CustomerName");
-   
-}*@
-<!DOCTYPE html>
+
+@{
+    Layout = null;
+}
+
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Login</title>
-
+    <title>Index</title>
 </head>
-
-
 <body>
-    @*<h3><span style="color: red;">@customerName</span></h3>
-*@
-    <h3>Login Form</h3>
-    @if (!string.IsNullOrEmpty(ViewData["ErrorMessage"] as string))
-    {
-        <p>@ViewData["ErrorMessage"]</p>
-    }
-    @if (!string.IsNullOrEmpty(ViewBag.Message))
-    {
-        <p>@ViewBag.Message</p>
-    }
-    <form method="post" asp-action="Login">
-        <div>
-            <label>Email:</label>
-            <input type="text" asp-for="@Model.Email" />
-        </div>
-        <div>
-            <label>Password:</label>
-            <input type="password" asp-for="@Model.Password" />
-        </div>
-        <div>
-            <input type="submit" value="Login" />
-        </div>
-    </form>
+
+
+    <div class="container">
+        <h1>Login</h1>
+        <form asp-action="Login" method="post">
+            <div class="form-group">
+                <label for="Email">Email:</label>
+                <input class="col-sm-8" id="email" name="email" value="" type="text" /><br />
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input class="col-sm-8" id="password" name="password" value="" type="password" /><br />
+            </div>
+            @if ( TempData["Message"] != null)
+            {
+                <div class="alert alert-danger" style="color:red">@TempData["Message"]</div>
+            }
+            <button type="submit" value="Login" class="btn btn-primary">Login</button>
+             <button asp-controller="SignUp" asp-action="Create">Sign Up</button>
+        </form>
+    </div>
+
+    <style>
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding-top: 50px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        form {
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+            button[type="submit"]:hover {
+                background-color: #45a049;
+            }
+    </style>
 </body>
 </html>
-<style>
-    h1 {
-        font-size: 24px;
-        margin-bottom: 10px;
-    }
-
-    table {
-        width: 100%;
-        border-collapse: collapse;
-    }
-
-    th, td {
-        padding: 8px;
-        text-align: left;
-        border-bottom: 1px solid #ddd;
-    }
-
-    th {
-        background-color: #f2f2f2;
-    }
-
-    .btn {
-        display: inline-block;
-        padding: 6px 12px;
-        margin-bottom: 0;
-        font-size: 14px;
-        font-weight: normal;
-        line-height: 1.42857143;
-        text-align: center;
-        white-space: nowrap;
-        vertical-align: middle;
-        cursor: pointer;
-        user-select: none;
-        background-image: none;
-        border: 1px solid transparent;
-        border-radius: 4px;
-    }
-
-    .btn-primary {
-        color: #fff;
-        background-color: #007bff;
-        border-color: #007bff;
-    }
-
-    .logout-container {
-        display: flex;
-        justify-content: space-between;
-    }
-
-    .btn-danger {
-        color: #fff;
-        background-color: #dc3545;
-        border-color: #dc3545;
-    }
-</style>

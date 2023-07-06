@@ -1,4 +1,4 @@
-﻿@*﻿@model BusinessObject.DataAccess.Activity
+﻿@model BusinessObject.DataAccess.Activity
 
 @{
     ViewData["Title"] = "Edit";
@@ -15,7 +15,7 @@
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
                 <label asp-for="FamilyId" class="control-label"></label>
-                <select asp-for="FamilyId" class="form-control" asp-items="ViewBag.FamilyId"></select>
+                <select asp-for="FamilyId" class="form-control" value="@ViewData["FamilyId"]"></select>
                 <span asp-validation-for="FamilyId" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -50,5 +50,14 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}*@
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }
+
+
+    <style>
+        .form-control {
+            width: 300px;
+        }
+    </style>

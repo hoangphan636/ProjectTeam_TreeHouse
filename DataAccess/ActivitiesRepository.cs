@@ -15,7 +15,7 @@ namespace DataAccess
         public Activity GetActivity(int id) => ActivityDAO.GetActivity(id);
         public List<Activity> SearchActivity(string activity) => ActivityDAO.SearchActivity(activity);
         public void Add(Activity activity) => ActivityDAO.Add(activity);
-        public void Update(Activity activity) => ActivityDAO.Update(activity);
+        public void Update(int id, Activity activity) => ActivityDAO.Update(id, activity);
         public void Delete(Activity activity) => ActivityDAO.Delete(activity);
         public List<Activity> GetActivitiesByFamilyId(int familyId) => ActivityDAO.GetActivitiesByFamilyId(familyId);
         public List<Activity> GetActivitiesByMemberId(int memberId) => ActivityDAO.GetActivitiesByMemberId(memberId);

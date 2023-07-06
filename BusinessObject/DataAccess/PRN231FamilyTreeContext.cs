@@ -68,8 +68,7 @@ namespace BusinessObject.DataAccess
                 entity.Property(e => e.Password).HasMaxLength(50);
 
                 entity.HasOne(d => d.Member)
-                    .WithMany(p => p.Accounts)
-                    .HasForeignKey(d => d.MemberId)
+                    .WithOne(p => p.Accounts)
                     .HasConstraintName("FK__Accounts__Member__300424B4");
             });
 

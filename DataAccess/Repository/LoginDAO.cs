@@ -54,7 +54,7 @@ namespace DataAccess.Repository
                 {
                     new Claim(ClaimTypes.Email, users.Email),
                     new Claim(ClaimTypes.Role, role),
-                    new Claim("MemberFamilyId", user.Id.ToString()),
+                    new Claim("MemberFamilyId", user.MemberId.ToString()),
                 }),
                 Expires = DateTime.UtcNow.AddMinutes(10),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(tokenKey), SecurityAlgorithms.HmacSha256Signature)

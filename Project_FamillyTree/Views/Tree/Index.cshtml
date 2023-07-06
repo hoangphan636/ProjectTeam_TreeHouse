@@ -10,25 +10,293 @@
     <link rel="stylesheet" type="text/css" href="/index.css">
 
     <style>
-        /* CSS to display sibling relationships horizontally */
-        .sibling-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-around;
+        body {
+            margin: 0;
+            padding: 0;
         }
 
-        .sibling-list {
-            list-style: none;
-            padding: 0;
+        .header {
+            padding: 1px;
+            border-bottom: 1px solid black;
+        }
+
+        .container {
+            display: flex;
+            border: 1px solid #ccc;
+        }
+
+        .sidebar {
+            width: 270px;
+            height: 100vh;
+            background-color: #f1f1f1;
+            padding: 20px;
+            box-sizing: border-box;
+            border-right: 1px solid black;
+            float: left;
+            /* Add this */
+        }
+
+        .sidebar-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .sidebar-menu {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+            .sidebar-menu a {
+                padding: 6px 8px;
+                text-decoration: none;
+                font-size: 16px;
+                color: #818181;
+            }
+
+                .sidebar-menu a:hover {
+                    color: #f1f1f1;
+                    background-color: #818181;
+                }
+
+        .sidebar-content {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .section {
+            display: none;
+        }
+
+            .section.active {
+                display: flex;
+                flex-direction: column;
+                margin-bottom: 20px;
+            }
+
+            .section h2 {
+                margin-bottom: 5px;
+            }
+
+            .section input {
+                margin-bottom: 10px;
+            }
+
+        .large-input {
+            padding: 5px;
+            font-size: 13px;
+        }
+
+        .sidebar-footer {
+            margin-top: auto;
+            text-align: center;
+        }
+
+            .sidebar-footer p {
+                margin-bottom: 10px;
+            }
+
+            .sidebar-footer button {
+                display: block;
+                width: 100%;
+                padding: 5px;
+                margin-bottom: 5px;
+            }
+
+        .content {
+            margin-left: 300px;
+            /* Add this */
+        }
+
+        .tree {
+            width: 10000px;
+            margin: 50px auto;
+        }
+
+            .tree ul {
+                padding-top: 20px;
+                position: relative;
+                transition: all 0.5s;
+            }
+
+            .tree li {
+                float: left;
+                text-align: center;
+                list-style-type: none;
+                position: relative;
+                padding: 20px 5px 0 5px;
+                transition: all 0.5s;
+            }
+
+                .tree li::before,
+                .tree li::after {
+                    content: "";
+                    position: absolute;
+                    top: 0;
+                    right: 50%;
+                    border-top: 1px solid #ccc;
+                    width: 50%;
+                    height: 20px;
+                }
+
+                .tree li::after {
+                    right: auto;
+                    left: 50%;
+                    border-left: 1px solid #ccc;
+                }
+
+                .tree li:only-child::after,
+                .tree li:only-child::before {
+                    display: none;
+                }
+
+                .tree li:only-child {
+                    padding-top: 0;
+                }
+
+                .tree li:first-child::before,
+                .tree li:last-child::after {
+                    border: 0 none;
+                }
+
+                .tree li:last-child::before {
+                    border-right: 1px solid #ccc;
+                    border-radius: 0 5px 0 0;
+                }
+
+                .tree li:first-child::after {
+                    border-radius: 5px 0 0 0;
+                }
+
+            .tree ul ul::before {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 50%;
+                border-left: 1px solid #ccc;
+                width: 0;
+                height: 20px;
+            }
+
+            .tree li a {
+                border: 1px solid #ccc;
+                padding: 8px 10px;
+                text-decoration: none;
+                color: #666;
+                font-family: arial, verdana, tahoma;
+                font-size: 20px;
+                display: inline-block;
+                border-radius: 5px;
+                transition: all 0.5s;
+                line-height: 1.2;
+            }
+
+                .tree li a:hover,
+                .tree li a:hover + ul li a {
+                    background: #c8e4f8;
+                    color: #000;
+                    border: 1px solid #94a0b4;
+                }
+
+                    .tree li a:hover + ul li::after,
+                    .tree li a:hover + ul li::before,
+                    .tree li a:hover + ul::before,
+                    .tree li a:hover + ul ul::before {
+                        border-color: #94a0b4;
+                    }
+
+
+        /*popup*/
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #f5f5f5;
+            padding: 10px;
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .header-title {
             margin: 0;
         }
 
-            .sibling-list li {
-                display: inline-block;
-                margin: 5px;
-            }
+        .header-buttons {
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+        }
+
+        .header-button {
+            padding: 6px 12px;
+            border-radius: 4px;
+            background-color: #eee;
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+        }
+
+        .popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            visibility: hidden;
+            opacity: 0;
+            transition: visibility 0s, opacity 0.3s;
+        }
+
+        .popup-content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 4px;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .popup-close {
+            margin-top: 10px;
+            padding: 6px 12px;
+            border-radius: 4px;
+            background-color: #eee;
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+        }
+
+        .popup-content input {
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 6px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .popup-content #activityDescription {
+            height: 50px;
+            /* Đặt chiều cao mong muốn cho phần mô tả */
+            resize: vertical;
+            /* Cho phép người dùng điều chỉnh chiều cao dọc của phần mô tả */
+        }
 
     </style>
+
+
 
 </head>
 
@@ -37,12 +305,14 @@
         <div class="header-content">
             <h1 class="header-title">Family Tree</h1>
             <div class="header-buttons">
-                <a href="/Activities" class="header-button" style="margin-left: 680px;">Activities</a>
+                <a href="/Activities" class="header-button" style="margin-left: 500px;">Activities</a>
+            </div>
+            <div class="header-buttons">
+                <a href="/Albums" class="header-button">Album</a>
             </div>
         </div>
-        <button class="header-button">Login</button>
     </div>
-    
+
     <div class="sidebar">
         <div class="sidebar-header">
             <h2>Me</h2>
@@ -105,7 +375,7 @@
         <div class="tree">
             <ul>
                 <li>
-                    <a href="#" style="font-size: 24px;">Me</a>
+                    @*<a href="#" style="font-size: 24px;">Me</a>*@
                     <ul id="familyTree"></ul>
                 </li>
             </ul>
@@ -145,13 +415,15 @@
     </script>
     <script>
         var existingMembers = [];
-        var selectedNode = null; // Variable to store the selected node
+        var selectedNode = null;
 
         function displayFamilyTree(data, parentElement) {
             var siblingContainer = document.createElement("div");
             siblingContainer.classList.add("sibling-container");
             var siblingList = document.createElement("ul");
             siblingList.classList.add("sibling-list");
+
+            var memberFamilyId = @Context.Session.GetString("MemberFamilyId");
 
             for (var i = 0; i < data.length; i++) {
                 var person = data[i];
@@ -168,7 +440,8 @@
                 } else {
                     var personNode = document.createElement("li");
                     var personLink = document.createElement("a");
-                    personLink.textContent = person.fullName;
+                    var isMe = personId === memberFamilyId;
+                    personLink.textContent = isMe ? "Me" : person.fullName;
                     personLink.href = "javascript:void(0);";
                     personLink.setAttribute("data-id", personId);
                     personLink.addEventListener("click", function() {
@@ -181,15 +454,14 @@
 
                                 idInput.value = data.id;
                                 fullNameNameInput.value = data.fullName;
-                               //
-                                //if (data.gender === 1) {
-                                //    genderInput.value = "Man";
-                                //} else if (data.gender === 0) {
-                                //    genderInput.value = "Woman";
-                                //} else {
-                                //    genderInput.value = "";
-                                //}
-                                genderInput.value = data.gender;
+                                var genderInput = document.getElementById("genderInput");
+                                if (data.gender === 1) {
+                                    genderInput.value = "Man";
+                                } else if (data.gender === 0) {
+                                    genderInput.value = "Woman";
+                                } else {
+                                    genderInput.value = "";
+                                }
                                 dateOfBirthInput.value = data.dob;
                                 phoneInput.value = data.phone;
                                 emailInput.value = data.email;
@@ -197,14 +469,14 @@
                                 familyInput.value = data.familyId;
 
                                 var parentData = {
-                                    id:data.id,
+                                    id: data.id,
                                     fullName: data.fullName,
-                                    gender: data.gender,
+                                    gender: data.gender === 1 ? "Man" : "Woman",
                                     dob: data.dob,
                                     phone: data.phone,
                                     email: data.email,
                                     address: data.address,
-                                    relationType:null,
+                                    relationType: null,
                                     familyId: data.familyId
                                 };
 
@@ -246,6 +518,7 @@
                 parentElement.appendChild(siblingContainer);
             }
         }
+
 
         function updateFamilyMember(id, updatedData) {
             console.log("a", updatedData)
@@ -422,7 +695,7 @@
                 familyId: document.getElementById("familyInput").value,
                 relationType: "Child"
             };
-            console.log("parentData",parentData)
+            console.log("parentData", parentData)
             parentData.relatives = [childData];
 
             // Gửi dữ liệu lên server
@@ -448,10 +721,11 @@
                 });
         }
 
+
         @{
             var id = Context.Session.GetString("MemberFamilyId");
         }
-                                                                                                                                                                                                                                                                                                                                                                                                                                                    var id = '@id';
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            var id = '@id';
 
         fetch("http://localhost:45571/api/Family/" + id + "/tree1")
             .then((response) => response.json())

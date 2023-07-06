@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -22,6 +23,12 @@ namespace Project_FamillyTree.Controllers
 
         public async Task<IActionResult> Index()
         {
+            var   memberId = HttpContext.Session.GetString("MemberFamilyId");
+
+            if (memberId == null)
+            {
+                return RedirectToAction("index", "Login");
+            }
             var response = await client.GetAsync("http://localhost:45571/api/Family/1/tree");
             if (response.IsSuccessStatusCode)
             {
@@ -38,6 +45,12 @@ namespace Project_FamillyTree.Controllers
             return View();
         }
 
-
+        [HttpPost, ActionName("Logout")]
+        [ValidateAntiForgeryToken]
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Clear();
+            return RedirectToAction("index", "Login");
+        }
     }
 }

@@ -29,8 +29,10 @@ namespace DataAccess
         public FamilyMember Add(FamilyMember _object)
         {
             _context.FamilyMembers.Add(_object);
-            return null;
+            _context.SaveChanges();
+            return _object;
         }
+
         public int Update(int id, FamilyMember _object)
         {
             _context.Entry(_object).State = EntityState.Modified;

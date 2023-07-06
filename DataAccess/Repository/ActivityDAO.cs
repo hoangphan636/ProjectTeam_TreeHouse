@@ -75,14 +75,17 @@ namespace DataAccess.Repository
             }
         }
 
-        public static void Update(Activity activity)
+        public static void Update(int id, Activity activity)
         {
             try
             {
                 using var context = new PRN231FamilyTreeContext();
-
-                context.Activities.Update(activity);
-                context.SaveChanges();
+                var existingActivity = context.Activities.FirstOrDefault(x => x.Id == id);
+                if (existingActivity != null)
+                {
+                    context.Entry(existingActivity).CurrentValues.SetValues(activity);
+                    context.SaveChanges();
+                }
             }
             catch (Exception ex)
             {

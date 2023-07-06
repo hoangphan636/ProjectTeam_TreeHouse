@@ -37,8 +37,6 @@ namespace Project_FamillyTree.Controllers
 
         public async Task<IActionResult> Login(Login p)
         {
-
-
             string strDatas = JsonSerializer.Serialize(p);
             var contentData = new StringContent(strDatas, System.Text.Encoding.UTF8, "application/json");
             HttpResponseMessage response = await client.PostAsync(productApiUrl, contentData);
@@ -71,14 +69,15 @@ namespace Project_FamillyTree.Controllers
             HttpContext.Session.SetString("role", role);
             HttpContext.Session.SetString("MemberFamilyId", memberFamilyId);
 
+            if(role == "Customer")
+            {
+                return RedirectToAction("Index", "Tree");
 
-
-            return RedirectToAction("Index","Tree");
+            }else if(role == "Admin")
+            {
+                return RedirectToAction("Index", "Account");
+            }
+            return RedirectToAction("Login", "Login");
         }
-
-
-
-
-
     }
 }

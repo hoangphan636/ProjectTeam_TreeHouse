@@ -13,7 +13,7 @@ namespace DataAccess
         Activity GetActivity(int id);
         List<Activity> SearchActivity(string activity);
         void Add(Activity activity);
-        void Update(Activity activity);
+        void Update(int id, Activity activity);
         void Delete(Activity activity);
         List<Activity> GetActivitiesByFamilyId(int familyId);
         List<Activity> GetActivitiesByMemberId(int memberId);
