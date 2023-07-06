@@ -11,7 +11,9 @@ namespace BusinessObject.DataAccess
         public int? MemberId { get; set; }
         public int? RelationId { get; set; }
         public int MemberRelativeId { get; set; }
+        public int?  FamilyId { get; set; }
 
+        public virtual Family Family { get; set; }
         public virtual FamilyMember Member { get; set; }
         public virtual Relationship Relation { get; set; }
     }

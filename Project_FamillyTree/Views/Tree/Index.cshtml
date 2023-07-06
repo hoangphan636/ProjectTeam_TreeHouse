@@ -1,0 +1,776 @@
+﻿@using Microsoft.AspNetCore.Http
+@model List<FamilyMemberNode>
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <script src="script.js"></script>
+    <link rel="stylesheet" type="text/css" href="/index.css">
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        .header {
+            padding: 1px;
+            border-bottom: 1px solid black;
+        }
+
+        .container {
+            display: flex;
+            border: 1px solid #ccc;
+        }
+
+        .sidebar {
+            width: 270px;
+            height: 100vh;
+            background-color: #f1f1f1;
+            padding: 20px;
+            box-sizing: border-box;
+            border-right: 1px solid black;
+            float: left;
+            /* Add this */
+        }
+
+        .sidebar-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .sidebar-menu {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+            .sidebar-menu a {
+                padding: 6px 8px;
+                text-decoration: none;
+                font-size: 16px;
+                color: #818181;
+            }
+
+                .sidebar-menu a:hover {
+                    color: #f1f1f1;
+                    background-color: #818181;
+                }
+
+        .sidebar-content {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .section {
+            display: none;
+        }
+
+            .section.active {
+                display: flex;
+                flex-direction: column;
+                margin-bottom: 20px;
+            }
+
+            .section h2 {
+                margin-bottom: 5px;
+            }
+
+            .section input {
+                margin-bottom: 10px;
+            }
+
+        .large-input {
+            padding: 5px;
+            font-size: 13px;
+        }
+
+        .sidebar-footer {
+            margin-top: auto;
+            text-align: center;
+        }
+
+            .sidebar-footer p {
+                margin-bottom: 10px;
+            }
+
+            .sidebar-footer button {
+                display: block;
+                width: 100%;
+                padding: 5px;
+                margin-bottom: 5px;
+            }
+
+        .content {
+            margin-left: 300px;
+            /* Add this */
+        }
+
+        .tree {
+            width: 10000px;
+            margin: 50px auto;
+        }
+
+            .tree ul {
+                padding-top: 20px;
+                position: relative;
+                transition: all 0.5s;
+            }
+
+            .tree li {
+                float: left;
+                text-align: center;
+                list-style-type: none;
+                position: relative;
+                padding: 20px 5px 0 5px;
+                transition: all 0.5s;
+            }
+
+                .tree li::before,
+                .tree li::after {
+                    content: "";
+                    position: absolute;
+                    top: 0;
+                    right: 50%;
+                    border-top: 1px solid #ccc;
+                    width: 50%;
+                    height: 20px;
+                }
+
+                .tree li::after {
+                    right: auto;
+                    left: 50%;
+                    border-left: 1px solid #ccc;
+                }
+
+                .tree li:only-child::after,
+                .tree li:only-child::before {
+                    display: none;
+                }
+
+                .tree li:only-child {
+                    padding-top: 0;
+                }
+
+                .tree li:first-child::before,
+                .tree li:last-child::after {
+                    border: 0 none;
+                }
+
+                .tree li:last-child::before {
+                    border-right: 1px solid #ccc;
+                    border-radius: 0 5px 0 0;
+                }
+
+                .tree li:first-child::after {
+                    border-radius: 5px 0 0 0;
+                }
+
+            .tree ul ul::before {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 50%;
+                border-left: 1px solid #ccc;
+                width: 0;
+                height: 20px;
+            }
+
+            .tree li a {
+                border: 1px solid #ccc;
+                padding: 8px 10px;
+                text-decoration: none;
+                color: #666;
+                font-family: arial, verdana, tahoma;
+                font-size: 20px;
+                display: inline-block;
+                border-radius: 5px;
+                transition: all 0.5s;
+                line-height: 1.2;
+            }
+
+                .tree li a:hover,
+                .tree li a:hover + ul li a {
+                    background: #c8e4f8;
+                    color: #000;
+                    border: 1px solid #94a0b4;
+                }
+
+                    .tree li a:hover + ul li::after,
+                    .tree li a:hover + ul li::before,
+                    .tree li a:hover + ul::before,
+                    .tree li a:hover + ul ul::before {
+                        border-color: #94a0b4;
+                    }
+
+
+        /*popup*/
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #f5f5f5;
+            padding: 10px;
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .header-title {
+            margin: 0;
+        }
+
+        .header-buttons {
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+        }
+
+        .header-button {
+            padding: 6px 12px;
+            border-radius: 4px;
+            background-color: #eee;
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+        }
+
+        .popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            visibility: hidden;
+            opacity: 0;
+            transition: visibility 0s, opacity 0.3s;
+        }
+
+        .popup-content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 4px;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .popup-close {
+            margin-top: 10px;
+            padding: 6px 12px;
+            border-radius: 4px;
+            background-color: #eee;
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+        }
+
+        .popup-content input {
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 6px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .popup-content #activityDescription {
+            height: 50px;
+            /* Đặt chiều cao mong muốn cho phần mô tả */
+            resize: vertical;
+            /* Cho phép người dùng điều chỉnh chiều cao dọc của phần mô tả */
+        }
+
+    </style>
+
+
+
+</head>
+
+<body>
+    <div class="header">
+        <div class="header-content">
+            <h1 class="header-title">Family Tree</h1>
+            <div class="header-buttons">
+                <a href="/Activities" class="header-button" style="margin-left: 500px;">Activities</a>
+            </div>
+            <div class="header-buttons">
+                <a href="/Albums" class="header-button">Album</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h2>Me</h2>
+        </div>
+        <div class="sidebar-menu">
+            <a href="#" onclick="showSection('personal')">Personal</a>
+            <a href="#" onclick="showSection('contact')">Contact</a>
+            <a href="#" onclick="showSection('biographical')">Biographical</a>
+        </div>
+        <div class="sidebar-content">
+            <div id="personal" class="section active">
+                <h2>Personal</h2>
+                <input type="hidden" id="personIdInput" value="">
+                <input type="text" class="large-input" placeholder="ID" id="idInput">
+                <input type="text" class="large-input" placeholder="Full Name" id="fullNameNameInput">
+                <input type="text" class="large-input" placeholder="Gender" id="genderInput">
+                <input type="text" class="large-input" placeholder="Day of birth" id="dateOfBirthInput">
+                <input type="text" class="large-input" placeholder="Phone" id="phoneInput">
+                <input type="text" class="large-input" placeholder="Email" id="emailInput">
+                <input type="text" class="large-input" placeholder="Address" id="addressInput">
+                <input type="text" class="large-input" placeholder="Family" id="familyInput">
+            </div>
+
+
+            <div id="contact" class="section active">
+                <h2>Contact</h2>
+                <input type="text" class="large-input" placeholder="Email">
+                <input type="text" class="large-input" placeholder="Website">
+                <input type="text" class="large-input" placeholder="Blog">
+                <input type="text" class="large-input" placeholder="Photo site">
+                <input type="text" class="large-input" placeholder="Home tel">
+                <input type="text" class="large-input" placeholder="Work tel">
+                <input type="text" class="large-input" placeholder="Mobile">
+                <input type="text" class="large-input" placeholder="Address">
+                <input type="text" class="large-input" placeholder="Other">
+            </div>
+
+            <div id="biographical" class="section active">
+                <h2>Biographical</h2>
+                <input type="text" class="large-input" placeholder="Birth place">
+                <input type="text" class="large-input" placeholder="Profession">
+                <input type="text" class="large-input" placeholder="Company">
+                <input type="text" class="large-input" placeholder="Interests">
+                <input type="text" class="large-input" placeholder="Activities">
+                <input type="text" class="large-input" placeholder="Bio notes">
+            </div>
+
+            <div class="sidebar-footer">
+                <p>Click to add your relatives:</p>
+                <button onclick="addParent()">Add Parent</button>
+                <button onclick="addSpouseNode()">Add Spouse</button>
+                <button onclick="addSiblingNode()">Add Brother/Sister</button>
+                <button onclick="addChildNode()">Add Child</button>
+                <button onclick="saveData()">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="tree">
+            <ul>
+                <li>
+                    @*<a href="#" style="font-size: 24px;">Me</a>*@
+                    <ul id="familyTree"></ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+
+    <script>
+        var activityButton = document.querySelector(".header-button");
+        var popup = document.getElementById("activityPopup");
+        var closePopupButton = document.getElementById("closePopup");
+
+        activityButton.addEventListener("click", function() {
+            popup.style.visibility = "visible";
+            popup.style.opacity = 1;
+            var activityTitle = document.getElementById("activityTitle");
+            var activityDescription = document.getElementById("activityDescription");
+            var activityStartDate = document.getElementById("activityStartDate");
+            var activityEndDate = document.getElementById("activityEndDate");
+            var activityPhone = document.getElementById("activityPhone");
+            var activityEmail = document.getElementById("activityEmail");
+            var activityCreatedBy = document.getElementById("activityCreatedBy");
+
+            activityTitle.textContent = "Activity Title";
+            activityDescription.textContent = "Activity Description";
+            activityStartDate.textContent = "Start Date";
+            activityEndDate.textContent = "End Date";
+            activityPhone.textContent = "Phone Number";
+            activityEmail.textContent = "Email";
+            activityCreatedBy.textContent = "Created By";
+        });
+
+        closePopupButton.addEventListener("click", function() {
+            popup.style.visibility = "hidden";
+            popup.style.opacity = 0;
+        });
+    </script>
+    <script>
+        var existingMembers = [];
+        var selectedNode = null;
+
+        function displayFamilyTree(data, parentElement) {
+            var siblingContainer = document.createElement("div");
+            siblingContainer.classList.add("sibling-container");
+            var siblingList = document.createElement("ul");
+            siblingList.classList.add("sibling-list");
+
+            var memberFamilyId = @Context.Session.GetString("MemberFamilyId");
+
+            for (var i = 0; i < data.length; i++) {
+                var person = data[i];
+                var personId = person.id;
+
+                var existingMember = existingMembers.find(function(member) {
+                    return member.id === personId;
+                });
+
+                if (existingMember) {
+                    var personNode = existingMember.node;
+                    var personLink = personNode.querySelector("a");
+                    personLink.textContent = person.fullName;
+                } else {
+                    var personNode = document.createElement("li");
+                    var personLink = document.createElement("a");
+                    var isMe = personId === memberFamilyId;
+                    personLink.textContent = isMe ? "Me" : person.fullName;
+                    personLink.href = "javascript:void(0);";
+                    personLink.setAttribute("data-id", personId);
+                    personLink.addEventListener("click", function() {
+                        var id = this.getAttribute("data-id");
+                        document.getElementById("personIdInput").value = id;
+                        fetch("http://localhost:45571/api/FamilyMember/GetGetFamilyMemberById/" + id)
+                            .then((response) => response.json())
+                            .then((data) => {
+                                var givenNamesInput = document.getElementById("givenNamesInput");
+
+                                idInput.value = data.id;
+                                fullNameNameInput.value = data.fullName;
+                                var genderInput = document.getElementById("genderInput");
+                                if (data.gender === 1) {
+                                    genderInput.value = "Man";
+                                } else if (data.gender === 0) {
+                                    genderInput.value = "Woman";
+                                } else {
+                                    genderInput.value = "";
+                                }
+                                dateOfBirthInput.value = data.dob;
+                                phoneInput.value = data.phone;
+                                emailInput.value = data.email;
+                                addressInput.value = data.address;
+                                familyInput.value = data.familyId;
+
+                                var parentData = {
+                                    id: data.id,
+                                    fullName: data.fullName,
+                                    gender: data.gender === 1 ? "Man" : "Woman",
+                                    dob: data.dob,
+                                    phone: data.phone,
+                                    email: data.email,
+                                    address: data.address,
+                                    relationType: null,
+                                    familyId: data.familyId
+                                };
+
+
+                                selectedParentData = parentData;
+                            })
+                            .catch((error) => {
+                                console.error("Lỗi khi lấy dữ liệu từ API:", error);
+                            });
+
+                        var selectedPersonNode = this.parentNode;
+                        if (selectedNode) {
+                            selectedNode.classList.remove("selected");
+                        }
+                        selectedPersonNode.classList.add("selected");
+                        selectedNode = selectedPersonNode;
+                    });
+
+                    personNode.appendChild(personLink);
+
+                    existingMembers.push({ id: personId, node: personNode });
+
+                    if (person.relatives && person.relatives.length > 0) {
+                        var relativeList = document.createElement("ul");
+                        personNode.appendChild(relativeList);
+                        displayFamilyTree(person.relatives, relativeList);
+                    }
+
+                    parentElement.appendChild(personNode);
+
+                    if (person.relationType === "Sibling") {
+                        siblingList.appendChild(personNode);
+                    }
+                }
+            }
+
+            if (siblingList.childNodes.length > 0) {
+                siblingContainer.appendChild(siblingList);
+                parentElement.appendChild(siblingContainer);
+            }
+        }
+
+
+        function updateFamilyMember(id, updatedData) {
+            console.log("a", updatedData)
+            fetch("http://localhost:45571/api/FamilyMember/UpdateFamilyMember/" + id, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(updatedData),
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    console.log("Thành viên được cập nhật thành công:", data);
+                })
+                .catch((error) => {
+                    console.error("Lỗi khi cập nhật thông tin thành viên:", error);
+                });
+        }
+
+        //ham add child
+        function addChildNode() {
+            if (!selectedParentData) {
+                alert("Vui lòng chọn một node cha.");
+                return;
+            }
+
+            var parentData = selectedParentData;
+
+            var childNode = document.createElement("li");
+            var childLink = document.createElement("a");
+            childLink.textContent = "Con";
+            childLink.href = "javascript:void(0);";
+            childLink.addEventListener("click", function() {
+                updateContactInfo(childNode);
+            });
+
+            childNode.appendChild(childLink);
+
+            var childList = document.createElement("ul");
+            childNode.appendChild(childList);
+
+            var parentNode = selectedNode;
+            var parentChildList = parentNode.querySelector("ul");
+            if (!parentChildList) {
+                parentChildList = document.createElement("ul");
+                parentNode.appendChild(parentChildList);
+            }
+
+            parentChildList.appendChild(childNode);
+
+            // Lưu thông tin của node cha vào dataset của node con
+            childNode.dataset.fullName = parentData.fullName;
+            childNode.dataset.gender = parentData.gender;
+            childNode.dataset.dateOfBirth = parentData.dob;
+            childNode.dataset.phone = parentData.phone;
+            childNode.dataset.email = parentData.email;
+            childNode.dataset.address = parentData.address;
+            childNode.dataset.family = parentData.familyId;
+
+            // Xóa thông tin của node con (nếu có)
+
+            // Hiển thị thông tin của node cha và node con
+            console.log("Thông tin node cha:", parentData);
+
+            console.log("Thông tin node con:", {
+                fullName: childNode.dataset.fullName,
+                gender: childNode.dataset.gender,
+                dob: childNode.dataset.dateOfBirth,
+                phone: childNode.dataset.phone,
+                email: childNode.dataset.email,
+                address: childNode.dataset.address,
+                familyId: childNode.dataset.family
+            });
+        }
+
+        function updateContactInfo(node) {
+            var contactInputs = document.querySelectorAll("#personal input");
+            contactInputs.forEach(function(input) {
+                input.value = "";
+            });
+        }
+
+
+        function showSection(sectionId) {
+            var sections = document.getElementsByClassName("section");
+            for (var i = 0; i < sections.length; i++) {
+                sections[i].classList.remove("active");
+            }
+            var section = document.getElementById(sectionId);
+            if (section) {
+                section.classList.add("active");
+            }
+        }
+
+        //ham add sibling
+        function addSiblingNode() {
+            if (!selectedNode) {
+                alert("Vui lòng chọn một node.");
+                return;
+            }
+
+            var selectedNodeParent = selectedNode.parentNode;
+            var siblingNode = document.createElement("li");
+            var siblingLink = document.createElement("a");
+            siblingLink.textContent = "Sibling";
+            siblingLink.href = "javascript:void(0);";
+            siblingLink.addEventListener("click", function() {
+                selectedNode = siblingNode;
+            });
+
+            siblingNode.appendChild(siblingLink);
+
+            if (selectedNodeParent) {
+                selectedNode.insertAdjacentElement("afterend", siblingNode);
+            }
+
+            selectedNodeParent.appendChild(siblingNode);
+
+            selectedNode = siblingNode;
+        }
+
+
+        //function saveData() {
+        //    var idInput = document.getElementById("personIdInput");
+        //    var id = idInput.value;
+        //    var updatedData = {
+        //        id: id,
+        //        fullName: fullNameNameInput.value,
+        //        gender: genderInput.value === "Man" ? 1 : genderInput.value === "Woman" ? 0 : null,
+        //        dob: dateOfBirthInput.value,
+        //        phone: phoneInput.value,
+        //        email: emailInput.value,
+        //        address: addressInput.value,
+        //        familyId: familyInput.value
+        //    };
+        //    updateFamilyMember(id, updatedData);
+        //}
+        function saveData() {
+            if (!selectedNode) {
+                alert("Vui lòng chọn một node.");
+                return;
+            }
+
+            var parentData = selectedParentData;
+            var parentNode = selectedNode;
+            var parentChildList = parentNode.querySelector("ul");
+            if (!parentChildList) {
+                parentChildList = document.createElement("ul");
+                parentNode.appendChild(parentChildList);
+            }
+
+            var childNode = document.createElement("li");
+            parentChildList.appendChild(childNode);
+
+            // Gán thông tin của node cha cho childNode
+            childNode.dataset.id = parentData.id;
+            childNode.dataset.fullName = parentData.fullName;
+            childNode.dataset.gender = parentData.gender;
+            childNode.dataset.dateOfBirth = parentData.dob;
+            childNode.dataset.phone = parentData.phone;
+            childNode.dataset.email = parentData.email;
+            childNode.dataset.address = parentData.address;
+            childNode.dataset.relationType = null;
+            childNode.dataset.family = parentData.familyId;
+
+            var childData = {
+                id: 0,
+                fullName: document.getElementById("fullNameNameInput").value,
+                gender: document.getElementById("genderInput").value,
+                dob: document.getElementById("dateOfBirthInput").value,
+                phone: document.getElementById("phoneInput").value,
+                email: document.getElementById("emailInput").value,
+                address: document.getElementById("addressInput").value,
+                familyId: document.getElementById("familyInput").value,
+                relationType: "Child"
+            };
+            console.log("parentData", parentData)
+            parentData.relatives = [childData];
+
+            // Gửi dữ liệu lên server
+            fetch("http://localhost:45571/api/Family/addNode", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(parentData)
+            })
+                .then(function(response) {
+                    if (response.ok) {
+                        return response.json();
+                    } else {
+                        throw new Error("Lỗi khi lưu mối quan hệ");
+                    }
+                })
+                .then(function(data) {
+                    console.log(data);
+                })
+                .catch(function(error) {
+                    console.error(error);
+                });
+        }
+
+
+        @{
+            var id = Context.Session.GetString("MemberFamilyId");
+        }
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            var id = '@id';
+
+        fetch("http://localhost:45571/api/Family/" + id + "/tree1")
+            .then((response) => response.json())
+            .then((data) => {
+                var familyTreeElement = document.getElementById("familyTree");
+                displayFamilyTree(data, familyTreeElement);
+            })
+            .catch((error) => {
+                console.error("Lỗi khi lấy dữ liệu từ API:", error);
+            });
+    </script>
+
+
+    <script>
+        function showSection(sectionId) {
+            var sections = document.getElementsByClassName("section");
+            for (var i = 0; i < sections.length; i++) {
+                sections[i].classList.remove("active");
+            }
+
+            var section = document.getElementById(sectionId);
+            section.classList.add("active");
+        }
+        var treeNodes = document.querySelectorAll(".tree li a");
+        for (var i = 0; i < treeNodes.length; i++) {
+            treeNodes[i].addEventListener("click", function() {
+                var currentSelected = document.querySelector(".selected");
+                if (currentSelected) {
+                    currentSelected.classList.remove("selected");
+                }
+                this.parentNode.classList.add("selected");
+            });
+        }
+
+        window.addEventListener("DOMContentLoaded", function() {
+            showSection("personal");
+            var meNode = document.querySelector(".tree li a");
+            meNode.classList.add("selected");
+        });
+
+
+        window.addEventListener("DOMContentLoaded", function() {
+            showSection("personal");
+        });
+    </script>
+</body>
+
+</html>

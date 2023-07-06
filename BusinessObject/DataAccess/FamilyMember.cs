@@ -9,7 +9,7 @@ namespace BusinessObject.DataAccess
     {
         public FamilyMember()
         {
-            Accounts = new HashSet<Account>();
+            
             Relatives = new HashSet<Relative>();
         }
 
@@ -20,10 +20,10 @@ namespace BusinessObject.DataAccess
         public string Phone { get; set; }
         public string Email { get; set; }
         public string Address { get; set; }
-        public int? FamilyId { get; set; }
+        public int FamilyId { get; set; }
 
         public virtual Family Family { get; set; }
-        public virtual ICollection<Account> Accounts { get; set; }
+        public virtual Account Accounts { get; set; }
         public virtual ICollection<Relative> Relatives { get; set; }
     }
 }

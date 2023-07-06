@@ -12,6 +12,7 @@ namespace BusinessObject.DataAccess
             Activities = new HashSet<Activity>();
             Albums = new HashSet<Album>();
             FamilyMembers = new HashSet<FamilyMember>();
+            Relatives = new HashSet<Relative>();
             StudyPromotions = new HashSet<StudyPromotion>();
         }
 
@@ -23,6 +24,7 @@ namespace BusinessObject.DataAccess
         public virtual ICollection<Activity> Activities { get; set; }
         public virtual ICollection<Album> Albums { get; set; }
         public virtual ICollection<FamilyMember> FamilyMembers { get; set; }
+        public virtual ICollection<Relative> Relatives { get; set; }
         public virtual ICollection<StudyPromotion> StudyPromotions { get; set; }
     }
 }
