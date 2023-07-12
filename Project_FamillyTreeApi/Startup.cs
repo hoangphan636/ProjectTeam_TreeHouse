@@ -79,6 +79,8 @@ namespace Project_FamillyTreeApi
             services.AddScoped<ActivitiesRepository>();
             services.AddScoped<FamilyRepository>();
             services.AddScoped<FamilyMemberRepository>();
+            services.AddScoped<ImageDAO>();
+            services.AddScoped<IImageRepository,ImageRepository>();
 
             services.AddSwaggerGen(c =>
             {

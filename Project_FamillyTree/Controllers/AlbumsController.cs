@@ -118,8 +118,9 @@ namespace Project_FamillyTree.Controllers
                     var family = JsonConvert.DeserializeObject<Family>(familyJsonString);
                     album.Family = family;
                 }
-
-                return View(album);
+                HttpContext.Session.SetString("AlbumId", album.Id.ToString());
+                return RedirectToAction("Details", "Images", new {id=album.Id});
+                
             }
 
             return NotFound();

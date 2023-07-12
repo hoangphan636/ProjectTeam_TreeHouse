@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text.Json.Serialization;
 
 #nullable disable
 
@@ -15,7 +14,6 @@ namespace BusinessObject.DataAccess
         public DateTime EndDate { get; set; }
         public string Description { get; set; }
 
-        [JsonIgnore]
         public virtual Family Family { get; set; }
     }
 }

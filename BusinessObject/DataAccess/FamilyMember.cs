@@ -9,7 +9,7 @@ namespace BusinessObject.DataAccess
     {
         public FamilyMember()
         {
-            
+
             Relatives = new HashSet<Relative>();
         }
 

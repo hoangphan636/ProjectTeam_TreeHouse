@@ -4,7 +4,7 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<h1>Send Mail</h1>
 
 <div>
     <h4>Activity</h4>
@@ -42,7 +42,11 @@
         </dd>
     </dl>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+<form asp-action="SendMail" method="post">
+    <div>
+@*        <input type="hidden" name="memberId" value="@Model.FamilyId" />
+*@        <input type="hidden" name="activityId" value="@Model.Id" />
+        <input type="submit" value="SendMail" class="btn btn-danger" /> |
+        <a asp-action="Index">Back to List</a>
+    </div>
+</form>

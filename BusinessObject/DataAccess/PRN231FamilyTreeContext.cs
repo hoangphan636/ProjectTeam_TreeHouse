@@ -1,8 +1,6 @@
 ﻿using System;
-using System.IO;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.Extensions.Configuration;
 
 #nullable disable
 
@@ -12,16 +10,6 @@ namespace BusinessObject.DataAccess
     {
         public PRN231FamilyTreeContext()
         {
-        }
-        private string GetConnectionString()
-        {
-            IConfiguration config = new ConfigurationBuilder()
-               .SetBasePath(Directory.GetCurrentDirectory())
-               .AddJsonFile("appsettings.json", true, true)
-               .Build();
-            var strConn = config["ConnectionStrings:DefaultConnection"];
-
-            return strConn;
         }
 
         public PRN231FamilyTreeContext(DbContextOptions<PRN231FamilyTreeContext> options)
@@ -34,6 +22,7 @@ namespace BusinessObject.DataAccess
         public virtual DbSet<Album> Albums { get; set; }
         public virtual DbSet<Family> Families { get; set; }
         public virtual DbSet<FamilyMember> FamilyMembers { get; set; }
+        public virtual DbSet<Image> Images { get; set; }
         public virtual DbSet<Relationship> Relationships { get; set; }
         public virtual DbSet<Relative> Relatives { get; set; }
         public virtual DbSet<StudyPromotion> StudyPromotions { get; set; }
@@ -43,7 +32,7 @@ namespace BusinessObject.DataAccess
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer(GetConnectionString());
+                optionsBuilder.UseSqlServer("server =(local); database = PRN231FamilyTree ;uid=sa;pwd=12345;");
             }
         }
 
@@ -67,9 +56,10 @@ namespace BusinessObject.DataAccess
 
                 entity.Property(e => e.Password).HasMaxLength(50);
 
-                entity.HasOne(d => d.Member)
-                    .WithOne(p => p.Accounts)
-                    .HasConstraintName("FK__Accounts__Member__300424B4");
+                //entity.HasOne(d => d.Member)
+                //    .With(p => p.Accounts)
+                //    .HasForeignKey(d => d.MemberId)
+                //    .HasConstraintName("FK__Accounts__Member__300424B4");
             });
 
             modelBuilder.Entity<Activity>(entity =>
@@ -151,6 +141,24 @@ namespace BusinessObject.DataAccess
                     .WithMany(p => p.FamilyMembers)
                     .HasForeignKey(d => d.FamilyId)
                     .HasConstraintName("FK__FamilyMem__Famil__267ABA7A");
+            });
+
+            modelBuilder.Entity<Image>(entity =>
+            {
+                entity.Property(e => e.Id).HasColumnName("ID");
+
+                entity.Property(e => e.AlbumId).HasColumnName("AlbumID");
+
+                entity.Property(e => e.CreateDate).HasColumnType("datetime");
+
+                entity.Property(e => e.UrlImage)
+                    .IsRequired()
+                    .HasMaxLength(1000);
+
+                entity.HasOne(d => d.Album)
+                    .WithMany(p => p.Images)
+                    .HasForeignKey(d => d.AlbumId)
+                    .HasConstraintName("FK__Images__AlbumID__3B75D760");
             });
 
             modelBuilder.Entity<Relationship>(entity =>

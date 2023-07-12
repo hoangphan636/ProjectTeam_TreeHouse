@@ -1,0 +1,148 @@
+is_global = true
+build_property.TargetFramework = net6.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = Project_FamillyTree
+build_property.RootNamespace = Project_FamillyTree
+build_property.ProjectDir = C:\Users\Admin\Documents\HOC\ki 8\PRN231\Project\GroupProject\ProjectTeam_TreeHouse\Project_FamillyTree\
+build_property.RazorLangVersion = 6.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = C:\Users\Admin\Documents\HOC\ki 8\PRN231\Project\GroupProject\ProjectTeam_TreeHouse\Project_FamillyTree
+build_property._RazorSourceGeneratorDebug = 
+
+[C:/Users/Admin/Documents/HOC/ki 8/PRN231/Project/GroupProject/ProjectTeam_TreeHouse/Project_FamillyTree/Views/Accounts/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudHNcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Documents/HOC/ki 8/PRN231/Project/GroupProject/ProjectTeam_TreeHouse/Project_FamillyTree/Views/Accounts/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudHNcRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Documents/HOC/ki 8/PRN231/Project/GroupProject/ProjectTeam_TreeHouse/Project_FamillyTree/Views/Accounts/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudHNcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Documents/HOC/ki 8/PRN231/Project/GroupProject/ProjectTeam_TreeHouse/Project_FamillyTree/Views/Accounts/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudHNcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Documents/HOC/ki 8/PRN231/Project/GroupProject/ProjectTeam_TreeHouse/Project_FamillyTree/Views/Accounts/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudHNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Documents/HOC/ki 8/PRN231/Project/GroupProject/ProjectTeam_TreeHouse/Project_FamillyTree/Views/Account/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Documents/HOC/ki 8/PRN231/Project/GroupProject/ProjectTeam_TreeHouse/Project_FamillyTree/Views/Account/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxEZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Documents/HOC/ki 8/PRN231/Project/GroupProject/ProjectTeam_TreeHouse/Project_FamillyTree/Views/Account/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Documents/HOC/ki 8/PRN231/Project/GroupProject/ProjectTeam_TreeHouse/Project_FamillyTree/Views/Account/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Documents/HOC/ki 8/PRN231/Project/GroupProject/ProjectTeam_TreeHouse/Project_FamillyTree/Views/Account/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Documents/HOC/ki 8/PRN231/Project/GroupProject/ProjectTeam_TreeHouse/Project_FamillyTree/Views/Activities/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWN0aXZpdGllc1xDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Documents/HOC/ki 8/PRN231/Project/GroupProject/ProjectTeam_TreeHouse/Project_FamillyTree/Views/Activities/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWN0aXZpdGllc1xEZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Documents/HOC/ki 8/PRN231/Project/GroupProject/ProjectTeam_TreeHouse/Project_FamillyTree/Views/Activities/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWN0aXZpdGllc1xEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Documents/HOC/ki 8/PRN231/Project/GroupProject/ProjectTeam_TreeHouse/Project_FamillyTree/Views/Activities/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWN0aXZpdGllc1xFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Documents/HOC/ki 8/PRN231/Project/GroupProject/ProjectTeam_TreeHouse/Project_FamillyTree/Views/Activities/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWN0aXZpdGllc1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Documents/HOC/ki 8/PRN231/Project/GroupProject/ProjectTeam_TreeHouse/Project_FamillyTree/Views/Albums/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWxidW1zXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Documents/HOC/ki 8/PRN231/Project/GroupProject/ProjectTeam_TreeHouse/Project_FamillyTree/Views/Albums/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWxidW1zXERlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Documents/HOC/ki 8/PRN231/Project/GroupProject/ProjectTeam_TreeHouse/Project_FamillyTree/Views/Albums/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWxidW1zXERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Documents/HOC/ki 8/PRN231/Project/GroupProject/ProjectTeam_TreeHouse/Project_FamillyTree/Views/Albums/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWxidW1zXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Documents/HOC/ki 8/PRN231/Project/GroupProject/ProjectTeam_TreeHouse/Project_FamillyTree/Views/Albums/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWxidW1zXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Documents/HOC/ki 8/PRN231/Project/GroupProject/ProjectTeam_TreeHouse/Project_FamillyTree/Views/Images/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW1hZ2VzXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Documents/HOC/ki 8/PRN231/Project/GroupProject/ProjectTeam_TreeHouse/Project_FamillyTree/Views/Images/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW1hZ2VzXERlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Documents/HOC/ki 8/PRN231/Project/GroupProject/ProjectTeam_TreeHouse/Project_FamillyTree/Views/Images/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW1hZ2VzXERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Documents/HOC/ki 8/PRN231/Project/GroupProject/ProjectTeam_TreeHouse/Project_FamillyTree/Views/Images/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW1hZ2VzXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Documents/HOC/ki 8/PRN231/Project/GroupProject/ProjectTeam_TreeHouse/Project_FamillyTree/Views/Images/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW1hZ2VzXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Documents/HOC/ki 8/PRN231/Project/GroupProject/ProjectTeam_TreeHouse/Project_FamillyTree/Views/Login/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9naW5cSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Documents/HOC/ki 8/PRN231/Project/GroupProject/ProjectTeam_TreeHouse/Project_FamillyTree/Views/Shared/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Documents/HOC/ki 8/PRN231/Project/GroupProject/ProjectTeam_TreeHouse/Project_FamillyTree/Views/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Documents/HOC/ki 8/PRN231/Project/GroupProject/ProjectTeam_TreeHouse/Project_FamillyTree/Views/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Documents/HOC/ki 8/PRN231/Project/GroupProject/ProjectTeam_TreeHouse/Project_FamillyTree/Views/SignUp/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2lnblVwXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Documents/HOC/ki 8/PRN231/Project/GroupProject/ProjectTeam_TreeHouse/Project_FamillyTree/Views/Tree/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVHJlZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Documents/HOC/ki 8/PRN231/Project/GroupProject/ProjectTeam_TreeHouse/Project_FamillyTree/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Documents/HOC/ki 8/PRN231/Project/GroupProject/ProjectTeam_TreeHouse/Project_FamillyTree/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
