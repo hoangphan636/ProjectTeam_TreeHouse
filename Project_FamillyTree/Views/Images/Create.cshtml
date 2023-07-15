@@ -10,21 +10,15 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="Create" enctype="multipart/form-data" onsubmit="return validateForm()">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                 @*<label asp-for="AlbumId" class="control-label"></label>*@
-                <input asp-for="AlbumId" class="form-control" value="@ViewData["AlbumId"]" type="hidden"/>
+                <input asp-for="AlbumId" class="form-control" value="@ViewData["AlbumId"]" type="hidden" />
                 <span asp-validation-for="AlbumId" class="text-danger"></span>
             </div>
-           @* <div class="form-group">
-                <label asp-for="CreateDate" class="control-label"></label>
-                <input asp-for="CreateDate" class="form-control" />
-                <span asp-validation-for="CreateDate" class="text-danger"></span>
-            </div>*@
             <div class="form-group">
                 <label asp-for="UrlImage" class="control-label"></label>
-                <input asp-for="UrlImage" class="form-control" />
+                <input asp-for="UrlImage" class="form-control" type="file" name="file" id="fileInput" />
                 <span asp-validation-for="UrlImage" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -39,5 +33,15 @@
 </div>
 
 @section Scripts {
+    <script>
+        function validateForm() {
+            var fileInput = document.getElementById('fileInput');
+            if (fileInput.files.length === 0) {
+                alert('Please select a file');
+                return false;
+            }
+            return true;
+        }
+    </script>
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

@@ -1,6 +1,9 @@
-﻿﻿@using Microsoft.AspNetCore.Http
+﻿@using Microsoft.AspNetCore.Http
 @model List<FamilyMemberNode>
 
+@{
+    Layout = null;
+}
 <!DOCTYPE html>
 <html>
 
@@ -311,16 +314,14 @@
                 <a href="/Albums" class="header-button">Album</a>
             </div>
         </div>
+        <form asp-action="Logout" asp-controller="Tree" style="margin-left=250px">
+            <input type="submit" value="Logout" />
+        </form>
     </div>
 
     <div class="sidebar">
         <div class="sidebar-header">
             <h2>Me</h2>
-        </div>
-        <div class="sidebar-menu">
-            <a href="#" onclick="showSection('personal')">Personal</a>
-            <a href="#" onclick="showSection('contact')">Contact</a>
-            <a href="#" onclick="showSection('biographical')">Biographical</a>
         </div>
         <div class="sidebar-content">
             <div id="personal" class="section active">
@@ -328,44 +329,24 @@
                 <input type="hidden" id="personIdInput" value="">
                 <input type="text" class="large-input" placeholder="ID" id="idInput">
                 <input type="text" class="large-input" placeholder="Full Name" id="fullNameNameInput">
-                <input type="text" class="large-input" placeholder="Gender" id="genderInput">
-                <input type="text" class="large-input" placeholder="Day of birth" id="dateOfBirthInput">
+                <select class="large-input" id="genderInput">
+                    <option value="">Select gender</option>
+                    <option value="1">Man</option>
+                    <option value="0">Woman</option>
+                </select>
+                <input type="date" class="large-input" placeholder="Day of birth" id="dateOfBirthInput" style="margin-top:10px">
                 <input type="text" class="large-input" placeholder="Phone" id="phoneInput">
                 <input type="text" class="large-input" placeholder="Email" id="emailInput">
                 <input type="text" class="large-input" placeholder="Address" id="addressInput">
                 <input type="text" class="large-input" placeholder="Family" id="familyInput">
             </div>
-
-
-            <div id="contact" class="section active">
-                <h2>Contact</h2>
-                <input type="text" class="large-input" placeholder="Email">
-                <input type="text" class="large-input" placeholder="Website">
-                <input type="text" class="large-input" placeholder="Blog">
-                <input type="text" class="large-input" placeholder="Photo site">
-                <input type="text" class="large-input" placeholder="Home tel">
-                <input type="text" class="large-input" placeholder="Work tel">
-                <input type="text" class="large-input" placeholder="Mobile">
-                <input type="text" class="large-input" placeholder="Address">
-                <input type="text" class="large-input" placeholder="Other">
-            </div>
-
-            <div id="biographical" class="section active">
-                <h2>Biographical</h2>
-                <input type="text" class="large-input" placeholder="Birth place">
-                <input type="text" class="large-input" placeholder="Profession">
-                <input type="text" class="large-input" placeholder="Company">
-                <input type="text" class="large-input" placeholder="Interests">
-                <input type="text" class="large-input" placeholder="Activities">
-                <input type="text" class="large-input" placeholder="Bio notes">
-            </div>
-
             <div class="sidebar-footer">
                 <p>Click to add your relatives:</p>
                 <button onclick="addParent()">Add Parent</button>
                 <button onclick="addSpouseNode()">Add Spouse</button>
-                <button onclick="addSiblingNode()">Add Brother/Sister</button>
-                <button onclick="addChildNode()">Add Child</button>
+                <button onclick="addSiblingNode('Sibling')">Add Brother/Sister</button>
+                <button onclick="addChildNode('Child')">Add Child</button>
+                <button onclick="deleteSelectedNode()">Delete</button>
                 <button onclick="saveData()">Save</button>
             </div>
         </div>
@@ -413,8 +394,13 @@
             popup.style.opacity = 0;
         });
     </script>
+
+
+
+
+    @*add node relation*@
     <script>
-        var existingMembers = [];
+
         var selectedNode = null;
 
         function displayFamilyTree(data, parentElement) {
@@ -423,88 +409,131 @@
             var siblingList = document.createElement("ul");
             siblingList.classList.add("sibling-list");
 
+            var existingMembers = {};
+
             var memberFamilyId = @Context.Session.GetString("MemberFamilyId");
+
+            var siblingRelativeList = [];
+
+            function createPersonNode(person) {
+                //gender dropdown
+                var genderSelect = document.createElement("select");
+                genderSelect.classList.add("large-input");
+                genderSelect.id = "genderInput";
+
+                var womanOption = document.createElement("option");
+                womanOption.value = "Woman";
+                womanOption.textContent = "Woman";
+
+                var manOption = document.createElement("option");
+                manOption.value = "Man";
+                manOption.textContent = "Man";
+
+                genderSelect.appendChild(womanOption);
+                genderSelect.appendChild(manOption);
+
+
+                //get node
+                var personNode = document.createElement("li");
+                var personLink = document.createElement("a");
+                var isMe = person.id === memberFamilyId;
+                personLink.textContent = isMe ? "Me" : person.fullName;
+                personLink.href = "javascript:void(0);";
+                personLink.setAttribute("data-id", person.id);
+                personLink.addEventListener("click", function() {
+                    var id = this.getAttribute("data-id");
+                    document.getElementById("personIdInput").value = id;
+                    fetch("http://localhost:45571/api/FamilyMember/GetGetFamilyMemberById/" + id)
+                        .then((response) => response.json())
+                        .then((data) => {
+                            var givenNamesInput = document.getElementById("givenNamesInput");
+
+                            idInput.value = data.id;
+                            fullNameNameInput.value = data.fullName;
+                            var genderInput = document.getElementById("genderInput");
+                            if (data.gender === 1) {
+                                genderInput.value = "1";
+                            } else if (data.gender === 0) {
+                                genderInput.value = "0";
+                            }
+                            var dateOfBirthInput = document.getElementById("dateOfBirthInput");
+                            var dob = data.dob;
+                            var formattedDOB = dob.slice(0, 10);
+                            dateOfBirthInput.value = formattedDOB;
+
+                            phoneInput.value = data.phone;
+                            emailInput.value = data.email;
+                            addressInput.value = data.address;
+                            familyInput.value = data.familyId;
+
+                            var parentData = {
+                                id: data.id,
+                                fullName: data.fullName,
+                                gender: data.gender,
+                                dob: data.dob,
+                                phone: data.phone,
+                                email: data.email,
+                                address: data.address,
+                                relationType: null,
+                                familyId: data.familyId
+                            };
+
+
+
+                            selectedParentData = parentData;
+                        })
+                        .catch((error) => {
+                            console.error("Lỗi khi lấy dữ liệu từ API:", error);
+                        });
+
+                    var selectedPersonNode = this.parentNode;
+                    if (selectedNode) {
+                        selectedNode.classList.remove("selected");
+                    }
+                    selectedPersonNode.classList.add("selected");
+                    selectedNode = selectedPersonNode;
+                });
+
+                personNode.appendChild(personLink);
+
+                existingMembers[person.id] = personNode;
+
+                if (person.relatives && person.relatives.length > 0) {
+                    var relativeList = document.createElement("ul");
+                    personNode.appendChild(relativeList);
+
+                    var otherRelativeList = [];
+
+                    for (var j = 0; j < person.relatives.length; j++) {
+                        var relative = person.relatives[j];
+                        if (relative.relationType === "Sibling") {
+                            siblingRelativeList.push(relative);
+                        } else {
+                            otherRelativeList.push(relative);
+                        }
+                    }
+
+                    for (var k = 0; k < otherRelativeList.length; k++) {
+                        var otherRelative = otherRelativeList[k];
+                        var otherRelativeNode = createPersonNode(otherRelative);
+                        relativeList.appendChild(otherRelativeNode);
+                    }
+                }
+
+                return personNode;
+            }
 
             for (var i = 0; i < data.length; i++) {
                 var person = data[i];
                 var personId = person.id;
 
-                var existingMember = existingMembers.find(function(member) {
-                    return member.id === personId;
-                });
+                var existingMemberNode = existingMembers[personId];
 
-                if (existingMember) {
-                    var personNode = existingMember.node;
-                    var personLink = personNode.querySelector("a");
+                if (existingMemberNode) {
+                    var personLink = existingMemberNode.querySelector("a");
                     personLink.textContent = person.fullName;
                 } else {
-                    var personNode = document.createElement("li");
-                    var personLink = document.createElement("a");
-                    var isMe = personId === memberFamilyId;
-                    personLink.textContent = isMe ? "Me" : person.fullName;
-                    personLink.href = "javascript:void(0);";
-                    personLink.setAttribute("data-id", personId);
-                    personLink.addEventListener("click", function() {
-                        var id = this.getAttribute("data-id");
-                        document.getElementById("personIdInput").value = id;
-                        fetch("http://localhost:45571/api/FamilyMember/GetGetFamilyMemberById/" + id)
-                            .then((response) => response.json())
-                            .then((data) => {
-                                var givenNamesInput = document.getElementById("givenNamesInput");
-
-                                idInput.value = data.id;
-                                fullNameNameInput.value = data.fullName;
-                                var genderInput = document.getElementById("genderInput");
-                                if (data.gender === 1) {
-                                    genderInput.value = "Man";
-                                } else if (data.gender === 0) {
-                                    genderInput.value = "Woman";
-                                } else {
-                                    genderInput.value = "";
-                                }
-                                dateOfBirthInput.value = data.dob;
-                                phoneInput.value = data.phone;
-                                emailInput.value = data.email;
-                                addressInput.value = data.address;
-                                familyInput.value = data.familyId;
-
-                                var parentData = {
-                                    id: data.id,
-                                    fullName: data.fullName,
-                                    gender: data.gender === 1 ? "Man" : "Woman",
-                                    dob: data.dob,
-                                    phone: data.phone,
-                                    email: data.email,
-                                    address: data.address,
-                                    relationType: null,
-                                    familyId: data.familyId
-                                };
-
-
-                                selectedParentData = parentData;
-                            })
-                            .catch((error) => {
-                                console.error("Lỗi khi lấy dữ liệu từ API:", error);
-                            });
-
-                        var selectedPersonNode = this.parentNode;
-                        if (selectedNode) {
-                            selectedNode.classList.remove("selected");
-                        }
-                        selectedPersonNode.classList.add("selected");
-                        selectedNode = selectedPersonNode;
-                    });
-
-                    personNode.appendChild(personLink);
-
-                    existingMembers.push({ id: personId, node: personNode });
-
-                    if (person.relatives && person.relatives.length > 0) {
-                        var relativeList = document.createElement("ul");
-                        personNode.appendChild(relativeList);
-                        displayFamilyTree(person.relatives, relativeList);
-                    }
-
+                    var personNode = createPersonNode(person);
                     parentElement.appendChild(personNode);
 
                     if (person.relationType === "Sibling") {
@@ -513,15 +542,27 @@
                 }
             }
 
-            if (siblingList.childNodes.length > 0) {
-                siblingContainer.appendChild(siblingList);
-                parentElement.appendChild(siblingContainer);
-            }
+            var siblingNodes = document.querySelectorAll(".sibling-node");
+            siblingNodes.forEach(function(node) {
+                node.style.display = "inline-block";
+                node.style.marginRight = "10px";
+            });
+            var fullNameInput = document.getElementById("fullNameNameInput");
+            fullNameInput.addEventListener("input", function() {
+                var fullName = fullNameInput.value;
+                var selectedPersonId = document.getElementById("personIdInput").value;
+                var selectedPersonNode = existingMembers[selectedPersonId];
+                if (selectedPersonNode) {
+                    var selectedPersonLink = selectedPersonNode.querySelector("a");
+                    selectedPersonLink.textContent = fullName;
+                }
+            });
+
+
         }
 
-
+        //Update node infomation
         function updateFamilyMember(id, updatedData) {
-            console.log("a", updatedData)
             fetch("http://localhost:45571/api/FamilyMember/UpdateFamilyMember/" + id, {
                 method: "PUT",
                 headers: {
@@ -532,14 +573,74 @@
                 .then((response) => response.json())
                 .then((data) => {
                     console.log("Thành viên được cập nhật thành công:", data);
+
+                    // Tìm node cần cập nhật trong cây gia đình
+                    var nodeToUpdate = existingMembers[data.id];
+                    if (nodeToUpdate) {
+                        // Kiểm tra nếu thông tin cần cập nhật trùng với thông tin hiện tại của node
+                        if (
+                            nodeToUpdate.dataset.fullName === data.fullName &&
+                            nodeToUpdate.dataset.gender === data.gender &&
+                            nodeToUpdate.dataset.dateOfBirth === data.dob &&
+                            nodeToUpdate.dataset.phone === data.phone &&
+                            nodeToUpdate.dataset.email === data.email &&
+                            nodeToUpdate.dataset.address === data.address &&
+                            nodeToUpdate.dataset.family === data.familyId
+                        ) {
+                            console.log("Không có thay đổi trong thông tin thành viên");
+                            return;
+                        }
+
+                        // Cập nhật thông tin của node
+                        nodeToUpdate.dataset.fullName = data.fullName;
+                        nodeToUpdate.dataset.gender = data.gender;
+                        nodeToUpdate.dataset.dateOfBirth = data.dob;
+                        nodeToUpdate.dataset.phone = data.phone;
+                        nodeToUpdate.dataset.email = data.email;
+                        nodeToUpdate.dataset.address = data.address;
+                        nodeToUpdate.dataset.family = data.familyId;
+
+                        // Cập nhật lại nội dung của node
+                        var nodeLink = nodeToUpdate.querySelector("a");
+                        nodeLink.textContent = data.fullName;
+                    }
                 })
                 .catch((error) => {
                     console.error("Lỗi khi cập nhật thông tin thành viên:", error);
                 });
         }
 
+
+
+        //Delete node
+        function deleteSelectedNode() {
+            if (selectedNode) {
+                var selectedPersonId = selectedNode.querySelector("a").getAttribute("data-id");
+                deleteFamilyMember(selectedPersonId);
+                selectedNode.remove();
+                selectedNode = null;
+            }
+        }
+
+        function deleteFamilyMember(id) {
+            fetch("http://localhost:45571/api/FamilyMember/DeleteFamilyMember/" + id, {
+                method: "DELETE"
+            })
+                .then(function(response) {
+                    if (response.ok) {
+                        console.log("Thành viên gia đình đã được xóa thành công.");
+                    } else {
+                        throw new Error("Lỗi khi xóa thành viên gia đình.");
+                    }
+                })
+                .catch(function(error) {
+                    console.error(error);
+                });
+        }
+
+        var relationType;
         //ham add child
-        function addChildNode() {
+        function addChildNode(relationTypeValue) {
             if (!selectedParentData) {
                 alert("Vui lòng chọn một node cha.");
                 return;
@@ -569,7 +670,6 @@
 
             parentChildList.appendChild(childNode);
 
-            // Lưu thông tin của node cha vào dataset của node con
             childNode.dataset.fullName = parentData.fullName;
             childNode.dataset.gender = parentData.gender;
             childNode.dataset.dateOfBirth = parentData.dob;
@@ -578,9 +678,6 @@
             childNode.dataset.address = parentData.address;
             childNode.dataset.family = parentData.familyId;
 
-            // Xóa thông tin của node con (nếu có)
-
-            // Hiển thị thông tin của node cha và node con
             console.log("Thông tin node cha:", parentData);
 
             console.log("Thông tin node con:", {
@@ -592,6 +689,9 @@
                 address: childNode.dataset.address,
                 familyId: childNode.dataset.family
             });
+
+            relationType = relationTypeValue;
+            childNode.dataset.relationType = relationType;
         }
 
         function updateContactInfo(node) {
@@ -614,11 +714,12 @@
         }
 
         //ham add sibling
-        function addSiblingNode() {
-            if (!selectedNode) {
+        function addSiblingNode(relationTypeValue) {
+            if (!selectedParentData) {
                 alert("Vui lòng chọn một node.");
                 return;
             }
+            var parentData = selectedParentData;
 
             var selectedNodeParent = selectedNode.parentNode;
             var siblingNode = document.createElement("li");
@@ -627,6 +728,7 @@
             siblingLink.href = "javascript:void(0);";
             siblingLink.addEventListener("click", function() {
                 selectedNode = siblingNode;
+                updateContactInfo(siblingNode);
             });
 
             siblingNode.appendChild(siblingLink);
@@ -637,26 +739,33 @@
 
             selectedNodeParent.appendChild(siblingNode);
 
+            console.log(parentData)
+
             selectedNode = siblingNode;
+
+            relationType = relationTypeValue;
+            childNode.dataset.relationType = relationType;
         }
 
-
-        //function saveData() {
-        //    var idInput = document.getElementById("personIdInput");
-        //    var id = idInput.value;
-        //    var updatedData = {
-        //        id: id,
-        //        fullName: fullNameNameInput.value,
-        //        gender: genderInput.value === "Man" ? 1 : genderInput.value === "Woman" ? 0 : null,
-        //        dob: dateOfBirthInput.value,
-        //        phone: phoneInput.value,
-        //        email: emailInput.value,
-        //        address: addressInput.value,
-        //        familyId: familyInput.value
-        //    };
-        //    updateFamilyMember(id, updatedData);
-        //}
         function saveData() {
+            //save infomation nod
+            var idInput = document.getElementById("personIdInput");
+            var id = idInput.value;
+            var updatedData = {
+                id: id,
+                fullName: fullNameNameInput.value,
+                gender: parseInt(genderInput.selectedOptions[0].value),
+                dob: dateOfBirthInput.value,
+                phone: phoneInput.value,
+                email: emailInput.value,
+                address: addressInput.value,
+                familyId: familyInput.value
+            };
+
+            updateFamilyMember(id, updatedData);
+
+            //add relation
+            //var relationType = selectedNode.dataset.relationType;
             if (!selectedNode) {
                 alert("Vui lòng chọn một node.");
                 return;
@@ -673,7 +782,6 @@
             var childNode = document.createElement("li");
             parentChildList.appendChild(childNode);
 
-            // Gán thông tin của node cha cho childNode
             childNode.dataset.id = parentData.id;
             childNode.dataset.fullName = parentData.fullName;
             childNode.dataset.gender = parentData.gender;
@@ -693,12 +801,11 @@
                 email: document.getElementById("emailInput").value,
                 address: document.getElementById("addressInput").value,
                 familyId: document.getElementById("familyInput").value,
-                relationType: "Child"
+                relationType: relationType
             };
             console.log("parentData", parentData)
             parentData.relatives = [childData];
 
-            // Gửi dữ liệu lên server
             fetch("http://localhost:45571/api/Family/addNode", {
                 method: "POST",
                 headers: {
@@ -725,7 +832,7 @@
         @{
             var id = Context.Session.GetString("MemberFamilyId");
         }
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            var id = '@id';
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            var id = '@id';
 
         fetch("http://localhost:45571/api/Family/" + id + "/tree1")
             .then((response) => response.json())
@@ -736,6 +843,7 @@
             .catch((error) => {
                 console.error("Lỗi khi lấy dữ liệu từ API:", error);
             });
+
     </script>
 
 

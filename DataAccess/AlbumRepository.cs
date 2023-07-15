@@ -43,8 +43,10 @@ namespace DataAccess
 
         public int Delete(Album _object)
         {
+            var images = _context.Images.Where(i => i.AlbumId == _object.Id);
+            _context.Images.RemoveRange(images);
             _context.Albums.Remove(_object);
-            return 1;
+            return SaveChanges();
         }
 
         public int SaveChanges()

@@ -19,6 +19,10 @@
             <div class="image-details">
                 <div class="create-date">
                     @Html.DisplayFor(modelItem => item.CreateDate)
+                    <form asp-action="Delete" asp-route-id="@item.Id" method="post" onsubmit="return confirm('Are you sure you want to delete this image?');">
+                        <input type="submit" value="Delete" class="btn btn-danger" />
+                    </form>
+                    @*<button class="delete-button" onclick="deleteImage(@item.Id)">Delete</button>*@
                 </div>
                 <div class="album">
                     @Html.DisplayFor(modelItem => item.Album.UrlAlbum)
