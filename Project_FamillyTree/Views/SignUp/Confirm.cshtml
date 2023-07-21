@@ -1,0 +1,88 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Your Page Title</title>
+    <link rel="stylesheet" href="path/to/bootstrap.min.css" />
+    <!-- Add other stylesheets if needed -->
+    <style>
+        body, html {
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-image: url('https://thuthuatnhanh.com/wp-content/uploads/2021/12/background-cay-xanh-ve-don-gian-dep.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .center-box {
+            border: 1px solid #ccc;
+            background-color: #f9f9f9;
+            padding: 20px;
+            width: 300px;
+            text-align: center;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+            .center-box h3 {
+                margin-bottom: 20px;
+            }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+            .button-container button {
+                min-width: 100px;
+            }
+
+        header {
+            display: none;
+        }
+
+        footer {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="center-box">
+        <h3>Has your family created a family tree?</h3>
+        <div class="button-container">
+            <button type="button" class="btn btn-primary" onclick="redirectToLink('link_yes')">Yes</button>
+            <button type="button" class="btn btn-danger" onclick="redirectToLink('link_no')">No</button>
+        </div>
+        <div>
+            <a asp-controller="Login" asp-action="Index">Back to Login</a>
+        </div>
+    </div>
+
+    <script src="path/to/jquery.min.js"></script>
+    <script src="path/to/bootstrap.bundle.min.js"></script>
+    <!-- Add other scripts if needed -->
+    <script>
+        function redirectToLink(link) {
+            if (link === 'link_yes') {
+                window.location.href = '/SignUp/CreateWithoutFamily';
+            } else if (link === 'link_no') {
+                window.location.href = '/SignUp/Create';
+            }
+        }
+    </script>
+</body>
+</html>

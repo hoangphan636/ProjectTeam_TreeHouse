@@ -113,24 +113,29 @@ namespace Project_FamillyTreeApi.Controllers
 
                 if (existingMember != null)
                 {
-                    // Node đã tồn tại, thêm mối quan hệ cho node đó
+                    // Node đã tồn tại, gắn mối quan hệ cho node đó và node mới ở trên hoặc dưới
                     foreach (var relativeNode in newNode.Relatives)
                     {
                         var relation = dbContext.Relationships.FirstOrDefault(r => r.RelationType == relativeNode.RelationType);
 
-                        var relativeMember = new FamilyMember
-                        {
-                            FullName = relativeNode.FullName,
-                            Gender = relativeNode.Gender,
-                            Dob = relativeNode.DOB,
-                            Phone = relativeNode.Phone,
-                            Email = relativeNode.Email,
-                            Address = relativeNode.Address,
-                            FamilyId = newNode.FamilyId
-                        };
+                        var relativeMember = dbContext.FamilyMembers.FirstOrDefault(m => m.FullName == relativeNode.FullName && m.FamilyId == newNode.FamilyId);
 
-                        dbContext.FamilyMembers.Add(relativeMember);
-                        dbContext.SaveChanges();
+                        if (relativeMember == null)
+                        {
+                            relativeMember = new FamilyMember
+                            {
+                                FullName = relativeNode.FullName,
+                                Gender = relativeNode.Gender,
+                                Dob = relativeNode.DOB,
+                                Phone = relativeNode.Phone,
+                                Email = relativeNode.Email,
+                                Address = relativeNode.Address,
+                                FamilyId = newNode.FamilyId
+                            };
+
+                            dbContext.FamilyMembers.Add(relativeMember);
+                            dbContext.SaveChanges();
+                        }
 
                         var relative = new Relative
                         {
@@ -145,7 +150,7 @@ namespace Project_FamillyTreeApi.Controllers
                 }
                 else
                 {
-                    // Node không tồn tại, tạo mới node và thêm mối quan hệ cho node đó
+                    // Node không tồn tại, tạo mới node và thêm mối quan hệ giữa node đã tồn tại và node mới ở trên hoặc dưới
                     var familyMember = new FamilyMember
                     {
                         FullName = newNode.FullName,
@@ -164,19 +169,24 @@ namespace Project_FamillyTreeApi.Controllers
                     {
                         var relation = dbContext.Relationships.FirstOrDefault(r => r.RelationType == relativeNode.RelationType);
 
-                        var relativeMember = new FamilyMember
-                        {
-                            FullName = relativeNode.FullName,
-                            Gender = relativeNode.Gender,
-                            Dob = relativeNode.DOB,
-                            Phone = relativeNode.Phone,
-                            Email = relativeNode.Email,
-                            Address = relativeNode.Address,
-                            FamilyId = newNode.FamilyId
-                        };
+                        var relativeMember = dbContext.FamilyMembers.FirstOrDefault(m => m.FullName == relativeNode.FullName && m.FamilyId == newNode.FamilyId);
 
-                        dbContext.FamilyMembers.Add(relativeMember);
-                        dbContext.SaveChanges();
+                        if (relativeMember == null)
+                        {
+                            relativeMember = new FamilyMember
+                            {
+                                FullName = relativeNode.FullName,
+                                Gender = relativeNode.Gender,
+                                Dob = relativeNode.DOB,
+                                Phone = relativeNode.Phone,
+                                Email = relativeNode.Email,
+                                Address = relativeNode.Address,
+                                FamilyId = newNode.FamilyId
+                            };
+
+                            dbContext.FamilyMembers.Add(relativeMember);
+                            dbContext.SaveChanges();
+                        }
 
                         var relative = new Relative
                         {
@@ -197,6 +207,8 @@ namespace Project_FamillyTreeApi.Controllers
                 return Ok(familyTree);
             }
         }
+
+
 
         private FamilyMemberNode BuildFamilyTree(List<FamilyMember> members, int memberId)
         {

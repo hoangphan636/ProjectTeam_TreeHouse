@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Project_FamillyTreeApi.Controllers
 {
@@ -19,11 +20,13 @@ namespace Project_FamillyTreeApi.Controllers
     {
         private readonly AccountRepository _jWTManager;
         private readonly PRN231FamilyTreeContext _context;
+        private readonly IAccountRepository _accountRepository;
 
-        public AccountController(AccountRepository jWTManager, PRN231FamilyTreeContext context)
+        public AccountController(AccountRepository jWTManager, PRN231FamilyTreeContext context,IAccountRepository accountRepository)
         {
             _jWTManager = jWTManager;
             _context = context;
+            _accountRepository = accountRepository;
         }
 
         [HttpGet]
@@ -37,19 +40,17 @@ namespace Project_FamillyTreeApi.Controllers
         }
 
         [HttpPost]
-        public ActionResult PostAccount(Account account)
+        public async Task<ActionResult> PostAccount(Account account)
         {
 
             try
             {
-                _jWTManager.SaveCustomer(account);
+                return Ok(await _accountRepository.SaveCustomer(account));
             }
             catch (DbUpdateException)
             {
                 throw;
             }
-
-            return Ok("Add success!");
         }
 
         [HttpGet("{id}")]

@@ -1,5 +1,4 @@
-﻿
-@model BusinessObject.DTO.AccountDTO
+﻿@model BusinessObject.DTO.AccountDTO
 
 @{
     ViewData["Title"] = "Create";
@@ -7,7 +6,6 @@
 
 <h1>Create</h1>
 
-<h4>Activity</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -38,12 +36,12 @@
                 <input asp-for="Gender" class="form-control" />
                 <span asp-validation-for="Gender" class="text-danger"></span>
             </div>
-             <div class="form-group">
+            <div class="form-group">
                 <label asp-for="Phone" class="control-label"></label>
                 <input asp-for="Phone" class="form-control" />
                 <span asp-validation-for="Phone" class="text-danger"></span>
             </div>
-             <div class="form-group">
+            <div class="form-group">
                 <label asp-for="Address" class="control-label"></label>
                 <input asp-for="Address" class="form-control" />
                 <span asp-validation-for="Address" class="text-danger"></span>
@@ -61,7 +59,7 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-controller="Login" asp-action="Index" style="color:black">Back to Login</a>
 </div>
 
 @section Scripts {
@@ -74,5 +72,47 @@
     <style>
         .form-control {
             width: 300px;
+        }
+
+        header {
+            display: none;
+        }
+
+        footer {
+            display: none;
+        }
+
+        .navbar {
+            position: relative;
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+            -ms-flex-align: center;
+            align-items: center;
+            -ms-flex-pack: justify;
+            justify-content: space-between;
+            padding: 0.5rem 1rem;
+            background-image: url(https://www.shutterstock.com/image-vector/vector-horizontal-seamless-tropical-rainforest-260nw-1062464402.jpg);
+        }
+
+        body {
+            margin-left:550px;
+            padding: 0;
+            background-image: url('https://thuthuatnhanh.com/wp-content/uploads/2021/12/background-cay-xanh-ve-don-gian-dep.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 100vh;
+            background-color: #b1cfb2;
+        }
+
+        .footer {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            white-space: nowrap;
+            line-height: 60px;
+            background-image: url('https://www.shutterstock.com/image-vector/vector-horizontal-seamless-tropical-rainforest-260nw-1062464402.jpg');
         }
     </style>

@@ -12,7 +12,7 @@ namespace DataAccess
          List<Account> GetAccount();
         List<Account> SearchAccount(string Account);
         Account GetAccountID(int ID);
-        void SaveCustomer(Account Accounts);
+        public Task<Account> SaveCustomer(Account account);
         void UpdateCustomer(Account Customer);
         void DeleteCustomer(Account Customer);
 

@@ -80,7 +80,9 @@ namespace Project_FamillyTreeApi
             services.AddScoped<FamilyRepository>();
             services.AddScoped<FamilyMemberRepository>();
             services.AddScoped<ImageDAO>();
+            services.AddScoped<AccountDAO>();
             services.AddScoped<IImageRepository,ImageRepository>();
+            services.AddScoped<IAccountRepository,AccountRepository>();
 
             services.AddSwaggerGen(c =>
             {

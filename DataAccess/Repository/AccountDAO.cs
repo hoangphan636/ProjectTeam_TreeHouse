@@ -1,4 +1,5 @@
 ﻿using BusinessObject.DataAccess;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,12 @@ namespace DataAccess.Repository
 {
     public class AccountDAO
     {
+        private readonly PRN231FamilyTreeContext _context;
+
+        public AccountDAO(PRN231FamilyTreeContext context)
+        {
+            _context = context;
+        }
 
         public static  List<Account> GetAccount()
         {
@@ -63,25 +70,25 @@ namespace DataAccess.Repository
             return list;
         }
 
-
-
-
-
-
-        public static void SaveCustomer(Account Accounts)
+        public async Task<Account> SaveCustomer(Account account)
         {
-
-            try
+            var familyMember = await _context.FamilyMembers.FirstOrDefaultAsync(a => a.Email == account.Email);
+            if (familyMember != null)
             {
-                using var context = new PRN231FamilyTreeContext();
-
-                context.Accounts.Add(Accounts);
-                context.SaveChanges();
+                var accountNew = new Account
+                {
+                    FullName = account.FullName,
+                    Email = account.Email,
+                    Password = account.Password,
+                    Role = 2,
+                    MemberId = familyMember.Id,
+                    //Member = familyMember
+                };
+                _context.Accounts.Add(accountNew);
+                await _context.SaveChangesAsync();
+                return accountNew;
             }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
+            return account;
         }
 
         public static void UpdateCustomer(Account Customer)

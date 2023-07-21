@@ -56,5 +56,38 @@ namespace Project_FamillyTree.Controllers
             }
         }
 
+        public IActionResult Confirm()
+        {
+            return View();
+        }
+
+
+        public IActionResult CreateWithoutFamily()
+        {
+            return View();
+        }
+
+        // POST: Accounts/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateWithoutFamily(Account account)
+        {
+
+            var json = JsonConvert.SerializeObject(account);
+            var content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
+
+            var response = await client.PostAsync("http://localhost:45571/api/Account", content);
+            if (response.IsSuccessStatusCode)
+            {
+                return RedirectToAction("index", "Login");
+            }
+            else
+            {
+                ModelState.AddModelError("", "Error to create");
+                return View();
+            }
+        }
     }
 }

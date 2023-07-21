@@ -200,7 +200,7 @@
                 text-decoration: none;
                 color: black;
                 font-family: arial, verdana, tahoma;
-                font-size: 20px;
+                font-size: 24px;
                 display: inline-block;
                 border-radius: 5px;
                 transition: all 0.5s;
@@ -334,7 +334,7 @@
             </div>
             <div class="sidebar-footer">
                 <p style="color:white">Click to add your relatives:</p>
-                <button onclick="addParentNode('Parent')">Add Parent</button>
+                <button onclick="addParentNode('Child')">Add Parent</button>
                 <button onclick="addSpouseNode()">Add Spouse</button>
                 <button onclick="addSiblingNode('Sibling')">Add Brother/Sister</button>
                 <button onclick="addChildNode('Child')">Add Child</button>
@@ -411,6 +411,11 @@
             var siblingRelativeList = [];
 
             function createPersonNode(person) {
+
+                if (existingMembers[person.id]) {
+                    return existingMembers[person.id]; // Return the existing node
+                }
+
                 //gender dropdown
                 var genderSelect = document.createElement("select");
                 genderSelect.classList.add("large-input");
@@ -708,6 +713,7 @@
                 alert("Vui lòng chọn một node.");
                 return;
             }
+
             var parentData = selectedParentData;
 
             var selectedNodeParent = selectedNode.parentNode;
@@ -749,25 +755,30 @@
             spouseNode.classList.add("spouse-node");
             spouseNode.innerHTML = "<a>Spouse</a>";
 
+            // Thêm sự kiện click cho phần tử a
             var spouseLink = spouseNode.querySelector("a");
             spouseLink.addEventListener("click", function() {
                 selectedNode = spouseNode;
                 updateContactInfo(spouseNode);
             });
 
+            // Chèn node "Spouse" vào sau nút được chọn
             selectedNodeParent.insertBefore(spouseNode, selectedNode.nextSibling);
 
+            // Cập nhật selectedNode
             selectedNode = spouseNode;
 
             relationType = relationTypeValue;
             spouseNode.dataset.relationType = relationType;
 
+            // Thêm class "selected-node" vào node được chọn
             selectedNode.classList.add("selected-node");
         }
 
 
 
         // add parent node
+        var checkParent = null;
         function addParentNode(relationTypeValue) {
             if (!selectedParentData) {
                 alert("Vui lòng chọn một node.");
@@ -788,6 +799,7 @@
             selectedNodeParent.insertAdjacentElement("beforebegin", parentNode);
 
             selectedNode = parentNode;
+            console.log(parentNode)
 
             relationType = relationTypeValue;
 
@@ -796,8 +808,8 @@
             parentNode.classList.add("parent-node");
 
             selectedNode.classList.add("selected-node");
-            console.log(selectedNode)
 
+            checkParent = true;
         }
 
         //save information node
@@ -857,6 +869,17 @@
                 familyId: document.getElementById("familyInput").value,
                 relationType: relationType
             };
+
+            if (checkParent) {
+                var tempData = Object.assign({}, parentData);
+                parentData = Object.assign({}, childData);
+                childData = tempData;
+
+                var tempRelationType = parentData.relationType;
+                parentData.relationType = childData.relationType;
+                childData.relationType = tempRelationType;
+            }
+
             console.log("parentData", parentData)
             parentData.relatives = [childData];
 
@@ -886,7 +909,7 @@
         @{
             var id = Context.Session.GetString("MemberFamilyId");
         }
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    var id = '@id';
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            var id = '@id';
 
         fetch("http://localhost:45571/api/Family/" + id + "/tree1")
             .then((response) => response.json())

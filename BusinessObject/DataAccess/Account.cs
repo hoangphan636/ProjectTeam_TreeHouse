@@ -13,7 +13,7 @@ namespace BusinessObject.DataAccess
         public string Email { get; set; }
         public string Password { get; set; }
         public int Role { get; set; }
-        public int? MemberId { get; set; }
+        public int  MemberId { get; set; }
 
         [JsonIgnore]
         public virtual FamilyMember Member { get; set; }

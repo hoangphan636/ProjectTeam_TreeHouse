@@ -10,6 +10,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace DataAccess.Repository
 {
@@ -18,16 +19,14 @@ namespace DataAccess.Repository
     {
 
         private readonly IConfiguration _iconfiguration;
+        private readonly PRN231FamilyTreeContext _context;
 
-        public LoginDAO(IConfiguration iconfiguration)
+        public LoginDAO(IConfiguration iconfiguration, PRN231FamilyTreeContext context)
         {
 
             _iconfiguration = iconfiguration;
+            _context = context;
         }
-
-
-
-
         public Tokens Authenticate(Login users)
         {
             var context = new PRN231FamilyTreeContext();
@@ -63,6 +62,7 @@ namespace DataAccess.Repository
             return new Tokens { Token = tokenHandler.WriteToken(token) };
         }
 
+       
 
     }
 }

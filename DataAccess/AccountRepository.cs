@@ -11,6 +11,12 @@ namespace DataAccess
 
     public class AccountRepository : IAccountRepository
     {
+        private readonly AccountDAO _accountDAO;
+
+        public AccountRepository(AccountDAO accountDAO)
+        {
+            _accountDAO = accountDAO;
+        }
         public void DeleteCustomer(Account Customer) =>AccountDAO.DeleteCustomer(Customer);
 
 
@@ -21,7 +27,7 @@ namespace DataAccess
         public Account GetAccountID(int ID) => AccountDAO.GetAccountID(ID);
 
 
-        public void SaveCustomer(Account Accounts) => AccountDAO.SaveCustomer(Accounts);
+        public async Task<Account> SaveCustomer(Account account) => await _accountDAO.SaveCustomer(account);
 
 
         public List<Account> SearchAccount(string Account) => AccountDAO.SearchAccount(Account);

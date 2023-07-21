@@ -133,17 +133,29 @@ namespace Project_FamillyTree.Controllers
 
             if (ModelState.IsValid)
             {
-                var json = JsonConvert.SerializeObject(activity);
-                var content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
-
-                var response = await client.PostAsync(ActivitiesApiUrl, content);
-                if (response.IsSuccessStatusCode)
+                if (activity.StartDate >= activity.EndDate)
                 {
-                    return RedirectToAction(nameof(Index));
+                    ModelState.AddModelError("EndDate", "EndDate must be later than StartDate.");
+                }
+
+                if (activity.StartDate <= DateTime.Today || activity.EndDate <= DateTime.Today)
+                {
+                    ModelState.AddModelError("StartDate", "StartDate and EndDate must be after today's date.");
+                }
+
+                if (ModelState.IsValid)
+                {
+                    var json = JsonConvert.SerializeObject(activity);
+                    var content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
+
+                    var response = await client.PostAsync(ActivitiesApiUrl, content);
+                    if (response.IsSuccessStatusCode)
+                    {
+                        return RedirectToAction(nameof(Index));
+                    }
                 }
             }
 
-            // Nếu có lỗi, cần lấy danh sách Family để hiển thị lại trong dropdown list
             var familyListResponse = await client.GetAsync($"{FamilyApiUrl}");
             if (familyListResponse.IsSuccessStatusCode)
             {
@@ -199,25 +211,31 @@ namespace Project_FamillyTree.Controllers
 
             if (ModelState.IsValid)
             {
-                var json = JsonConvert.SerializeObject(activity);
-                var content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
-
-                var response = await client.PutAsync($"{ActivitiesApiUrl}/{id}", content);
-                if (response.IsSuccessStatusCode)
+                if (activity.StartDate >= activity.EndDate)
                 {
-                    return RedirectToAction(nameof(Index));
+                    ModelState.AddModelError("EndDate", "EndDate must be later than StartDate.");
+                }
+
+                if (activity.StartDate <= DateTime.Today || activity.EndDate <= DateTime.Today)
+                {
+                    ModelState.AddModelError("StartDate", "StartDate and EndDate must be after today's date.");
+                }
+
+                if (ModelState.IsValid)
+                {
+                    var json = JsonConvert.SerializeObject(activity);
+                    var content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
+
+                    var response = await client.PutAsync($"{ActivitiesApiUrl}/{id}", content);
+                    if (response.IsSuccessStatusCode)
+                    {
+                        return RedirectToAction(nameof(Index));
+                    }
                 }
             }
 
-            // Nếu có lỗi, cần lấy danh sách Family để hiển thị lại trong dropdown list
-            /*var familyListResponse = await client.GetAsync($"{FamilyApiUrl}");
-            if (familyListResponse.IsSuccessStatusCode)
-            {
-                var familyListJsonString = await familyListResponse.Content.ReadAsStringAsync();
-                var familyList = JsonConvert.DeserializeObject<List<Family>>(familyListJsonString);
-                ViewBag.FamilyList = new SelectList(familyList, "Id", "FamilyName");
-            }
-*/
+            var familyId = HttpContext.Session.GetString("FamilyId");
+            ViewData["FamilyId"] = familyId;
             return View(activity);
         }
 

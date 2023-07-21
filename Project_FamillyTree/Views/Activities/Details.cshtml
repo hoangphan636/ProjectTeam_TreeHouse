@@ -22,7 +22,7 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.StartDate)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class = "col-sm-2">vu@gmail.com
             @Html.DisplayNameFor(model => model.EndDate)
         </dt>
         <dd class = "col-sm-10">
@@ -37,15 +37,14 @@
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Family)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class = "col-sm-10">ail.com
             @Html.DisplayFor(model => model.Family.FamilyName)
         </dd>
     </dl>
 </div>
-<form asp-action="SendMail" method="post">
+<form asp-controller="Activities" asp-action="SendMail" method="post">
     <div>
-@*        <input type="hidden" name="memberId" value="@Model.FamilyId" />
-*@        <input type="hidden" name="activityId" value="@Model.Id" />
+        <input type="hidden" name="activityId" value="@Model.Id" />
         <input type="submit" value="SendMail" class="btn btn-danger" /> |
         <a asp-action="Index">Back to List</a>
     </div>

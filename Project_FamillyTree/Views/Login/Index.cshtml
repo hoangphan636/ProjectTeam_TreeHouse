@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "Login";
 }
 
@@ -26,17 +25,30 @@
                 <label for="password">Password:</label>
                 <input class="col-sm-8" id="password" name="password" value="" type="password" /><br />
             </div>
-            @if ( TempData["Message"] != null)
+            @if (TempData["Message"] != null)
             {
                 <div class="alert alert-danger" style="color:red">@TempData["Message"]</div>
             }
             <button type="submit" value="Login" class="btn btn-primary">Login</button>
-             <button asp-controller="SignUp" asp-action="Create">Sign Up</button>
+            <button asp-controller="SignUp" asp-action="Confirm">Sign Up</button>
         </form>
     </div>
 
     <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-image: url('https://thuthuatnhanh.com/wp-content/uploads/2021/12/background-cay-xanh-ve-don-gian-dep.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+
         .container {
+            background-color: hsl(120,20%,90%);
             max-width: 500px;
             margin: 0 auto;
             padding-top: 50px;
@@ -83,6 +95,7 @@
             button[type="submit"]:hover {
                 background-color: #45a049;
             }
+
     </style>
 </body>
 </html>
