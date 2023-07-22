@@ -1,24 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Admin\\Documents\\HOC\\ki 8\\PRN231\\Project\\GroupProject\\ProjectTeam_TreeHouse\\Project_FamillyTreeApi\\Project_FamillyTreeApi.csproj": {}
+    "D:\\FPT\\Sem8\\ProjectTeam_TreeHouse\\Project_FamillyTreeApi\\Project_FamillyTreeApi.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Admin\\Documents\\HOC\\ki 8\\PRN231\\Project\\GroupProject\\ProjectTeam_TreeHouse\\BusinessObject\\BusinessObject.csproj": {
+    "D:\\FPT\\Sem8\\ProjectTeam_TreeHouse\\BusinessObject\\BusinessObject.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Admin\\Documents\\HOC\\ki 8\\PRN231\\Project\\GroupProject\\ProjectTeam_TreeHouse\\BusinessObject\\BusinessObject.csproj",
+        "projectUniqueName": "D:\\FPT\\Sem8\\ProjectTeam_TreeHouse\\BusinessObject\\BusinessObject.csproj",
         "projectName": "BusinessObject",
-        "projectPath": "C:\\Users\\Admin\\Documents\\HOC\\ki 8\\PRN231\\Project\\GroupProject\\ProjectTeam_TreeHouse\\BusinessObject\\BusinessObject.csproj",
-        "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Admin\\Documents\\HOC\\ki 8\\PRN231\\Project\\GroupProject\\ProjectTeam_TreeHouse\\BusinessObject\\obj\\",
+        "projectPath": "D:\\FPT\\Sem8\\ProjectTeam_TreeHouse\\BusinessObject\\BusinessObject.csproj",
+        "packagesPath": "C:\\Users\\Lenovo\\.nuget\\packages\\",
+        "outputPath": "D:\\FPT\\Sem8\\ProjectTeam_TreeHouse\\BusinessObject\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\Lenovo\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -79,25 +78,24 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.408\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\Admin\\Documents\\HOC\\ki 8\\PRN231\\Project\\GroupProject\\ProjectTeam_TreeHouse\\DataAccess\\DataAccess.csproj": {
+    "D:\\FPT\\Sem8\\ProjectTeam_TreeHouse\\DataAccess\\DataAccess.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Admin\\Documents\\HOC\\ki 8\\PRN231\\Project\\GroupProject\\ProjectTeam_TreeHouse\\DataAccess\\DataAccess.csproj",
+        "projectUniqueName": "D:\\FPT\\Sem8\\ProjectTeam_TreeHouse\\DataAccess\\DataAccess.csproj",
         "projectName": "DataAccess",
-        "projectPath": "C:\\Users\\Admin\\Documents\\HOC\\ki 8\\PRN231\\Project\\GroupProject\\ProjectTeam_TreeHouse\\DataAccess\\DataAccess.csproj",
-        "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Admin\\Documents\\HOC\\ki 8\\PRN231\\Project\\GroupProject\\ProjectTeam_TreeHouse\\DataAccess\\obj\\",
+        "projectPath": "D:\\FPT\\Sem8\\ProjectTeam_TreeHouse\\DataAccess\\DataAccess.csproj",
+        "packagesPath": "C:\\Users\\Lenovo\\.nuget\\packages\\",
+        "outputPath": "D:\\FPT\\Sem8\\ProjectTeam_TreeHouse\\DataAccess\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\Lenovo\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -111,8 +109,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\Admin\\Documents\\HOC\\ki 8\\PRN231\\Project\\GroupProject\\ProjectTeam_TreeHouse\\BusinessObject\\BusinessObject.csproj": {
-                "projectPath": "C:\\Users\\Admin\\Documents\\HOC\\ki 8\\PRN231\\Project\\GroupProject\\ProjectTeam_TreeHouse\\BusinessObject\\BusinessObject.csproj"
+              "D:\\FPT\\Sem8\\ProjectTeam_TreeHouse\\BusinessObject\\BusinessObject.csproj": {
+                "projectPath": "D:\\FPT\\Sem8\\ProjectTeam_TreeHouse\\BusinessObject\\BusinessObject.csproj"
               }
             }
           }
@@ -148,25 +146,24 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.408\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\Admin\\Documents\\HOC\\ki 8\\PRN231\\Project\\GroupProject\\ProjectTeam_TreeHouse\\Project_FamillyTreeApi\\Project_FamillyTreeApi.csproj": {
+    "D:\\FPT\\Sem8\\ProjectTeam_TreeHouse\\Project_FamillyTreeApi\\Project_FamillyTreeApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Admin\\Documents\\HOC\\ki 8\\PRN231\\Project\\GroupProject\\ProjectTeam_TreeHouse\\Project_FamillyTreeApi\\Project_FamillyTreeApi.csproj",
+        "projectUniqueName": "D:\\FPT\\Sem8\\ProjectTeam_TreeHouse\\Project_FamillyTreeApi\\Project_FamillyTreeApi.csproj",
         "projectName": "Project_FamillyTreeApi",
-        "projectPath": "C:\\Users\\Admin\\Documents\\HOC\\ki 8\\PRN231\\Project\\GroupProject\\ProjectTeam_TreeHouse\\Project_FamillyTreeApi\\Project_FamillyTreeApi.csproj",
-        "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Admin\\Documents\\HOC\\ki 8\\PRN231\\Project\\GroupProject\\ProjectTeam_TreeHouse\\Project_FamillyTreeApi\\obj\\",
+        "projectPath": "D:\\FPT\\Sem8\\ProjectTeam_TreeHouse\\Project_FamillyTreeApi\\Project_FamillyTreeApi.csproj",
+        "packagesPath": "C:\\Users\\Lenovo\\.nuget\\packages\\",
+        "outputPath": "D:\\FPT\\Sem8\\ProjectTeam_TreeHouse\\Project_FamillyTreeApi\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\Lenovo\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -180,11 +177,11 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\Admin\\Documents\\HOC\\ki 8\\PRN231\\Project\\GroupProject\\ProjectTeam_TreeHouse\\BusinessObject\\BusinessObject.csproj": {
-                "projectPath": "C:\\Users\\Admin\\Documents\\HOC\\ki 8\\PRN231\\Project\\GroupProject\\ProjectTeam_TreeHouse\\BusinessObject\\BusinessObject.csproj"
+              "D:\\FPT\\Sem8\\ProjectTeam_TreeHouse\\BusinessObject\\BusinessObject.csproj": {
+                "projectPath": "D:\\FPT\\Sem8\\ProjectTeam_TreeHouse\\BusinessObject\\BusinessObject.csproj"
               },
-              "C:\\Users\\Admin\\Documents\\HOC\\ki 8\\PRN231\\Project\\GroupProject\\ProjectTeam_TreeHouse\\DataAccess\\DataAccess.csproj": {
-                "projectPath": "C:\\Users\\Admin\\Documents\\HOC\\ki 8\\PRN231\\Project\\GroupProject\\ProjectTeam_TreeHouse\\DataAccess\\DataAccess.csproj"
+              "D:\\FPT\\Sem8\\ProjectTeam_TreeHouse\\DataAccess\\DataAccess.csproj": {
+                "projectPath": "D:\\FPT\\Sem8\\ProjectTeam_TreeHouse\\DataAccess\\DataAccess.csproj"
               }
             }
           }
@@ -239,7 +236,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.408\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
         }
       }
     }

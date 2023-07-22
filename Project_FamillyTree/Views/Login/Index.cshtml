@@ -25,9 +25,9 @@
                 <label for="password">Password:</label>
                 <input class="col-sm-8" id="password" name="password" value="" type="password" /><br />
             </div>
-            @if (TempData["Message"] != null)
+            @if (TempData["ErrorMessage"] != null)
             {
-                <div class="alert alert-danger" style="color:red">@TempData["Message"]</div>
+                <div class="alert alert-danger" style="color:red">@TempData["ErrorMessage"]</div>
             }
             <button type="submit" value="Login" class="btn btn-primary">Login</button>
             <button asp-controller="SignUp" asp-action="Confirm">Sign Up</button>

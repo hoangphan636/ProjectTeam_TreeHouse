@@ -1,24 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Admin\\Documents\\HOC\\ki 8\\PRN231\\Project\\GroupProject\\ProjectTeam_TreeHouse\\BusinessObject\\BusinessObject.csproj": {}
+    "D:\\FPT\\Sem8\\ProjectTeam_TreeHouse\\BusinessObject\\BusinessObject.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Admin\\Documents\\HOC\\ki 8\\PRN231\\Project\\GroupProject\\ProjectTeam_TreeHouse\\BusinessObject\\BusinessObject.csproj": {
+    "D:\\FPT\\Sem8\\ProjectTeam_TreeHouse\\BusinessObject\\BusinessObject.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Admin\\Documents\\HOC\\ki 8\\PRN231\\Project\\GroupProject\\ProjectTeam_TreeHouse\\BusinessObject\\BusinessObject.csproj",
+        "projectUniqueName": "D:\\FPT\\Sem8\\ProjectTeam_TreeHouse\\BusinessObject\\BusinessObject.csproj",
         "projectName": "BusinessObject",
-        "projectPath": "C:\\Users\\Admin\\Documents\\HOC\\ki 8\\PRN231\\Project\\GroupProject\\ProjectTeam_TreeHouse\\BusinessObject\\BusinessObject.csproj",
-        "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Admin\\Documents\\HOC\\ki 8\\PRN231\\Project\\GroupProject\\ProjectTeam_TreeHouse\\BusinessObject\\obj\\",
+        "projectPath": "D:\\FPT\\Sem8\\ProjectTeam_TreeHouse\\BusinessObject\\BusinessObject.csproj",
+        "packagesPath": "C:\\Users\\Lenovo\\.nuget\\packages\\",
+        "outputPath": "D:\\FPT\\Sem8\\ProjectTeam_TreeHouse\\BusinessObject\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\Lenovo\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -79,7 +78,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.408\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
         }
       }
     }

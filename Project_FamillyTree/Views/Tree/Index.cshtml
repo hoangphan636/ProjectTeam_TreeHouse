@@ -811,29 +811,140 @@
 
             checkParent = true;
         }
+        function isValidFullName(fullName) {
+            return /^[^\d!#$%^&*()_+={}\[\]:;"'<>,.?\\/]+$/.test(fullName);
+        }
+
+        function isValidPhone(phone) {
+            return /^\d{10,12}$/.test(phone);
+        }
+
+        function isValidDateOfBirth(dob) {
+            var dobDate = new Date(dob);
+            var currentDate = new Date();
+            var minDate = new Date("1990-01-01");
+
+            return dobDate <= currentDate && dobDate >= minDate;
+        }
+        
 
         //save information node
         function saveInforNode() {
             var idInput = document.getElementById("personIdInput");
             var id = idInput.value;
+            var fullNameInput = document.getElementById("fullNameNameInput");
+            var genderInput = document.getElementById("genderInput");
+            var dateOfBirthInput = document.getElementById("dateOfBirthInput");
+            var phoneInput = document.getElementById("phoneInput");
+            var emailInput = document.getElementById("emailInput");
+            var addressInput = document.getElementById("addressInput");
+            var familyInput = document.getElementById("familyInput");
+
+            var fullName = fullNameInput.value;
+            var gender = genderInput.selectedOptions[0].value;
+            var dob = dateOfBirthInput.value;
+            var phone = phoneInput.value;
+            var email = emailInput.value;
+            var address = addressInput.value;
+            var familyId = familyInput.value;
+
+            // Perform validation
+            if (fullName.trim() === "" || !isValidFullName(fullName)) {
+                alert("Full name is not valid! Can't be blank, can't contain numbers and special characters.");
+                return;
+            }
+
+            if (gender.trim() === "") {
+                alert("Please select gender!");
+                return;
+            }
+
+            if (dob.trim() === "" || !isValidDateOfBirth(dob)) {
+                alert("Invalid date of birth! Please select the year of birth from January 1, 1990 to the current date.");
+                return;
+            }
+
+            if (phone.trim() === "" || !isValidPhone(phone)) {
+                alert("Invalid phone number! Only 10-12 numbers and no letters.");
+                return;
+            }
+
+            if (email.trim() === "") {
+                alert("Please enter email!");
+                return;
+            }
+
+
+            if (address.trim() === "") {
+                alert("Please enter your address!");
+                return;
+            }
+
             var updatedData = {
                 id: id,
-                fullName: fullNameNameInput.value,
-                gender: parseInt(genderInput.selectedOptions[0].value),
-                dob: dateOfBirthInput.value,
-                phone: phoneInput.value,
-                email: emailInput.value,
-                address: addressInput.value,
-                familyId: familyInput.value
+                fullName: fullName,
+                gender: gender,
+                dob: dob,
+                phone: phone,
+                email: email,
+                address: address,
+                familyId: familyId
             };
 
             updateFamilyMember(id, updatedData);
         }
         function saveData() {
-            //add relation
-            //var relationType = selectedNode.dataset.relationType;
+            // Add relation
+            // var relationType = selectedNode.dataset.relationType;
             if (!selectedNode) {
-                alert("Vui lòng chọn một node.");
+                alert("Please select a node.");
+                return;
+            }
+
+            var fullNameInput = document.getElementById("fullNameNameInput");
+            var genderInput = document.getElementById("genderInput");
+            var dateOfBirthInput = document.getElementById("dateOfBirthInput");
+            var phoneInput = document.getElementById("phoneInput");
+            var emailInput = document.getElementById("emailInput");
+            var addressInput = document.getElementById("addressInput");
+            var familyInput = document.getElementById("familyInput");
+
+            var fullName = fullNameInput.value;
+            var gender = genderInput.selectedOptions[0].value;
+            var dob = dateOfBirthInput.value;
+            var phone = phoneInput.value;
+            var email = emailInput.value;
+            var address = addressInput.value;
+            var familyId = familyInput.value;
+
+            // Perform validation
+            if (fullName.trim() === "" || !isValidFullName(fullName)) {
+                alert("Full name is not valid! Can't be blank, can't contain numbers and special characters.");
+                return;
+            }
+
+            if (gender.trim() === "") {
+                alert("Please select gender!");
+                return;
+            }
+
+            if (dob.trim() === "" || !isValidDateOfBirth(dob)) {
+                alert("Invalid date of birth! Please select the year of birth from January 1, 1990 to the current date.");
+                return;
+            }
+
+            if (phone.trim() === "" || !isValidPhone(phone)) {
+                alert("Invalid phone number! Only 10-12 numbers and no letters.");
+                return;
+            }
+
+            if (email.trim() === "") {
+                alert("Please enter email!");
+                return;
+            }
+
+            if (address.trim() === "") {
+                alert("Please enter your address!");
                 return;
             }
 
@@ -860,17 +971,17 @@
 
             var childData = {
                 id: 0,
-                fullName: document.getElementById("fullNameNameInput").value,
-                gender: document.getElementById("genderInput").value,
-                dob: document.getElementById("dateOfBirthInput").value,
-                phone: document.getElementById("phoneInput").value,
-                email: document.getElementById("emailInput").value,
-                address: document.getElementById("addressInput").value,
-                familyId: document.getElementById("familyInput").value,
+                fullName: fullName,
+                gender: gender,
+                dob: dob,
+                phone: phone,
+                email: email,
+                address: address,
+                familyId: familyId,
                 relationType: relationType
             };
-
             if (checkParent) {
+                // Đảo ngược dữ liệu nếu cờ shouldReverseData là true
                 var tempData = Object.assign({}, parentData);
                 parentData = Object.assign({}, childData);
                 childData = tempData;
@@ -879,8 +990,6 @@
                 parentData.relationType = childData.relationType;
                 childData.relationType = tempRelationType;
             }
-
-            console.log("parentData", parentData)
             parentData.relatives = [childData];
 
             fetch("http://localhost:45571/api/Family/addNode", {
@@ -890,17 +999,17 @@
                 },
                 body: JSON.stringify(parentData)
             })
-                .then(function(response) {
+                .then(function (response) {
                     if (response.ok) {
                         return response.json();
                     } else {
                         throw new Error("Lỗi khi lưu mối quan hệ");
                     }
                 })
-                .then(function(data) {
+                .then(function (data) {
                     console.log(data);
                 })
-                .catch(function(error) {
+                .catch(function (error) {
                     console.error(error);
                 });
         }

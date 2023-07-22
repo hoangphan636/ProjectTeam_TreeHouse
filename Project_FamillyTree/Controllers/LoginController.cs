@@ -11,6 +11,7 @@ using BusinessObject;
 using System.IdentityModel.Tokens.Jwt;
 using DataAccess;
 using System.Linq;
+using System;
 
 namespace Project_FamillyTree.Controllers
 {
@@ -43,41 +44,54 @@ namespace Project_FamillyTree.Controllers
             string strData = await response.Content.ReadAsStringAsync();
             if (strData == "\"Login Fail\"")
             {
-                HttpContext.Session.SetString("CustomerName", "Seem Like wrong password or Email");
-                return RedirectToAction("Index", "Login");
+                TempData["ErrorMessage"] = "Invalid email or password. Please try again.";
+                return RedirectToAction("index", "Login");
             }
-            var options = new JsonSerializerOptions
-            {
-                PropertyNameCaseInsensitive = true
-            };
-            Tokens tokens = JsonSerializer.Deserialize<Tokens>(strData, options);
-            string token = tokens.Token;
-          //  HttpContext.Session.SetString("token", token);
-            // Giải mã token
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var jwtToken = tokenHandler.ReadJwtToken(token);
 
-            var emailClaim = jwtToken.Claims.First(c => c.Type == "email").Value;
-            var role = jwtToken.Claims.First(c => c.Type == "role").Value;
-            var memberFamilyId = jwtToken.Claims.First(c => c.Type == "MemberFamilyId").Value;
-
-            if (emailClaim == null && role == null)
+            try
             {
-                return NotFound();
+                var options = new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                };
+                Tokens tokens = JsonSerializer.Deserialize<Tokens>(strData, options);
+                string token = tokens.Token;
+                //  HttpContext.Session.SetString("token", token);
+                // Giải mã token
+                var tokenHandler = new JwtSecurityTokenHandler();
+                var jwtToken = tokenHandler.ReadJwtToken(token);
+
+                var emailClaim = jwtToken.Claims.First(c => c.Type == "email").Value;
+                var role = jwtToken.Claims.First(c => c.Type == "role").Value;
+                var memberFamilyId = jwtToken.Claims.First(c => c.Type == "MemberFamilyId").Value;
+
+                if (emailClaim == null && role == null)
+                {
+                    return NotFound();
+                }
+
+                HttpContext.Session.SetString("emailClaim", emailClaim);
+                HttpContext.Session.SetString("role", role);
+                HttpContext.Session.SetString("MemberFamilyId", memberFamilyId);
+
+                if (role == "Customer")
+                {
+                    return RedirectToAction("Index", "Tree");
+                }
+                else if (role == "Admin")
+                {
+                    return RedirectToAction("Index", "Account");
+                }
+
+                return RedirectToAction("Login", "Login");
             }
-            HttpContext.Session.SetString("emailClaim", emailClaim);
-            HttpContext.Session.SetString("role", role);
-            HttpContext.Session.SetString("MemberFamilyId", memberFamilyId);
-
-            if(role == "Customer")
+            catch (ArgumentNullException ex)
             {
-                return RedirectToAction("Index", "Tree");
-
-            }else if(role == "Admin")
-            {
-                return RedirectToAction("Index", "Account");
+                // Xử lý ngoại lệ và in ra thông báo
+                TempData["ErrorMessage"] = "Invalid email or password. Please try again.";
+                return RedirectToAction("index", "Login");
             }
-            return RedirectToAction("Login", "Login");
         }
+
     }
 }
